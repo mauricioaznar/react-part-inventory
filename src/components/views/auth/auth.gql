@@ -1,0 +1,24 @@
+query CurrentUser {
+    currentUser {
+        username
+        id
+    }
+}
+
+query GetUsers {
+    users {
+        id
+        username
+    }
+}
+
+query IsUserOccupied ($username: String!){
+    isUserOccupied(username: $username)
+}
+
+mutation Login($loginInput: loginInput!) {
+    login(loginInput: $loginInput) {
+        accessToken
+    }
+}
+

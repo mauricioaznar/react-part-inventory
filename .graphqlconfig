@@ -1,0 +1,4 @@
+{
+  "name": "Hasura Tutorial GraphQL Schema",
+  "schemaPath": "./schema.graphql"
+}

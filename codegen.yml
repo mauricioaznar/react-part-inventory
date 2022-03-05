@@ -1,0 +1,24 @@
+schema: http://localhost:3006/graphql
+generates:
+  ./src/services/schema.ts:
+    documents: 'src/**/**.gql'
+    plugins:
+      - typescript
+      - typescript-react-apollo
+      - typescript-operations
+      - named-operations-object
+    config:
+      withHOC: false
+      withComponent: false
+      withHooks: true
+      withMutationFn: true
+      withRefetchFn: true
+      withResultType: true
+  schema.graphql:
+    plugins:
+      - schema-ast
+    config:
+      commentDescriptions: true
+
+
+
