@@ -1,0 +1,14 @@
+query GetParts {
+    getParts {
+        part_id
+        name
+        image_url
+        components {
+            component {
+                name
+            }
+            quantity
+        }
+        current_quantity
+    }
+}

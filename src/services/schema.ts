@@ -18,7 +18,7 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   currentUser: User;
-  getProducts: Array<Product>;
+  getParts: Array<Part>;
   getServerVersion?: Maybe<Scalars['String']>;
   isUserOccupied: Scalars['Boolean'];
   users: Array<User>;
@@ -35,70 +35,51 @@ export type User = {
   username: Scalars['String'];
 };
 
-export type Product = {
-  __typename?: 'Product';
-  is_good?: Maybe<Scalars['Boolean']>;
-  is_service?: Maybe<Scalars['Boolean']>;
+export type Part = {
+  __typename?: 'Part';
+  components: Array<Component>;
+  current_quantity: Scalars['Int'];
+  image_url?: Maybe<Scalars['String']>;
   name: Scalars['String'];
-  product_categories: Array<ProductCategory>;
-  product_category_classifications: Array<ProductCategoryClassification>;
-  product_feature_applicabilities: Array<ProductFeatureApplicability>;
-  product_features: Array<ProductFeature>;
-  product_id: Scalars['Float'];
+  part_id: Scalars['Float'];
 };
 
-export type ProductCategory = {
-  __typename?: 'ProductCategory';
-  description: Scalars['String'];
-  product_category_id: Scalars['Float'];
-};
-
-export type ProductCategoryClassification = {
-  __typename?: 'ProductCategoryClassification';
-  from_date: Scalars['String'];
-  product: Product;
-  product_category: ProductCategory;
-  product_category_id: Scalars['Float'];
-  product_id: Scalars['Float'];
-};
-
-export type ProductFeatureApplicability = {
-  __typename?: 'ProductFeatureApplicability';
-  from_date: Scalars['String'];
-  product_feature_id: Scalars['Float'];
-  product_id: Scalars['Float'];
-};
-
-export type ProductFeature = {
-  __typename?: 'ProductFeature';
-  description: Scalars['String'];
+export type Component = {
+  __typename?: 'Component';
+  component: Part;
+  quantity: Scalars['Float'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  assignProductToCategory: Scalars['Boolean'];
-  createProduct: Product;
-  createProductCategory: ProductCategory;
+  addAddition: PartAddition;
+  addComponent: PartComponent;
+  addSubtraction: PartSubtraction;
+  createPart: Part;
   createUser: User;
   login: AccessToken;
-  updateProduct: Product;
+  updatePart: Part;
   updateUser: User;
 };
 
 
-export type MutationAssignProductToCategoryArgs = {
-  productCategoryId: Scalars['Float'];
-  productId: Scalars['Float'];
+export type MutationAddAdditionArgs = {
+  partComponentInput: PartAdditionInput;
 };
 
 
-export type MutationCreateProductArgs = {
-  productInput: ProductInput;
+export type MutationAddComponentArgs = {
+  partComponentInput: PartComponentInput;
 };
 
 
-export type MutationCreateProductCategoryArgs = {
-  productCategoryInput: ProductCategoryInput;
+export type MutationAddSubtractionArgs = {
+  partSubtractionInput: PartSubtractionInput;
+};
+
+
+export type MutationCreatePartArgs = {
+  partInput: PartInput;
 };
 
 
@@ -112,9 +93,9 @@ export type MutationLoginArgs = {
 };
 
 
-export type MutationUpdateProductArgs = {
+export type MutationUpdatePartArgs = {
   id: Scalars['Float'];
-  productInput: ProductInput;
+  partInput: PartInput;
 };
 
 
@@ -123,18 +104,44 @@ export type MutationUpdateUserArgs = {
   userInput: UserInput;
 };
 
-export type ProductInput = {
-  name: Scalars['String'];
-  product_subtype: ProductSubtype;
+export type PartAdditionInput = {
+  part_id: Scalars['Float'];
+  quantity: Scalars['Float'];
 };
 
-export enum ProductSubtype {
-  Good = 'Good',
-  Service = 'Service'
-}
+export type PartAddition = {
+  __typename?: 'PartAddition';
+  part_id: Scalars['Float'];
+  quantity: Scalars['Float'];
+};
 
-export type ProductCategoryInput = {
-  description: Scalars['String'];
+export type PartComponentInput = {
+  component_id: Scalars['Float'];
+  parent_id: Scalars['Float'];
+  quantity: Scalars['Float'];
+};
+
+export type PartComponent = {
+  __typename?: 'PartComponent';
+  component_id: Scalars['Float'];
+  parent_id: Scalars['Float'];
+  quantity: Scalars['Float'];
+};
+
+export type PartSubtractionInput = {
+  part_id: Scalars['Float'];
+  quantity: Scalars['Float'];
+};
+
+export type PartSubtraction = {
+  __typename?: 'PartSubtraction';
+  part_id: Scalars['Float'];
+  quantity: Scalars['Float'];
+};
+
+export type PartInput = {
+  image_url?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
 };
 
 export type UserInput = {
@@ -298,6 +305,52 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const GetPartsDocument = gql`
+    query GetParts {
+  getParts {
+    part_id
+    name
+    image_url
+    components {
+      component {
+        name
+      }
+      quantity
+    }
+    current_quantity
+  }
+}
+    `;
+
+/**
+ * __useGetPartsQuery__
+ *
+ * To run a query within a React component, call `useGetPartsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPartsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPartsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPartsQuery(baseOptions?: Apollo.QueryHookOptions<GetPartsQuery, GetPartsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPartsQuery, GetPartsQueryVariables>(GetPartsDocument, options);
+      }
+export function useGetPartsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPartsQuery, GetPartsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPartsQuery, GetPartsQueryVariables>(GetPartsDocument, options);
+        }
+export type GetPartsQueryHookResult = ReturnType<typeof useGetPartsQuery>;
+export type GetPartsLazyQueryHookResult = ReturnType<typeof useGetPartsLazyQuery>;
+export type GetPartsQueryResult = Apollo.QueryResult<GetPartsQuery, GetPartsQueryVariables>;
+export function refetchGetPartsQuery(variables?: GetPartsQueryVariables) {
+      return { query: GetPartsDocument, variables: variables }
+    }
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -322,11 +375,17 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AccessToken', accessToken: string } };
 
+export type GetPartsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPartsQuery = { __typename?: 'Query', getParts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number, components: Array<{ __typename?: 'Component', quantity: number, component: { __typename?: 'Part', name: string } }> }> };
+
 export const namedOperations = {
   Query: {
     CurrentUser: 'CurrentUser',
     GetUsers: 'GetUsers',
-    IsUserOccupied: 'IsUserOccupied'
+    IsUserOccupied: 'IsUserOccupied',
+    GetParts: 'GetParts'
   },
   Mutation: {
     Login: 'Login'
