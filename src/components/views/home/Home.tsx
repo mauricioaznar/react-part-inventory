@@ -1,6 +1,6 @@
 import React from 'react'
 import {useGetPartsQuery} from "../../../services/schema";
-import {Avatar, Badge, Box, Container, Divider, Stack, Typography} from "@mui/material";
+import {Avatar, Badge, Box, Container, Stack, Typography} from "@mui/material";
 
 export default function Home() {
 	const {data, loading} = useGetPartsQuery()
