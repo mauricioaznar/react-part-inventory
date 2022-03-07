@@ -14,10 +14,11 @@ export default function Home() {
 		<Stack
 			direction="row"
 			flexWrap={'wrap'}
+			sx={{ my: 4 }}
 		>
 			{
 				data?.getParts.map(p => {
-					return <Box key={p.part_id} sx={{ textAlign: 'center', py: 4, px: 2 }}>
+					return <Box key={p.part_id} sx={{ textAlign: 'center', px: 2, py: 1 }}>
 						{
 							p.image_url
 								? <Badge
@@ -35,7 +36,7 @@ export default function Home() {
 								</Badge>
 								: null
 						}
-						<Typography sx={{ mt: 2 }}>
+						<Typography sx={{ mt: 2, maxWidth: "5rem" }}>
 							{
 								p.name
 							}
