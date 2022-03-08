@@ -1,14 +1,17 @@
-query GetParts {
-    getParts {
-        part_id
+query GetPartCategories {
+    getPartCategories{
         name
-        image_url
-        components {
-            component {
-                name
+        parts {
+            part_id
+            name
+            image_url
+            components {
+                component {
+                    name
+                }
+                quantity
             }
-            quantity
+            current_quantity
         }
-        current_quantity
     }
 }
