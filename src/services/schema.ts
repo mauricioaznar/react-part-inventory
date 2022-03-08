@@ -5,7 +5,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+const defaultOptions = {} as const;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -289,7 +289,7 @@ export function useIsUserOccupiedLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type IsUserOccupiedQueryHookResult = ReturnType<typeof useIsUserOccupiedQuery>;
 export type IsUserOccupiedLazyQueryHookResult = ReturnType<typeof useIsUserOccupiedLazyQuery>;
 export type IsUserOccupiedQueryResult = Apollo.QueryResult<IsUserOccupiedQuery, IsUserOccupiedQueryVariables>;
-export function refetchIsUserOccupiedQuery(variables?: IsUserOccupiedQueryVariables) {
+export function refetchIsUserOccupiedQuery(variables: IsUserOccupiedQueryVariables) {
       return { query: IsUserOccupiedDocument, variables: variables }
     }
 export const LoginDocument = gql`
@@ -401,7 +401,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Ac
 export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number, components: Array<{ __typename?: 'Component', quantity: number, component: { __typename?: 'Part', name: string } }> }> }> };
+export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number, components: Array<{ __typename?: 'Component', quantity: number, component: { __typename?: 'Part', name: string } }> }> }> };
 
 export const namedOperations = {
   Query: {
