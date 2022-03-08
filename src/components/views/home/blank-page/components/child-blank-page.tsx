@@ -10,8 +10,6 @@ const ChildBlankPage = (
 		value?.setUsername('john')
 	}, [])
 	
-	console.log('Child Blank page')
-	
 	
 	return (
 		<div>
