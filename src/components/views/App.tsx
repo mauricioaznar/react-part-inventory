@@ -10,28 +10,30 @@ import ModeNightIcon from "@mui/icons-material/ModeNight";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
-    AppBar as MuiAppBar,
-    Box,
-    Container,
-    Divider,
-    Grid,
-    IconButton,
-    Link,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    ListSubheader,
-    Paper,
-    SwipeableDrawer as MuiDrawer,
-    Toolbar,
-    Typography,
-    useMediaQuery,
-    useTheme,
+  AppBar as MuiAppBar,
+  Box,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  Link,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+  Paper, SwipeableDrawer,
+  SwipeableDrawer as MuiDrawer,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 
 import {useActions} from "../../hooks/redux-hooks/use-actions";
 import {routeGroups, routes} from "../../services/routes";
+import InboxIcon from "@mui/icons-material/Inbox";
+import MailIcon from "@mui/icons-material/Mail";
 
 const drawerWidth: number = 240;
 
@@ -93,7 +95,8 @@ export default function App() {
           </IconButton>
         </Toolbar>
       </MuiAppBar>
-
+      
+      
       <MuiDrawer
         variant={mdAndUp ? "permanent" : "temporary"}
         open={open}

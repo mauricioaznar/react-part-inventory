@@ -14,7 +14,7 @@ query GetPartCategories {
                     image_url
                     current_quantity
                 }
-                quantity
+                required_quantity
             }
         }
     }
