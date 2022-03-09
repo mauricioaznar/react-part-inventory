@@ -22,7 +22,7 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Paper, SwipeableDrawer,
+  Paper,
   SwipeableDrawer as MuiDrawer,
   Toolbar,
   Typography,
@@ -32,8 +32,6 @@ import {
 
 import {useActions} from "../../hooks/redux-hooks/use-actions";
 import {routeGroups, routes} from "../../services/routes";
-import InboxIcon from "@mui/icons-material/Inbox";
-import MailIcon from "@mui/icons-material/Mail";
 
 const drawerWidth: number = 240;
 
