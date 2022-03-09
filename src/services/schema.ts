@@ -5,7 +5,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {} as const;
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -61,10 +61,10 @@ export type Component = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  addAddition: PartAddition;
+  add: Scalars['Boolean'];
   addCategory: PartCategory;
-  addComponent: PartComponent;
-  addSubtraction: PartSubtraction;
+  assignComponent: Component;
+  craft: Scalars['Boolean'];
   createPart: Part;
   createUser: User;
   login: AccessToken;
@@ -73,8 +73,8 @@ export type Mutation = {
 };
 
 
-export type MutationAddAdditionArgs = {
-  partComponentInput: PartAdditionInput;
+export type MutationAddArgs = {
+  partId: Scalars['Float'];
 };
 
 
@@ -83,13 +83,13 @@ export type MutationAddCategoryArgs = {
 };
 
 
-export type MutationAddComponentArgs = {
-  partComponentInput: PartComponentInput;
+export type MutationAssignComponentArgs = {
+  PartAssignmentInput: PartAssignmentInput;
 };
 
 
-export type MutationAddSubtractionArgs = {
-  partSubtractionInput: PartSubtractionInput;
+export type MutationCraftArgs = {
+  partId: Scalars['Float'];
 };
 
 
@@ -109,7 +109,7 @@ export type MutationLoginArgs = {
 
 
 export type MutationUpdatePartArgs = {
-  id: Scalars['Float'];
+  partId: Scalars['Float'];
   partInput: PartInput;
 };
 
@@ -119,42 +119,13 @@ export type MutationUpdateUserArgs = {
   userInput: UserInput;
 };
 
-export type PartAdditionInput = {
-  part_id: Scalars['Float'];
-  quantity: Scalars['Float'];
-};
-
-export type PartAddition = {
-  __typename?: 'PartAddition';
-  part_id: Scalars['Float'];
-  quantity: Scalars['Float'];
-};
-
 export type PartCategoryInput = {
   name: Scalars['String'];
 };
 
-export type PartComponentInput = {
+export type PartAssignmentInput = {
   component_id: Scalars['Float'];
   parent_id: Scalars['Float'];
-  quantity: Scalars['Float'];
-};
-
-export type PartComponent = {
-  __typename?: 'PartComponent';
-  component_id: Scalars['Float'];
-  parent_id: Scalars['Float'];
-  quantity: Scalars['Float'];
-};
-
-export type PartSubtractionInput = {
-  part_id: Scalars['Float'];
-  quantity: Scalars['Float'];
-};
-
-export type PartSubtraction = {
-  __typename?: 'PartSubtraction';
-  part_id: Scalars['Float'];
   quantity: Scalars['Float'];
 };
 
@@ -289,7 +260,7 @@ export function useIsUserOccupiedLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type IsUserOccupiedQueryHookResult = ReturnType<typeof useIsUserOccupiedQuery>;
 export type IsUserOccupiedLazyQueryHookResult = ReturnType<typeof useIsUserOccupiedLazyQuery>;
 export type IsUserOccupiedQueryResult = Apollo.QueryResult<IsUserOccupiedQuery, IsUserOccupiedQueryVariables>;
-export function refetchIsUserOccupiedQuery(variables: IsUserOccupiedQueryVariables) {
+export function refetchIsUserOccupiedQuery(variables?: IsUserOccupiedQueryVariables) {
       return { query: IsUserOccupiedDocument, variables: variables }
     }
 export const LoginDocument = gql`
@@ -401,7 +372,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Ac
 export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number, components: Array<{ __typename?: 'Component', quantity: number, component: { __typename?: 'Part', name: string } }> }> }> };
+export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number, components: Array<{ __typename?: 'Component', quantity: number, component: { __typename?: 'Part', name: string } }> }> }> };
 
 export const namedOperations = {
   Query: {
