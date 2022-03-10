@@ -18,13 +18,16 @@ import {
 } from "../../../../../../services/schema";
 import PartAvatar from "./part-avatar/part-avatar";
 import {nameof} from "../../../../../../helpers/nameof";
+import {useActions} from "../../../../../../hooks/redux-hooks/use-actions";
 
 interface PartAvatarProps {
     part: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]
 }
 
 const PartImageContainer = (props: PartAvatarProps) => {
-    const {part: p} = props
+    const { part } = props
+    const { pushSuccessMessage } = useActions()
+
 
     const [craftPartMutation, {loading: isCraftMutationLoading}] = useCraftPartMutation({
         update(cache) {
@@ -68,30 +71,43 @@ const PartImageContainer = (props: PartAvatarProps) => {
         setContextMenu(null);
     };
 
-    const handleCraftClick = () => {
-        void craftPartMutation({
-            variables: {
-                partId: p.part_id
-            }
-        })
+    const handleCraftClick = async () => {
+        try {
+            await craftPartMutation({
+                variables: {
+                    partId: part.part_id
+                }
+            })
+            pushSuccessMessage(`${part.name} successfully crafted!`)
+        } catch (e) {
+            console.error(e)
+        }
+
+
         handleClose()
     }
 
-    const handleAddMutation = () => {
-        void addPartMutation({
-            variables: {
-                partId: p.part_id
-            }
-        })
+    const handleAddMutation = async () => {
+        try {
+            await addPartMutation({
+                variables: {
+                    partId: part.part_id
+                }
+            })
+            pushSuccessMessage(`${part.name} successfully added!`)
+        } catch (e) {
+            console.error(e)
+        }
+
         handleClose()
     }
 
 
-    const isEveryQuantityValid = p.components.every(component => {
+    const isEveryQuantityValid = part.components.every(component => {
         return component.component.current_quantity >= component.required_quantity
     })
 
-    const hasComponents = p.components.length > 0
+    const hasComponents = part.components.length > 0
 
 
     return (
@@ -101,14 +117,14 @@ const PartImageContainer = (props: PartAvatarProps) => {
 
             >
                 <PartAvatar
-                    name={p.name}
-                    current_quantity={p.current_quantity}
-                    image_url={p.image_url}
+                    name={part.name}
+                    current_quantity={part.current_quantity}
+                    image_url={part.image_url}
                     is_valid={isEveryQuantityValid}
                 />
                 <Typography sx={{mt: 2, maxWidth: "5rem"}}>
                     {
-                        p.name
+                        part.name
                     }
                 </Typography>
             </Box>
@@ -127,7 +143,7 @@ const PartImageContainer = (props: PartAvatarProps) => {
                         hasComponents
                             ? <MenuItem
                                 onClick={handleCraftClick}
-                                disabled={isCraftMutationLoading || !isEveryQuantityValid}
+                                disabled={isCraftMutationLoading}
                             >
                                 Craft
                             </MenuItem>
@@ -141,7 +157,7 @@ const PartImageContainer = (props: PartAvatarProps) => {
                                     Components
                                 </ListSubheader>
                                 {
-                                    p.components.map(component => {
+                                    part.components.map(component => {
                                         return (
                                             <ListItem key={component.component.part_id}>
                                                 <ListItemAvatar>
