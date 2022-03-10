@@ -8,9 +8,7 @@ import {
 	ListItemIcon,
 	ListItemText,
 	SwipeableDrawer,
-	Toolbar,
-	useMediaQuery,
-	useTheme
+	Toolbar
 } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox'
 import MailIcon from '@mui/icons-material/Mail'
@@ -21,10 +19,6 @@ const drawerWidth: number = 340;
 
 const CraftSideBar = () => {
 	const { open, setOpen } = React.useContext(CraftSideBarContext)
-	const theme = useTheme();
-	const mdAndUp = useMediaQuery(theme.breakpoints.up("lg"));
-	
-	
 	
 	return (
 		<SwipeableDrawer
@@ -36,7 +30,7 @@ const CraftSideBar = () => {
 					boxSizing: "border-box",
 				},
 			}}
-			variant={mdAndUp ? "permanent" : "temporary"}
+			variant={"temporary"}
 			anchor={"right"}
 			open={open}
 			onClose={() => {setOpen(false)}}

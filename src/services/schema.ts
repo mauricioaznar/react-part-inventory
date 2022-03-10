@@ -5,7 +5,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {} as const;
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -260,7 +260,7 @@ export function useIsUserOccupiedLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type IsUserOccupiedQueryHookResult = ReturnType<typeof useIsUserOccupiedQuery>;
 export type IsUserOccupiedLazyQueryHookResult = ReturnType<typeof useIsUserOccupiedLazyQuery>;
 export type IsUserOccupiedQueryResult = Apollo.QueryResult<IsUserOccupiedQuery, IsUserOccupiedQueryVariables>;
-export function refetchIsUserOccupiedQuery(variables: IsUserOccupiedQueryVariables) {
+export function refetchIsUserOccupiedQuery(variables?: IsUserOccupiedQueryVariables) {
       return { query: IsUserOccupiedDocument, variables: variables }
     }
 export const LoginDocument = gql`
@@ -349,6 +349,51 @@ export type GetPartCategoriesQueryResult = Apollo.QueryResult<GetPartCategoriesQ
 export function refetchGetPartCategoriesQuery(variables?: GetPartCategoriesQueryVariables) {
       return { query: GetPartCategoriesDocument, variables: variables }
     }
+export const GetPartsDocument = gql`
+    query GetParts {
+  getParts {
+    name
+    image_url
+    components {
+      component {
+        name
+      }
+      required_quantity
+    }
+    current_quantity
+  }
+}
+    `;
+
+/**
+ * __useGetPartsQuery__
+ *
+ * To run a query within a React component, call `useGetPartsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetPartsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetPartsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetPartsQuery(baseOptions?: Apollo.QueryHookOptions<GetPartsQuery, GetPartsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetPartsQuery, GetPartsQueryVariables>(GetPartsDocument, options);
+      }
+export function useGetPartsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPartsQuery, GetPartsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetPartsQuery, GetPartsQueryVariables>(GetPartsDocument, options);
+        }
+export type GetPartsQueryHookResult = ReturnType<typeof useGetPartsQuery>;
+export type GetPartsLazyQueryHookResult = ReturnType<typeof useGetPartsLazyQuery>;
+export type GetPartsQueryResult = Apollo.QueryResult<GetPartsQuery, GetPartsQueryVariables>;
+export function refetchGetPartsQuery(variables?: GetPartsQueryVariables) {
+      return { query: GetPartsDocument, variables: variables }
+    }
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -376,14 +421,20 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Ac
 export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', part_category_id: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number } }> }> }> };
+export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', part_category_id: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number } }> }> }> };
+
+export type GetPartsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPartsQuery = { __typename?: 'Query', getParts: Array<{ __typename?: 'Part', name: string, image_url?: string | null | undefined, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', name: string } }> }> };
 
 export const namedOperations = {
   Query: {
     CurrentUser: 'CurrentUser',
     GetUsers: 'GetUsers',
     IsUserOccupied: 'IsUserOccupied',
-    GetPartCategories: 'GetPartCategories'
+    GetPartCategories: 'GetPartCategories',
+    GetParts: 'GetParts'
   },
   Mutation: {
     Login: 'Login'
