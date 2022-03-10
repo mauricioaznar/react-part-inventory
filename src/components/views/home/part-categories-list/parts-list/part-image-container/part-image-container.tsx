@@ -95,10 +95,10 @@ const PartImageContainer = (props: PartAvatarProps) => {
 
 
     return (
-        <>
+        <div onContextMenu={handleMouseEvent}>
             <Box
                 sx={{textAlign: 'center', px: 2, py: 1}}
-                onContextMenu={handleMouseEvent}
+
             >
                 <PartAvatar
                     name={p.name}
@@ -173,7 +173,7 @@ const PartImageContainer = (props: PartAvatarProps) => {
                     }
                 </List>
             </Menu>
-        </>
+        </div>
     );
 };
 
