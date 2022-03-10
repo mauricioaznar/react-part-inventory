@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {GetPartCategoriesQuery, useGetPartCategoriesQuery, useGetPartsQuery} from "../../../services/schema";
+import {GetPartCategoriesQuery, useGetPartCategoriesQuery} from "../../../services/schema";
 import {Container} from "@mui/material";
 import PartCategoriesList from "./part-categories-list/part-categories-list";
 import CraftSideBar from "./craft-side-bar/craft-side-bar";

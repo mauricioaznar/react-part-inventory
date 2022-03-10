@@ -19,3 +19,11 @@ query GetPartCategories {
         }
     }
 }
+
+mutation CraftPart ($partId: Float!){
+    craft(partId: $partId)
+}
+
+mutation AddPart ($partId: Float!){
+    add(partId: $partId)
+}

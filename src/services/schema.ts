@@ -349,51 +349,68 @@ export type GetPartCategoriesQueryResult = Apollo.QueryResult<GetPartCategoriesQ
 export function refetchGetPartCategoriesQuery(variables?: GetPartCategoriesQueryVariables) {
       return { query: GetPartCategoriesDocument, variables: variables }
     }
-export const GetPartsDocument = gql`
-    query GetParts {
-  getParts {
-    name
-    image_url
-    components {
-      component {
-        name
-      }
-      required_quantity
-    }
-    current_quantity
-  }
+export const CraftPartDocument = gql`
+    mutation CraftPart($partId: Float!) {
+  craft(partId: $partId)
 }
     `;
+export type CraftPartMutationFn = Apollo.MutationFunction<CraftPartMutation, CraftPartMutationVariables>;
 
 /**
- * __useGetPartsQuery__
+ * __useCraftPartMutation__
  *
- * To run a query within a React component, call `useGetPartsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetPartsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
+ * To run a mutation, you first call `useCraftPartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCraftPartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
  *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const { data, loading, error } = useGetPartsQuery({
+ * const [craftPartMutation, { data, loading, error }] = useCraftPartMutation({
  *   variables: {
+ *      partId: // value for 'partId'
  *   },
  * });
  */
-export function useGetPartsQuery(baseOptions?: Apollo.QueryHookOptions<GetPartsQuery, GetPartsQueryVariables>) {
+export function useCraftPartMutation(baseOptions?: Apollo.MutationHookOptions<CraftPartMutation, CraftPartMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetPartsQuery, GetPartsQueryVariables>(GetPartsDocument, options);
+        return Apollo.useMutation<CraftPartMutation, CraftPartMutationVariables>(CraftPartDocument, options);
       }
-export function useGetPartsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetPartsQuery, GetPartsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetPartsQuery, GetPartsQueryVariables>(GetPartsDocument, options);
-        }
-export type GetPartsQueryHookResult = ReturnType<typeof useGetPartsQuery>;
-export type GetPartsLazyQueryHookResult = ReturnType<typeof useGetPartsLazyQuery>;
-export type GetPartsQueryResult = Apollo.QueryResult<GetPartsQuery, GetPartsQueryVariables>;
-export function refetchGetPartsQuery(variables?: GetPartsQueryVariables) {
-      return { query: GetPartsDocument, variables: variables }
-    }
+export type CraftPartMutationHookResult = ReturnType<typeof useCraftPartMutation>;
+export type CraftPartMutationResult = Apollo.MutationResult<CraftPartMutation>;
+export type CraftPartMutationOptions = Apollo.BaseMutationOptions<CraftPartMutation, CraftPartMutationVariables>;
+export const AddPartDocument = gql`
+    mutation AddPart($partId: Float!) {
+  add(partId: $partId)
+}
+    `;
+export type AddPartMutationFn = Apollo.MutationFunction<AddPartMutation, AddPartMutationVariables>;
+
+/**
+ * __useAddPartMutation__
+ *
+ * To run a mutation, you first call `useAddPartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddPartMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addPartMutation, { data, loading, error }] = useAddPartMutation({
+ *   variables: {
+ *      partId: // value for 'partId'
+ *   },
+ * });
+ */
+export function useAddPartMutation(baseOptions?: Apollo.MutationHookOptions<AddPartMutation, AddPartMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddPartMutation, AddPartMutationVariables>(AddPartDocument, options);
+      }
+export type AddPartMutationHookResult = ReturnType<typeof useAddPartMutation>;
+export type AddPartMutationResult = Apollo.MutationResult<AddPartMutation>;
+export type AddPartMutationOptions = Apollo.BaseMutationOptions<AddPartMutation, AddPartMutationVariables>;
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -423,20 +440,30 @@ export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', part_category_id: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number } }> }> }> };
 
-export type GetPartsQueryVariables = Exact<{ [key: string]: never; }>;
+export type CraftPartMutationVariables = Exact<{
+  partId: Scalars['Float'];
+}>;
 
 
-export type GetPartsQuery = { __typename?: 'Query', getParts: Array<{ __typename?: 'Part', name: string, image_url?: string | null | undefined, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', name: string } }> }> };
+export type CraftPartMutation = { __typename?: 'Mutation', craft: boolean };
+
+export type AddPartMutationVariables = Exact<{
+  partId: Scalars['Float'];
+}>;
+
+
+export type AddPartMutation = { __typename?: 'Mutation', add: boolean };
 
 export const namedOperations = {
   Query: {
     CurrentUser: 'CurrentUser',
     GetUsers: 'GetUsers',
     IsUserOccupied: 'IsUserOccupied',
-    GetPartCategories: 'GetPartCategories',
-    GetParts: 'GetParts'
+    GetPartCategories: 'GetPartCategories'
   },
   Mutation: {
-    Login: 'Login'
+    Login: 'Login',
+    CraftPart: 'CraftPart',
+    AddPart: 'AddPart'
   }
 }
