@@ -80,7 +80,7 @@ export default function App() {
             noWrap
             sx={{ flexGrow: 1, fontSize: "3.2rem", ml: 3 }}
           >
-            React sandbox
+            Subnautica
           </Typography>
           <IconButton
             color="inherit"

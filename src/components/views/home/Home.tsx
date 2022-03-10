@@ -4,6 +4,7 @@ import {Container} from "@mui/material";
 import PartCategoriesList from "./part-categories-list/part-categories-list";
 import CraftSideBar from "./craft-side-bar/craft-side-bar";
 import CraftSideBarContext from "./craft-side-bar/craft-side-bar-context";
+import PageLoader from "../../dum/loaders/page-loader";
 
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
 	const [part, setPart] = useState<GetPartCategoriesQuery["getPartCategories"][number]["parts"][number] | null>(null)
 	const [mode, setMode] = useState<"craft" | "add">("craft")
 	
-	if (loading) return null
+	if (loading) return <PageLoader />
 	
 	return (
 		<Container>

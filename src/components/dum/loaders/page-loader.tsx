@@ -3,7 +3,7 @@ import { Box, CircularProgress, Grid } from "@mui/material";
 
 const PageLoader = () => {
   return (
-    <Box sx={{ height: "300px" }}>
+    <Box sx={{ height: "50vh" }}>
       <Grid
         container
         direction={"column"}
