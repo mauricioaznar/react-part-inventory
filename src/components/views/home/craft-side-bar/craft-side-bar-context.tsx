@@ -23,7 +23,7 @@ const CraftSideBarContext = React.createContext<CraftSideBarContextProps>({
 
 
 interface CraftSideBarContextProviderProps {
-	children: React.ReactNode[];
+	children: React.ReactNode[] | React.ReactNode;
 }
 
 export const CraftSideBarContextProvider = (props: CraftSideBarContextProviderProps) => {

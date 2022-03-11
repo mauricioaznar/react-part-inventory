@@ -5,6 +5,7 @@ import PartCategoriesList from "./part-categories-list/part-categories-list";
 import CraftSideBar from "./craft-side-bar/craft-side-bar";
 import {CraftSideBarContextProvider} from "./craft-side-bar/craft-side-bar-context";
 import PageLoader from "../../dum/loaders/page-loader";
+import {OpenSideBarContextProvider} from "./craft-side-bar/open-side-bar-context";
 
 
 export default function Home() {
@@ -15,8 +16,10 @@ export default function Home() {
 	return (
 		<Container>
 			<CraftSideBarContextProvider>
-				<PartCategoriesList partCategories={data!.getPartCategories} />
-				<CraftSideBar />
+				<OpenSideBarContextProvider>
+					<PartCategoriesList partCategories={data!.getPartCategories} />
+					<CraftSideBar />
+				</OpenSideBarContextProvider>
 			</CraftSideBarContextProvider>
 		</Container>
 		

@@ -19,6 +19,8 @@ import {
 import PartAvatar from "./part-avatar/part-avatar";
 import {nameof} from "../../../../../../helpers/nameof";
 import {useActions} from "../../../../../../hooks/redux-hooks/use-actions";
+import {useOpenSideBarContext} from "../../../craft-side-bar/open-side-bar-context";
+
 
 interface PartAvatarProps {
     part: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]
@@ -27,6 +29,7 @@ interface PartAvatarProps {
 const PartImageContainer = (props: PartAvatarProps) => {
     const { part } = props
     const { pushSuccessMessage } = useActions()
+    const { setOpen } = useOpenSideBarContext()
 
 
     const [craftPartMutation, {loading: isCraftMutationLoading}] = useCraftPartMutation({
@@ -72,6 +75,7 @@ const PartImageContainer = (props: PartAvatarProps) => {
     };
 
     const handleCraftClick = async () => {
+        setOpen(true)
         try {
             await craftPartMutation({
                 variables: {
@@ -87,7 +91,8 @@ const PartImageContainer = (props: PartAvatarProps) => {
         handleClose()
     }
 
-    const handleAddMutation = async () => {
+    const handleAddClick = async () => {
+        setOpen(true)
         try {
             await addPartMutation({
                 variables: {
@@ -147,7 +152,7 @@ const PartImageContainer = (props: PartAvatarProps) => {
                             >
                                 Craft
                             </MenuItem>
-                            : <MenuItem onClick={handleAddMutation} disabled={isAddMutationLoading}>Add</MenuItem>
+                            : <MenuItem onClick={handleAddClick} disabled={isAddMutationLoading}>Add</MenuItem>
                     }
                     {
                         hasComponents ?
