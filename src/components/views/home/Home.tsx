@@ -10,8 +10,6 @@ import PageLoader from "../../dum/loaders/page-loader";
 export default function Home() {
 	const {data, loading} = useGetPartCategoriesQuery()
 	
-
-	
 	if (loading) return <PageLoader />
 	
 	return (
