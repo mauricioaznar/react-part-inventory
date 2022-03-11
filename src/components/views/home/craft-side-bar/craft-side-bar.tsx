@@ -12,13 +12,16 @@ import {
 } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox'
 import MailIcon from '@mui/icons-material/Mail'
-import CraftSideBarContext from "./craft-side-bar-context";
+import {useCraftSideBarContext} from "./craft-side-bar-context";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 const drawerWidth: number = 340;
 
 const CraftSideBar = () => {
-	const { open, setOpen } = React.useContext(CraftSideBarContext)
+	const {
+		open,
+		setOpen
+	} = useCraftSideBarContext()
 	
 	return (
 		<SwipeableDrawer
