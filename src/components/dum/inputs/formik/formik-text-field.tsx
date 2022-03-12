@@ -4,7 +4,7 @@ import { useField } from "formik";
 import { FormikDefaultProps } from "./common/formik-default-props";
 
 interface FormikTextFieldProps extends FormikDefaultProps {
-  type?: "text" | "password";
+  type?: "text" | "password" | 'number';
 }
 
 export const FormikTextField = ({

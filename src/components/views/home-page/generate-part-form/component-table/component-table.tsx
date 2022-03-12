@@ -2,7 +2,7 @@ import React from 'react';
 import {GetPartCategoriesQuery} from "../../../../../services/schema";
 import {Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import {useFormikContext} from "formik";
-import {IGeneratePartForm} from "../i-generate-part-form";
+import {IGeneratePartForm} from "../i-generate-part-context/i-generate-part-form";
 
 interface IComponentTable {
     components: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]["components"]
@@ -12,6 +12,8 @@ const ComponentTable = (props: IComponentTable) => {
     const {components} = props
 
     const { values } = useFormikContext<IGeneratePartForm>();
+
+    if (components.length === 0) return null
 
     return (
         <Table>

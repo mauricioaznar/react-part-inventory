@@ -61,20 +61,15 @@ export type Component = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  add: Scalars['Boolean'];
   addCategory: PartCategory;
   assignComponent: Component;
   craft: Scalars['Boolean'];
   createPart: Part;
   createUser: User;
+  farm: Scalars['Boolean'];
   login: AccessToken;
   updatePart: Part;
   updateUser: User;
-};
-
-
-export type MutationAddArgs = {
-  partId: Scalars['Float'];
 };
 
 
@@ -100,6 +95,11 @@ export type MutationCreatePartArgs = {
 
 export type MutationCreateUserArgs = {
   userInput: UserInput;
+};
+
+
+export type MutationFarmArgs = {
+  partId: Scalars['Float'];
 };
 
 
@@ -380,37 +380,37 @@ export function useCraftPartMutation(baseOptions?: Apollo.MutationHookOptions<Cr
 export type CraftPartMutationHookResult = ReturnType<typeof useCraftPartMutation>;
 export type CraftPartMutationResult = Apollo.MutationResult<CraftPartMutation>;
 export type CraftPartMutationOptions = Apollo.BaseMutationOptions<CraftPartMutation, CraftPartMutationVariables>;
-export const AddPartDocument = gql`
-    mutation AddPart($partId: Float!) {
-  add(partId: $partId)
+export const FarmPartDocument = gql`
+    mutation FarmPart($partId: Float!) {
+  farm(partId: $partId)
 }
     `;
-export type AddPartMutationFn = Apollo.MutationFunction<AddPartMutation, AddPartMutationVariables>;
+export type FarmPartMutationFn = Apollo.MutationFunction<FarmPartMutation, FarmPartMutationVariables>;
 
 /**
- * __useAddPartMutation__
+ * __useFarmPartMutation__
  *
- * To run a mutation, you first call `useAddPartMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useAddPartMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useFarmPartMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useFarmPartMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [addPartMutation, { data, loading, error }] = useAddPartMutation({
+ * const [farmPartMutation, { data, loading, error }] = useFarmPartMutation({
  *   variables: {
  *      partId: // value for 'partId'
  *   },
  * });
  */
-export function useAddPartMutation(baseOptions?: Apollo.MutationHookOptions<AddPartMutation, AddPartMutationVariables>) {
+export function useFarmPartMutation(baseOptions?: Apollo.MutationHookOptions<FarmPartMutation, FarmPartMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<AddPartMutation, AddPartMutationVariables>(AddPartDocument, options);
+        return Apollo.useMutation<FarmPartMutation, FarmPartMutationVariables>(FarmPartDocument, options);
       }
-export type AddPartMutationHookResult = ReturnType<typeof useAddPartMutation>;
-export type AddPartMutationResult = Apollo.MutationResult<AddPartMutation>;
-export type AddPartMutationOptions = Apollo.BaseMutationOptions<AddPartMutation, AddPartMutationVariables>;
+export type FarmPartMutationHookResult = ReturnType<typeof useFarmPartMutation>;
+export type FarmPartMutationResult = Apollo.MutationResult<FarmPartMutation>;
+export type FarmPartMutationOptions = Apollo.BaseMutationOptions<FarmPartMutation, FarmPartMutationVariables>;
 export type CurrentUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -447,12 +447,12 @@ export type CraftPartMutationVariables = Exact<{
 
 export type CraftPartMutation = { __typename?: 'Mutation', craft: boolean };
 
-export type AddPartMutationVariables = Exact<{
+export type FarmPartMutationVariables = Exact<{
   partId: Scalars['Float'];
 }>;
 
 
-export type AddPartMutation = { __typename?: 'Mutation', add: boolean };
+export type FarmPartMutation = { __typename?: 'Mutation', farm: boolean };
 
 export const namedOperations = {
   Query: {
@@ -464,6 +464,6 @@ export const namedOperations = {
   Mutation: {
     Login: 'Login',
     CraftPart: 'CraftPart',
-    AddPart: 'AddPart'
+    FarmPart: 'FarmPart'
   }
 }

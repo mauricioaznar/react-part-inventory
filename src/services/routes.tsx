@@ -1,6 +1,6 @@
 import * as React from "react";
 import HomeIcon from "@mui/icons-material/Home";
-import Home from "../components/views/home/Home";
+import HomePage from "../components/views/home-page/home-page";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import UserList from "../components/views/auth/user-list";
 import {Route, RouteGroup} from "../types/route";
@@ -11,10 +11,10 @@ export const routeGroups: RouteGroup[] = [
     routes: [
       {
         icon: <HomeIcon />,
-        name: "Home",
+        name: "HomePage",
         path: "/",
-        component: <Home />,
-        title: "Home",
+        component: <HomePage />,
+        title: "HomePage",
         navbar: true,
         exact: true,
       },

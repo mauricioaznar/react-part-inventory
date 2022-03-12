@@ -2,20 +2,20 @@ import React from 'react';
 import {Box, Button, IconButton, Modal, Toolbar} from "@mui/material";
 import * as yup from "yup";
 import {SchemaOf} from "yup";
-import {Query, useAddPartMutation, useCraftPartMutation} from "../../../../services/schema";
+import {Query, useFarmPartMutation, useCraftPartMutation} from "../../../../services/schema";
 import {nameof} from "../../../../helpers/nameof";
-import {useCraftSideBarContext} from "./craft-side-bar-context";
+import {useGeneratePartContext} from "./i-generate-part-context/i-generate-part-context";
 import Typography from "@mui/material/Typography";
 import {useActions} from "../../../../hooks/redux-hooks/use-actions";
 import ClearIcon from "@mui/icons-material/Clear";
 import {Form, Formik} from 'formik';
 import FormikTextField from "../../../dum/inputs/formik/formik-text-field";
-import {IGeneratePartForm} from "./i-generate-part-form";
+import {IGeneratePartForm} from "./i-generate-part-context/i-generate-part-form";
 import ComponentTable from "./component-table/component-table";
 
 
-const CraftSideBar = () => {
-	const { open, setOpen, mode, part } = useCraftSideBarContext()
+const GeneratePartForm = () => {
+	const { open, setOpen, mode, part } = useGeneratePartContext()
 
 	const { pushSuccessMessage } = useActions()
 
@@ -28,7 +28,7 @@ const CraftSideBar = () => {
 		},
 	})
 
-	const [addPartMutation, {loading: isAddMutationLoading}] = useAddPartMutation({
+	const [farmPartMutation, {loading: isFarmMutationLoading}] = useFarmPartMutation({
 		update(cache) {
 			cache.evict({
 				id: "ROOT_QUERY",
@@ -57,8 +57,8 @@ const CraftSideBar = () => {
 					}
 				})
 				pushSuccessMessage(`${part.name} successfully crafted!`)
-			} else if (mode === 'add' && part !== null) {
-				await addPartMutation({
+			} else if (mode === 'farm' && part !== null) {
+				await farmPartMutation({
 					variables: {
 						partId: part.part_id
 					}
@@ -69,8 +69,6 @@ const CraftSideBar = () => {
 			console.error(e)
 		}
 	}
-
-
 
 
 
@@ -126,10 +124,10 @@ const CraftSideBar = () => {
 						onSubmit={handleSubmit}
 					>
 						<Form>
-							<FormikTextField name="quantity" label="Quantity" />
+							<FormikTextField name="quantity" label="Quantity" type={'number'}/>
 							<ComponentTable components={part !== null ? part.components : []} />
 							<Button
-								disabled={isAddMutationLoading || isCraftMutationLoading}
+								disabled={isFarmMutationLoading || isCraftMutationLoading}
 								type="submit"
 								fullWidth
 								variant="contained"
@@ -145,4 +143,4 @@ const CraftSideBar = () => {
 	);
 };
 
-export default CraftSideBar;
+export default GeneratePartForm;

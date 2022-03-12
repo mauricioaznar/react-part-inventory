@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import {GetPartCategoriesQuery} from "../../../../../../services/schema";
 import PartAvatar from "./part-avatar/part-avatar";
-import {useCraftSideBarContext} from "../../../craft-side-bar/craft-side-bar-context";
+import {useGeneratePartContext} from "../../../generate-part-form/i-generate-part-context/i-generate-part-context";
 
 
 interface PartAvatarProps {
@@ -25,7 +25,7 @@ const PartImageContainer = (props: PartAvatarProps) => {
     const {
         initAdd,
         initCraft
-    } = useCraftSideBarContext()
+    } = useGeneratePartContext()
 
 
 
@@ -108,7 +108,7 @@ const PartImageContainer = (props: PartAvatarProps) => {
                                         handleClose()
                                     }}
                                 >
-                                Add
+                                Farm
                             </MenuItem>
                     }
                     {
