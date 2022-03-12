@@ -4,7 +4,7 @@ import { useField } from "formik";
 import { FormikDefaultProps } from "./common/formik-default-props";
 
 interface FormikTextFieldProps extends FormikDefaultProps {
-  type?: "text" | "password" | 'number';
+  type?: "text" | "password";
 }
 
 export const FormikTextField = ({
@@ -12,18 +12,20 @@ export const FormikTextField = ({
   label,
   type = "text",
 }: FormikTextFieldProps) => {
-  const [formikProps, { error, touched }] = useField(name);
+  const [formikProps, formikState] = useField(name);
+
+  // console.log(formikState)
+
 
   return (
     <TextField
       fullWidth
-      margin="normal"
+      margin={"normal"}
       label={label}
-      type={"text"}
-      error={touched && Boolean(error)}
-      helperText={touched && error}
+      type={type}
+      error={Boolean(formikState.error)}
+      helperText={formikState.error}
       {...formikProps}
-      onInput={formikProps.onChange}
       name={formikProps.name}
       value={formikProps.value}
     />

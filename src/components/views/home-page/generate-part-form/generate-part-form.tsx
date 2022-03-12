@@ -119,12 +119,14 @@ const GeneratePartForm = () => {
 
 
 					<Formik
+						validateOnBlur={true}
+						validateOnChange={true}
 						initialValues={initialValues}
 						validationSchema={validationSchema}
 						onSubmit={handleSubmit}
 					>
 						<Form>
-							<FormikTextField name="quantity" label="Quantity" type={'number'}/>
+							<FormikTextField name="quantity" label="Quantity" />
 							<ComponentTable components={part !== null ? part.components : []} />
 							<Button
 								disabled={isFarmMutationLoading || isCraftMutationLoading}
