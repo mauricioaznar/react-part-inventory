@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {GetPartCategoriesQuery} from "../../../../services/schema";
 
 interface CraftSideBarContextProps {
@@ -6,8 +6,8 @@ interface CraftSideBarContextProps {
 	setOpen: (open: boolean) => void;
 	part: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number] | null;
 	setPart: (part: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number] | null) => void;
-	mode: "craft" | "add";
-	setMode: (mode: "craft" | "add") => void;
+	mode: "craft" | "add" | null;
+	setMode: (mode: "craft" | "add" | null) => void;
 }
 
 const CraftSideBarContext = React.createContext<CraftSideBarContextProps>({
@@ -15,7 +15,7 @@ const CraftSideBarContext = React.createContext<CraftSideBarContextProps>({
 	setOpen: () => {},
 	part: null,
 	setPart: () => {},
-	mode: "craft",
+	mode: null,
 	setMode: () => {}
 })
 
@@ -31,7 +31,7 @@ export const CraftSideBarContextProvider = (props: CraftSideBarContextProviderPr
 	
 	const [open, setOpen] = useState(false)
 	const [part, setPart] = useState<GetPartCategoriesQuery["getPartCategories"][number]["parts"][number] | null>(null)
-	const [mode, setMode] = useState<"craft" | "add">("craft")
+	const [mode, setMode] = useState<"craft" | "add" | null>(null)
 	
 	
 	return <CraftSideBarContext.Provider value={{ open, setOpen, part, setPart, mode, setMode}}>
@@ -52,21 +52,30 @@ export const useCraftSideBarContext = () => {
 	} = React.useContext(CraftSideBarContext)
 	
 	
-	const handleCraftClick = (partClicked: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]) => {
+	const initCraft = (partClicked: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]) => {
 		setMode('craft')
+		setOpen(true)
 		setPart(partClicked)
 	}
 	
-	const handleAddClick = (partClicked: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]) => {
+	const initAdd = (partClicked: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]) => {
 		setMode('add')
+		setOpen(true)
 		setPart(partClicked)
 	}
+
+	useEffect(() => {
+		if (!open) {
+			setPart(null)
+			setMode(null)
+		}
+	}, [open])
 	
 	
 	
 	return {
-		handleCraftClick,
-		handleAddClick,
+		initCraft,
+		initAdd,
 		open,
 		setOpen,
 		part,

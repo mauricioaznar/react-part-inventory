@@ -1,7 +1,8 @@
 import React from 'react';
 import {
     Box,
-    Divider, List,
+    Divider,
+    List,
     ListItem,
     ListItemAvatar,
     ListItemText,
@@ -10,16 +11,9 @@ import {
     MenuItem,
     Typography
 } from "@mui/material";
-import {
-    GetPartCategoriesQuery,
-    Query,
-    useAddPartMutation,
-    useCraftPartMutation
-} from "../../../../../../services/schema";
+import {GetPartCategoriesQuery} from "../../../../../../services/schema";
 import PartAvatar from "./part-avatar/part-avatar";
-import {nameof} from "../../../../../../helpers/nameof";
-import {useActions} from "../../../../../../hooks/redux-hooks/use-actions";
-import {useOpenSideBarContext} from "../../../craft-side-bar/open-side-bar-context";
+import {useCraftSideBarContext} from "../../../craft-side-bar/craft-side-bar-context";
 
 
 interface PartAvatarProps {
@@ -28,27 +22,13 @@ interface PartAvatarProps {
 
 const PartImageContainer = (props: PartAvatarProps) => {
     const { part } = props
-    const { pushSuccessMessage } = useActions()
-    const { setOpen } = useOpenSideBarContext()
+    const {
+        initAdd,
+        initCraft
+    } = useCraftSideBarContext()
 
 
-    const [craftPartMutation, {loading: isCraftMutationLoading}] = useCraftPartMutation({
-        update(cache) {
-            cache.evict({
-                id: "ROOT_QUERY",
-                fieldName: nameof<Query>("getPartCategories"),
-            });
-        },
-    })
 
-    const [addPartMutation, {loading: isAddMutationLoading}] = useAddPartMutation({
-        update(cache) {
-            cache.evict({
-                id: "ROOT_QUERY",
-                fieldName: nameof<Query>("getPartCategories"),
-            });
-        },
-    })
 
     const [contextMenu, setContextMenu] = React.useState<{
         mouseX: number;
@@ -74,38 +54,6 @@ const PartImageContainer = (props: PartAvatarProps) => {
         setContextMenu(null);
     };
 
-    const handleCraftClick = async () => {
-        setOpen(true)
-        try {
-            await craftPartMutation({
-                variables: {
-                    partId: part.part_id
-                }
-            })
-            pushSuccessMessage(`${part.name} successfully crafted!`)
-        } catch (e) {
-            console.error(e)
-        }
-
-
-        handleClose()
-    }
-
-    const handleAddClick = async () => {
-        setOpen(true)
-        try {
-            await addPartMutation({
-                variables: {
-                    partId: part.part_id
-                }
-            })
-            pushSuccessMessage(`${part.name} successfully added!`)
-        } catch (e) {
-            console.error(e)
-        }
-
-        handleClose()
-    }
 
 
     const isEveryQuantityValid = part.components.every(component => {
@@ -147,12 +95,21 @@ const PartImageContainer = (props: PartAvatarProps) => {
                     {
                         hasComponents
                             ? <MenuItem
-                                onClick={handleCraftClick}
-                                disabled={isCraftMutationLoading}
-                            >
+                                    onClick={() => {
+                                        initCraft(part)
+                                        handleClose()
+                                    }}
+                                >
                                 Craft
                             </MenuItem>
-                            : <MenuItem onClick={handleAddClick} disabled={isAddMutationLoading}>Add</MenuItem>
+                            : <MenuItem
+                                    onClick={() => {
+                                        initAdd(part)
+                                        handleClose()
+                                    }}
+                                >
+                                Add
+                            </MenuItem>
                     }
                     {
                         hasComponents ?
