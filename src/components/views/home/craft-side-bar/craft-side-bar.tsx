@@ -1,24 +1,17 @@
 import React from 'react';
-import {
-	Box,
-	Divider,
-	IconButton,
-	List,
-	ListItem,
-	ListItemButton,
-	ListItemIcon,
-	ListItemText,
-	Modal,
-	Toolbar
-} from "@mui/material";
-import InboxIcon from '@mui/icons-material/Inbox'
-import MailIcon from '@mui/icons-material/Mail'
+import {Box, Button, IconButton, Modal, Toolbar} from "@mui/material";
+import * as yup from "yup";
+import {SchemaOf} from "yup";
 import {Query, useAddPartMutation, useCraftPartMutation} from "../../../../services/schema";
 import {nameof} from "../../../../helpers/nameof";
 import {useCraftSideBarContext} from "./craft-side-bar-context";
 import Typography from "@mui/material/Typography";
 import {useActions} from "../../../../hooks/redux-hooks/use-actions";
 import ClearIcon from "@mui/icons-material/Clear";
+import {Form, Formik} from 'formik';
+import FormikTextField from "../../../dum/inputs/formik/formik-text-field";
+import {IGeneratePartForm} from "./i-generate-part-form";
+import ComponentTable from "./component-table/component-table";
 
 
 const CraftSideBar = () => {
@@ -44,7 +37,18 @@ const CraftSideBar = () => {
 		},
 	})
 
-	async function handleSubmit () {
+	const initialValues: IGeneratePartForm = {
+		quantity: 0
+	};
+
+	const validationSchema: SchemaOf<IGeneratePartForm> = yup.object({
+		quantity: yup
+			.number()
+			.required("Quantity is required"),
+	});
+
+	async function handleSubmit (data: IGeneratePartForm) {
+		const { quantity } = data;
 		try {
 			if (mode === 'craft' && part !== null) {
 				await craftPartMutation({
@@ -65,7 +69,12 @@ const CraftSideBar = () => {
 			console.error(e)
 		}
 	}
-	
+
+
+
+
+
+
 	return (
 		<Modal
 			open={open}
@@ -76,7 +85,7 @@ const CraftSideBar = () => {
 				top: '50%',
 				left: '50%',
 				transform: 'translate(-50%, -50%)',
-				width: 400,
+				width: 600,
 				bgcolor: 'background.paper',
 				borderRadius: "0.5rem",
 				boxShadow: 24,
@@ -105,26 +114,31 @@ const CraftSideBar = () => {
 						<ClearIcon />
 					</IconButton>
 				</Toolbar>
-				<Box>
-					<List>
-						{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-							<ListItem button key={text}>
-								<ListItemIcon>
-									{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-								</ListItemIcon>
-								<ListItemText primary={text} />
-							</ListItem>
-						))}
-					</List>
-					<Divider />
-					<List style={{marginTop: `auto`}}>
-						<ListItemButton
-							onClick={handleSubmit}
-							disabled={isAddMutationLoading || isCraftMutationLoading}
-						>
-							<ListItemText>Submit</ListItemText>
-						</ListItemButton>
-					</List>
+				<Box
+					sx={{ px: 2, pt: 2 }}
+				>
+
+
+
+					<Formik
+						initialValues={initialValues}
+						validationSchema={validationSchema}
+						onSubmit={handleSubmit}
+					>
+						<Form>
+							<FormikTextField name="quantity" label="Quantity" />
+							<ComponentTable components={part !== null ? part.components : []} />
+							<Button
+								disabled={isAddMutationLoading || isCraftMutationLoading}
+								type="submit"
+								fullWidth
+								variant="contained"
+								sx={{ mt: 3, mb: 2 }}
+							>
+								Submit
+							</Button>
+						</Form>
+					</Formik>
 				</Box>
 			</Box>
 		</Modal>

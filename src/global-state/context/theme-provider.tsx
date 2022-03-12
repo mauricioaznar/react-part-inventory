@@ -95,6 +95,9 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
           primary: textPrimary,
           secondary: textSecondary,
         },
+        error: {
+          main: "#ff5722"
+        }
       },
       typography: {
         ...textFont,
