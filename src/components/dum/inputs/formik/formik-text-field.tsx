@@ -19,7 +19,7 @@ export const FormikTextField = ({
       fullWidth
       margin="normal"
       label={label}
-      type={type}
+      type={"text"}
       error={touched && Boolean(error)}
       helperText={touched && error}
       {...formikProps}
