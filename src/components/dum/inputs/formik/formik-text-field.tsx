@@ -17,12 +17,15 @@ export const FormikTextField = ({
   return (
     <TextField
       fullWidth
-      type={type}
       margin="normal"
       label={label}
+      type={type}
       error={touched && Boolean(error)}
       helperText={touched && error}
       {...formikProps}
+      onInput={formikProps.onChange}
+      name={formikProps.name}
+      value={formikProps.value}
     />
   );
 };
