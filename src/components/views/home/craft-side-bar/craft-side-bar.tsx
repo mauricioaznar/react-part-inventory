@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+	Box,
 	Divider,
 	IconButton,
 	List,
@@ -7,19 +8,18 @@ import {
 	ListItemButton,
 	ListItemIcon,
 	ListItemText,
-	SwipeableDrawer,
+	Modal,
 	Toolbar
 } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox'
 import MailIcon from '@mui/icons-material/Mail'
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import {Query, useAddPartMutation, useCraftPartMutation} from "../../../../services/schema";
 import {nameof} from "../../../../helpers/nameof";
 import {useCraftSideBarContext} from "./craft-side-bar-context";
 import Typography from "@mui/material/Typography";
 import {useActions} from "../../../../hooks/redux-hooks/use-actions";
+import ClearIcon from "@mui/icons-material/Clear";
 
-const drawerWidth: number = 340;
 
 const CraftSideBar = () => {
 	const { open, setOpen, mode, part } = useCraftSideBarContext()
@@ -67,67 +67,67 @@ const CraftSideBar = () => {
 	}
 	
 	return (
-		<SwipeableDrawer
-			sx={{
-				width: drawerWidth,
-				flexShrink: 0,
-				[`& .MuiDrawer-paper`]: {
-					width: drawerWidth,
-					boxSizing: "border-box",
-				},
-			}}
-			variant={"temporary"}
-			anchor={"right"}
+		<Modal
 			open={open}
 			onClose={() => {setOpen(false)}}
-			onOpen={() => {setOpen(true)}}
 		>
-			<Toolbar
-				sx={{
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "flex-end",
-					px: [1],
-				}}
-			>
-				<IconButton onClick={() => {
-					setOpen(!open)
-				}}>
-					<ChevronLeftIcon />
-				</IconButton>
-			</Toolbar>
-			<List>
-				<ListItem>
-					<ListItemText
-						primary={
-							<Typography variant={'h4'}>
-								{ mode }
-							</Typography>
-						}
-					/>
-				</ListItem>
-			</List>
-
-			<List>
-				{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-					<ListItem button key={text}>
-						<ListItemIcon>
-							{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-						</ListItemIcon>
-						<ListItemText primary={text} />
-					</ListItem>
-				))}
-			</List>
-			<Divider />
-			<List style={{marginTop: `auto`}}>
-				<ListItemButton
-					onClick={handleSubmit}
-					disabled={isAddMutationLoading || isCraftMutationLoading}
+			<Box sx={{
+				position: 'absolute',
+				top: '50%',
+				left: '50%',
+				transform: 'translate(-50%, -50%)',
+				width: 400,
+				bgcolor: 'background.paper',
+				borderRadius: "0.5rem",
+				boxShadow: 24,
+				overflow: "hidden"
+			}}>
+				<Toolbar
+					sx={{
+						display: "flex",
+						alignItems: "center",
+						bgcolor: 'secondary.main'
+					}}
 				>
-					<ListItemText>Submit</ListItemText>
-				</ListItemButton>
-			</List>
-		</SwipeableDrawer>
+					<Typography
+						variant={'h4'}
+						sx={{flexGrow: 1}}
+					>
+						{ mode }
+					</Typography>
+					<IconButton
+						color="inherit"
+						size={'small'}
+						onClick={() => {
+							setOpen(false)
+						}}
+					>
+						<ClearIcon />
+					</IconButton>
+				</Toolbar>
+				<Box>
+					<List>
+						{['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+							<ListItem button key={text}>
+								<ListItemIcon>
+									{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+								</ListItemIcon>
+								<ListItemText primary={text} />
+							</ListItem>
+						))}
+					</List>
+					<Divider />
+					<List style={{marginTop: `auto`}}>
+						<ListItemButton
+							onClick={handleSubmit}
+							disabled={isAddMutationLoading || isCraftMutationLoading}
+						>
+							<ListItemText>Submit</ListItemText>
+						</ListItemButton>
+					</List>
+				</Box>
+			</Box>
+		</Modal>
 	);
 };
 
