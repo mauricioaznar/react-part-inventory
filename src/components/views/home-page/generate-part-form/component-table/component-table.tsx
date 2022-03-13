@@ -3,6 +3,7 @@ import {GetPartCategoriesQuery} from "../../../../../services/schema";
 import {Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
 import {useFormikContext} from "formik";
 import {IGeneratePartForm} from "../i-generate-part-context/i-generate-part-form";
+import {convertToNumber} from "../../../../../helpers/convert-to-number";
 
 interface IComponentTable {
     components: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]["components"]
@@ -36,8 +37,8 @@ const ComponentTable = (props: IComponentTable) => {
             <TableBody>
                 {
                     components.map(({ component, required_quantity }) => {
-                        const valuesQuantity = Number(values.quantity !== '' ? values.quantity : 0)
-                        const totalQuantity = (Number.isNaN(valuesQuantity) ? 0 : valuesQuantity) * required_quantity
+                        const partQuantity = convertToNumber(values.quantity)
+                        const totalQuantity = partQuantity * required_quantity
                         const hasEnough = component.current_quantity >= totalQuantity
                         const tableCellColor = {
                             color: hasEnough ? undefined : "error.main"

@@ -12,6 +12,7 @@ import {Form, Formik} from 'formik';
 import {IGeneratePartForm} from "./i-generate-part-context/i-generate-part-form";
 import ComponentTable from "./component-table/component-table";
 import QuantityInput from "./quantity-input/quantity-input";
+import {convertToNumber} from "../../../../helpers/convert-to-number";
 
 
 const GeneratePartForm = () => {
@@ -45,7 +46,16 @@ const GeneratePartForm = () => {
 		quantity: yup
 			.number()
 			.min(1)
-			.required("Quantity is required"),
+			.required("Quantity is required")
+			.test("enough_quantity", "Not enough components", (quantity) => {
+				if (part !== null) {
+					const partQuantity = convertToNumber(quantity)
+					return part.components.some((component) => {
+						return (partQuantity * component.required_quantity) <= component.component.current_quantity
+					})
+				}
+				return false
+			}),
 	});
 
 	async function handleSubmit (data: IGeneratePartForm) {
