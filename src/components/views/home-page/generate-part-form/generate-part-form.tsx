@@ -73,6 +73,7 @@ const GeneratePartForm = () => {
 				})
 				pushSuccessMessage(`${part.name} successfully added!`)
 			}
+			setOpen(false)
 		} catch (e) {
 			console.error(e)
 		}
