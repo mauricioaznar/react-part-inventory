@@ -38,7 +38,7 @@ const GeneratePartForm = () => {
 	})
 
 	const initialValues: IGeneratePartForm = {
-		quantity: 0
+		quantity: 1
 	};
 
 	const validationSchema: SchemaOf<IGeneratePartForm> = yup.object({
@@ -53,14 +53,20 @@ const GeneratePartForm = () => {
 			if (mode === 'craft' && part !== null) {
 				await craftPartMutation({
 					variables: {
-						partId: part.part_id
+						craftInput: {
+							part_id: part.part_id,
+							quantity: Number(quantity)
+						}
 					}
 				})
 				pushSuccessMessage(`${part.name} successfully crafted!`)
 			} else if (mode === 'farm' && part !== null) {
 				await farmPartMutation({
 					variables: {
-						partId: part.part_id
+						farmInput: {
+							part_id: part.part_id,
+							quantity: Number(quantity)
+						}
 					}
 				})
 				pushSuccessMessage(`${part.name} successfully added!`)

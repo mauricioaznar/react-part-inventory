@@ -20,10 +20,10 @@ query GetPartCategories {
     }
 }
 
-mutation CraftPart ($partId: Float!){
-    craft(partId: $partId)
+mutation CraftPart ($craftInput: CraftInput!){
+    craft(CraftInput: $craftInput)
 }
 
-mutation FarmPart ($partId: Float!){
-    farm(partId: $partId)
+mutation FarmPart ($farmInput: FarmInput!){
+    farm(FarmInput: $farmInput)
 }

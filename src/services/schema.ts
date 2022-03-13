@@ -47,6 +47,7 @@ export type Part = {
   __typename?: 'Part';
   components: Array<Component>;
   current_quantity: Scalars['Int'];
+  default_generated_quantity: Scalars['Int'];
   image_url?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   part_category_id: Scalars['Float'];
@@ -84,7 +85,7 @@ export type MutationAssignComponentArgs = {
 
 
 export type MutationCraftArgs = {
-  partId: Scalars['Float'];
+  CraftInput: CraftInput;
 };
 
 
@@ -99,7 +100,7 @@ export type MutationCreateUserArgs = {
 
 
 export type MutationFarmArgs = {
-  partId: Scalars['Float'];
+  FarmInput: FarmInput;
 };
 
 
@@ -129,7 +130,13 @@ export type PartAssignmentInput = {
   required_quantity: Scalars['Float'];
 };
 
+export type CraftInput = {
+  part_id: Scalars['Float'];
+  quantity: Scalars['Float'];
+};
+
 export type PartInput = {
+  default_generated_quantity: Scalars['Int'];
   image_url?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   part_category_id: Scalars['Float'];
@@ -138,6 +145,11 @@ export type PartInput = {
 export type UserInput = {
   password: Scalars['String'];
   username: Scalars['String'];
+};
+
+export type FarmInput = {
+  part_id: Scalars['Float'];
+  quantity: Scalars['Float'];
 };
 
 export type LoginInput = {
@@ -350,8 +362,8 @@ export function refetchGetPartCategoriesQuery(variables?: GetPartCategoriesQuery
       return { query: GetPartCategoriesDocument, variables: variables }
     }
 export const CraftPartDocument = gql`
-    mutation CraftPart($partId: Float!) {
-  craft(partId: $partId)
+    mutation CraftPart($craftInput: CraftInput!) {
+  craft(CraftInput: $craftInput)
 }
     `;
 export type CraftPartMutationFn = Apollo.MutationFunction<CraftPartMutation, CraftPartMutationVariables>;
@@ -369,7 +381,7 @@ export type CraftPartMutationFn = Apollo.MutationFunction<CraftPartMutation, Cra
  * @example
  * const [craftPartMutation, { data, loading, error }] = useCraftPartMutation({
  *   variables: {
- *      partId: // value for 'partId'
+ *      craftInput: // value for 'craftInput'
  *   },
  * });
  */
@@ -381,8 +393,8 @@ export type CraftPartMutationHookResult = ReturnType<typeof useCraftPartMutation
 export type CraftPartMutationResult = Apollo.MutationResult<CraftPartMutation>;
 export type CraftPartMutationOptions = Apollo.BaseMutationOptions<CraftPartMutation, CraftPartMutationVariables>;
 export const FarmPartDocument = gql`
-    mutation FarmPart($partId: Float!) {
-  farm(partId: $partId)
+    mutation FarmPart($farmInput: FarmInput!) {
+  farm(FarmInput: $farmInput)
 }
     `;
 export type FarmPartMutationFn = Apollo.MutationFunction<FarmPartMutation, FarmPartMutationVariables>;
@@ -400,7 +412,7 @@ export type FarmPartMutationFn = Apollo.MutationFunction<FarmPartMutation, FarmP
  * @example
  * const [farmPartMutation, { data, loading, error }] = useFarmPartMutation({
  *   variables: {
- *      partId: // value for 'partId'
+ *      farmInput: // value for 'farmInput'
  *   },
  * });
  */
@@ -441,14 +453,14 @@ export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', part_category_id: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', part_id: number, name: string, image_url?: string | null | undefined, current_quantity: number } }> }> }> };
 
 export type CraftPartMutationVariables = Exact<{
-  partId: Scalars['Float'];
+  craftInput: CraftInput;
 }>;
 
 
 export type CraftPartMutation = { __typename?: 'Mutation', craft: boolean };
 
 export type FarmPartMutationVariables = Exact<{
-  partId: Scalars['Float'];
+  farmInput: FarmInput;
 }>;
 
 
