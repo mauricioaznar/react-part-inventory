@@ -12,6 +12,7 @@ import {Form, Formik} from 'formik';
 import FormikTextField from "../../../dum/inputs/formik/formik-text-field";
 import {IGeneratePartForm} from "./i-generate-part-context/i-generate-part-form";
 import ComponentTable from "./component-table/component-table";
+import QuantityInput from "./quantity-input/quantity-input";
 
 
 const GeneratePartForm = () => {
@@ -44,6 +45,7 @@ const GeneratePartForm = () => {
 	const validationSchema: SchemaOf<IGeneratePartForm> = yup.object({
 		quantity: yup
 			.number()
+			.min(1)
 			.required("Quantity is required"),
 	});
 
@@ -89,7 +91,7 @@ const GeneratePartForm = () => {
 				top: '50%',
 				left: '50%',
 				transform: 'translate(-50%, -50%)',
-				width: 600,
+				width: 700,
 				bgcolor: 'background.paper',
 				borderRadius: "0.5rem",
 				boxShadow: 24,
@@ -121,9 +123,6 @@ const GeneratePartForm = () => {
 				<Box
 					sx={{ px: 2, pt: 2 }}
 				>
-
-
-
 					<Formik
 						validateOnBlur={true}
 						validateOnChange={true}
@@ -132,7 +131,7 @@ const GeneratePartForm = () => {
 						onSubmit={handleSubmit}
 					>
 						<Form>
-							<FormikTextField name="quantity" label="Quantity" />
+							<QuantityInput />
 							<ComponentTable components={part !== null ? part.components : []} />
 							<Button
 								disabled={isFarmMutationLoading || isCraftMutationLoading}

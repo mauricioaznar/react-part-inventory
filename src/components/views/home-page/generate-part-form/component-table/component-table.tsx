@@ -23,10 +23,13 @@ const ComponentTable = (props: IComponentTable) => {
                         Component
                     </TableCell>
                     <TableCell>
+                        Available component quantity
+                    </TableCell>
+                    <TableCell>
                         Required quantity per part
                     </TableCell>
                     <TableCell>
-                        Total
+                        Total required
                     </TableCell>
                 </TableRow>
             </TableHead>
@@ -35,21 +38,28 @@ const ComponentTable = (props: IComponentTable) => {
                     components.map(({ component, required_quantity }) => {
                         const valuesQuantity = Number(values.quantity !== '' ? values.quantity : 0)
                         const totalQuantity = (Number.isNaN(valuesQuantity) ? 0 : valuesQuantity) * required_quantity
-
-
+                        const hasEnough = component.current_quantity >= totalQuantity
+                        const tableCellColor = {
+                            color: hasEnough ? undefined : "error.main"
+                        }
                         return (
                             <TableRow key={component.part_id}>
-                                <TableCell>
+                                <TableCell sx={{...tableCellColor}}>
                                     {
                                         component.name
                                     }
                                 </TableCell>
-                                <TableCell>
+                                <TableCell sx={{...tableCellColor}}>
+                                    {
+                                        component.current_quantity
+                                    }
+                                </TableCell>
+                                <TableCell sx={{...tableCellColor}}>
                                     {
                                         required_quantity
                                     }
                                 </TableCell>
-                                <TableCell>
+                                <TableCell sx={{...tableCellColor}}>
                                     {
                                         totalQuantity
                                     }
