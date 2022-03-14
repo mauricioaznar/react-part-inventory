@@ -4,7 +4,7 @@ import * as yup from "yup";
 import {SchemaOf} from "yup";
 import {Query, useCraftPartMutation, useFarmPartMutation} from "../../../../services/schema";
 import {nameof} from "../../../../helpers/nameof";
-import {useGeneratePartContext} from "./i-generate-part-context/i-generate-part-context";
+import {useGeneratePartContext} from "./i-generate-part-context/generate-part-context";
 import Typography from "@mui/material/Typography";
 import {useActions} from "../../../../hooks/redux-hooks/use-actions";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -48,13 +48,13 @@ const GeneratePartForm = () => {
 			.min(1)
 			.required("Quantity is required")
 			.test("enough_quantity", "Not enough components", (quantity) => {
-				if (part !== null) {
+				if (part !== null && part.components.length > 0) {
 					const partQuantity = convertToNumber(quantity)
-					return part.components.some((component) => {
+					return part.components.every((component) => {
 						return (partQuantity * component.required_quantity) <= component.component.current_quantity
 					})
 				}
-				return false
+				return true
 			}),
 	});
 
@@ -138,6 +138,7 @@ const GeneratePartForm = () => {
 						validateOnChange={true}
 						initialValues={initialValues}
 						validationSchema={validationSchema}
+						validateOnMount={true}
 						onSubmit={handleSubmit}
 					>
 						<Form>
