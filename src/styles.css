@@ -1,3 +1,15 @@
 .MuiCalendarPicker-root div button:focus {
     background-color: rgba(120, 120, 120, 0.4) ;
 }
+
+.red-to-yellow-text {
+    background: -webkit-linear-gradient(270deg, #D68745 0%, #EFCB78 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.blue-to-white-text {
+    background: -webkit-linear-gradient(270deg, #88CEEE 0%, #E1EBEC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

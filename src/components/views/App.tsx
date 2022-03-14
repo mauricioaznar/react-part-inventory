@@ -80,7 +80,12 @@ export default function App() {
                         noWrap
                         sx={{flexGrow: 1, fontSize: "3.2rem", ml: 3}}
                     >
-                        Subnautica
+                      <span className={"red-to-yellow-text"}>
+                        Sub
+                      </span>
+                      <span className={"blue-to-white-text"}>
+                        nautica
+                      </span>
                     </Typography>
                     <IconButton
                         color="inherit"

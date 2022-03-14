@@ -33,7 +33,7 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
     const families = [
       currentTheme.primaryFont,
       currentTheme.secondaryFont,
-      currentTheme.textFont,
+      currentTheme.textFont + ":n4,n7",
     ];
     if (currentTheme.tertiaryFont) {
       families.push(currentTheme.tertiaryFont);
@@ -64,7 +64,9 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
 
     const textFont = {
       fontFamily: [`"${currentTheme.textFont}"`, "sans-serif"].join(","),
+      fontWeight: "bold",
     };
+    
     const {
       mode: modeColor,
       primary,
@@ -100,7 +102,7 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
         }
       },
       typography: {
-        ...textFont,
+        body1: textFont,
         h1: primaryFont,
         h2: primaryFont,
         h3: secondaryFont,
