@@ -25,9 +25,9 @@ export const ThemeProvider = (props: ThemeProviderProps) => {
       name: "forest",
       title: "Forest",
       icon: ParkIcon,
-      primaryFont: "Lobster",
-      secondaryFont: "Lobster",
-      textFont: "Antic Slab",
+      primaryFont: "Days One",
+      secondaryFont: "Orbitron",
+      textFont: "Rajdhani",
     }
 
     const families = [
