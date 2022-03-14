@@ -1,8 +1,6 @@
 import * as React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import HomePage from "../components/views/home-page/home-page";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import UserList from "../components/views/auth/user-list";
 import {Route, RouteGroup} from "../types/route";
 
 export const routeGroups: RouteGroup[] = [
@@ -14,18 +12,10 @@ export const routeGroups: RouteGroup[] = [
         name: "HomePage",
         path: "/",
         component: <HomePage />,
-        title: "HomePage",
+        title: "Home",
         navbar: true,
         exact: true,
-      },
-      {
-        icon: <PeopleAltIcon />,
-        name: "UserList",
-        path: "/users",
-        component: <UserList />,
-        navbar: true,
-        title: "Users",
-      },
+      }
     ],
   },
 ];
