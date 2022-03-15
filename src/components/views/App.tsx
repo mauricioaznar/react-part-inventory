@@ -5,8 +5,6 @@ import {useApolloClient} from "@apollo/client";
 // mui
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import LogoutIcon from "@mui/icons-material/Logout";
-import WbSunnyIcon from "@mui/icons-material/WbSunny";
-import ModeNightIcon from "@mui/icons-material/ModeNight";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
@@ -80,12 +78,16 @@ export default function App() {
                         noWrap
                         sx={{flexGrow: 1, fontSize: "3.2rem", ml: 3}}
                     >
-                      <span className={"red-to-yellow-text"}>
-                        Sub
-                      </span>
-                      <span className={"blue-to-white-text"}>
-                        nautica
-                      </span>
+                        <Box component={'span'} className={'red-to-yellow-text s-letter subnautica-left'}>S</Box>
+                        <Box component={'span'} className={'red-to-yellow-text first-u-letter subnautica-left'}>u</Box>
+                        <Box component={'span'} className={'red-to-yellow-text b-letter subnautica-left'}>b</Box>
+                        <Box component={"span"} className={"blue-to-white-text n-letter subnautica-left"}>n</Box>
+                        <Box component={"span"} className={"blue-to-white-text first-a-letter subnautica-left"}>a</Box>
+                        <Box component={"span"} className={"blue-to-white-text second-u-letter subnautica-right"}>u</Box>
+                        <Box component={"span"} className={"blue-to-white-text t-letter subnautica-right"}>t</Box>
+                        <Box component={"span"} className={"blue-to-white-text i-letter subnautica-right"}>i</Box>
+                        <Box component={"span"} className={"blue-to-white-text c-letter subnautica-right"}>c</Box>
+                        <Box component={"span"} className={"blue-to-white-text second-a-letter subnautica-right"}>a</Box>
                     </Typography>
                     <IconButton
                         color="inherit"
@@ -130,11 +132,15 @@ export default function App() {
                         <ChevronLeftIcon/>
                     </IconButton>
                 </Toolbar>
-                {routeGroups.map((rg) => {
+                {routeGroups.map((rg, index) => {
                     return (
-                        <React.Fragment key={rg.title}>
+                        <React.Fragment key={index}>
                             <List>
-                                <ListSubheader>{rg.title}</ListSubheader>
+                                {
+                                    rg.title ?
+                                        <ListSubheader>{rg.title}</ListSubheader>
+                                        : null
+                                }
                                 {rg.routes
                                     .filter((route) => route.navbar === true)
                                     .map((route) => {
@@ -156,16 +162,6 @@ export default function App() {
                     );
                 })}
                 <List style={{marginTop: `auto`}}>
-                    <ListItem button={true}>
-                        <ListItemIcon>
-                            {theme.palette.mode === "dark" ? (
-                                <ModeNightIcon/>
-                            ) : (
-                                <WbSunnyIcon/>
-                            )}
-                        </ListItemIcon>
-                        <ListItemText>{theme.palette.mode === "dark" ? "Dark" : "Light"}</ListItemText>
-                    </ListItem>
                     <ListItem dense>
                         <ListItemIcon>
                             <CopyrightIcon/>

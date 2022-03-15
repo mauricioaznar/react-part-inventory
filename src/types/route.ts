@@ -11,6 +11,6 @@ export interface Route {
 }
 
 export interface RouteGroup {
-  title: string;
+  title?: string;
   routes: Route[];
 }

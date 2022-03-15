@@ -2,14 +2,54 @@
     background-color: rgba(120, 120, 120, 0.4) ;
 }
 
+.subnautica-left {
+    padding-left: 2.5px;
+}
+
+.subnautica-right {
+    padding-right: 2.5px;
+}
+
 .red-to-yellow-text {
     background: -webkit-linear-gradient(270deg, #D68745 0%, #EFCB78 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
 }
 
 .blue-to-white-text {
     background: -webkit-linear-gradient(270deg, #88CEEE 0%, #E1EBEC 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.s-letter {
+    filter: drop-shadow(3px 0px #000);
+}
+.first-u-letter {
+    filter: drop-shadow(2px 0px #000);
+}
+.b-letter {
+    filter: drop-shadow(1px 0px #000);
+}
+.n-letter {
+    filter: drop-shadow(1px 0px #000);
+}
+.first-a-letter {
+    filter: drop-shadow(1px 0px #000);
+}
+.second-u-letter {
+    filter: drop-shadow(1px 0px #000);
+}
+.t-letter {
+    filter: drop-shadow(-1px 0px #000);
+}
+.i-letter {
+    filter: drop-shadow(-1px 0px #000);
+}
+.c-letter {
+    filter: drop-shadow(-2px 0px #000);
+}
+.second-a-letter {
+    filter: drop-shadow(-3px 0px #000);
 }

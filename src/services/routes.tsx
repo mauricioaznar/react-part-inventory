@@ -5,7 +5,6 @@ import {Route, RouteGroup} from "../types/route";
 
 export const routeGroups: RouteGroup[] = [
   {
-    title: "Auth",
     routes: [
       {
         icon: <HomeIcon />,
