@@ -23,13 +23,13 @@ import {
     Paper,
     SwipeableDrawer as MuiDrawer,
     Toolbar,
-    Typography,
     useMediaQuery,
     useTheme,
 } from "@mui/material";
 
 import {useActions} from "../../hooks/redux-hooks/use-actions";
 import {routeGroups, routes} from "../../services/routes";
+import SubnauticaTitle from "./app/subnautica-title/subnautica-title";
 
 const drawerWidth: number = 240;
 
@@ -71,24 +71,7 @@ export default function App() {
                         </IconButton>
                     ) : null}
 
-                    <Typography
-                        component="h2"
-                        variant="h2"
-                        color="inherit"
-                        noWrap
-                        sx={{flexGrow: 1, fontSize: "3.2rem", ml: 3}}
-                    >
-                        <Box component={'span'} className={'red-to-yellow-text s-letter subnautica-left'}>S</Box>
-                        <Box component={'span'} className={'red-to-yellow-text first-u-letter subnautica-left'}>u</Box>
-                        <Box component={'span'} className={'red-to-yellow-text b-letter subnautica-left'}>b</Box>
-                        <Box component={"span"} className={"blue-to-white-text n-letter subnautica-left"}>n</Box>
-                        <Box component={"span"} className={"blue-to-white-text first-a-letter subnautica-left"}>a</Box>
-                        <Box component={"span"} className={"blue-to-white-text second-u-letter subnautica-right"}>u</Box>
-                        <Box component={"span"} className={"blue-to-white-text t-letter subnautica-right"}>t</Box>
-                        <Box component={"span"} className={"blue-to-white-text i-letter subnautica-right"}>i</Box>
-                        <Box component={"span"} className={"blue-to-white-text c-letter subnautica-right"}>c</Box>
-                        <Box component={"span"} className={"blue-to-white-text second-a-letter subnautica-right"}>a</Box>
-                    </Typography>
+                    <SubnauticaTitle />
                     <IconButton
                         color="inherit"
                         onClick={async () => {

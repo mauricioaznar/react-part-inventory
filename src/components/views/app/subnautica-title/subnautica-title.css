@@ -1,0 +1,60 @@
+.subnautica-left {
+    padding-left: 2px;
+}
+
+.subnautica-title .subnautica-right {
+    padding-right: 2px;
+}
+
+.subnautica-title .red-to-yellow-text {
+    background: -webkit-linear-gradient(270deg, #D68745 0%, #EFCB78 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.subnautica-title .blue-to-white-text {
+    background: -webkit-linear-gradient(270deg, #88CEEE 0%, #E1EBEC 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subnautica-title .s-letter {
+    filter: drop-shadow(3px 0px #000);
+}
+
+.subnautica-title .first-u-letter {
+    filter: drop-shadow(2px 0px #000);
+}
+
+.subnautica-title .b-letter {
+    filter: drop-shadow(1px 0px #000);
+}
+
+.subnautica-title .n-letter {
+    filter: drop-shadow(1px 0px #000);
+}
+
+.subnautica-title .first-a-letter {
+    filter: drop-shadow(1px 0px #000) ;
+}
+
+.subnautica-title .second-u-letter {
+    filter: drop-shadow(-1px 0px #000);
+}
+
+.subnautica-title .t-letter {
+    filter: drop-shadow(-1px 0px #000);
+}
+
+.subnautica-title .i-letter {
+    filter: drop-shadow(-1px 0px #000);
+}
+
+.subnautica-title .c-letter {
+    filter: drop-shadow(-2px 0px #000);
+}
+
+.subnautica-title .second-a-letter {
+    filter: drop-shadow(-3px 0px #000);
+}
