@@ -26,7 +26,6 @@ export default function App() {
 
 
     const {
-        categoriesLoading,
         categoriesRoutes,
         categoriesRouteGroup
     } = useGetPartCategoriesQueryWithRoutes()
@@ -42,7 +41,6 @@ export default function App() {
                     toggleDrawer={toggleDrawer}
                     isDesktop={mdAndUp}
                     categoriesRouteGroup={categoriesRouteGroup}
-                    categoriesLoading={categoriesLoading}
                 />
 
 

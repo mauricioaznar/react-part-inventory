@@ -1,17 +1,14 @@
-import React from 'react'
-import {GetPartCategoriesQuery, useGetPartCategoriesQuery} from "../../../services/schema";
+import React, {useState} from 'react'
+import {useGetPartCategoriesQuery} from "../../../services/schema";
 import {Route, RouteGroup} from "../../../types/route";
-import {useState} from "react";
 import PartCategoryContainer from "../../smart/part-category/part-category-container";
 
 export const useGetPartCategoriesQueryWithRoutes = (): {
-    data: GetPartCategoriesQuery | undefined;
-    categoriesLoading: boolean;
     categoriesRouteGroup: RouteGroup;
     categoriesRoutes: Route[];
 } => {
     const [routes, setRoutes] = useState<Route[]>([])
-    const {data, loading} = useGetPartCategoriesQuery({
+    useGetPartCategoriesQuery({
         onCompleted: data1 => {
             setRoutes(data1.getPartCategories.map((pc) => {
                 return {
@@ -27,8 +24,6 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
     })
 
     return {
-        data,
-        categoriesLoading: loading,
         categoriesRouteGroup: {
             title: "Categories",
             routes: routes,

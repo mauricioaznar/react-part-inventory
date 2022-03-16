@@ -25,13 +25,12 @@ interface ISubnauticaDrawer {
     toggleDrawer: () => void;
     isDesktop: boolean;
     categoriesRouteGroup: RouteGroup;
-    categoriesLoading: boolean;
 }
 
 const drawerWidth: number = 240;
 
 const SubnauticaDrawer = (props: ISubnauticaDrawer) => {
-    const { open, setOpen, isDesktop, toggleDrawer, categoriesRouteGroup, categoriesLoading } = props
+    const { open, setOpen, isDesktop, toggleDrawer, categoriesRouteGroup } = props
 
     return (
         <MuiDrawer
@@ -94,36 +93,33 @@ const SubnauticaDrawer = (props: ISubnauticaDrawer) => {
                 );
             })}
             {
-                !categoriesLoading ?
-                    <React.Fragment>
-                        <List>
-                            <ListSubheader>{categoriesRouteGroup.title}</ListSubheader>
-                            {
-                                categoriesRouteGroup.routes.length > 0
-                                    ? categoriesRouteGroup.routes
-                                        .filter((route) => route.navbar === true)
-                                        .map((route) => {
-                                            return (
-                                                <ListItemLink
-                                                    key={route.name}
-                                                    primary={route.title}
-                                                    icon={route.icon}
-                                                    to={route.path}
-                                                    onClick={() => {
-                                                        setOpen(false);
-                                                    }}
-                                                />
-                                            );
-                                        })
-                                    : <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                                        <CircularProgress />
-                                    </ListItem>
-                            }
-                        </List>
-                        <Divider/>
-                    </React.Fragment>
-                    : null
-
+                <React.Fragment>
+                    <List>
+                        <ListSubheader>{categoriesRouteGroup.title}</ListSubheader>
+                        {
+                            categoriesRouteGroup.routes.length > 0
+                                ? categoriesRouteGroup.routes
+                                    .filter((route) => route.navbar === true)
+                                    .map((route) => {
+                                        return (
+                                            <ListItemLink
+                                                key={route.name}
+                                                primary={route.title}
+                                                icon={route.icon}
+                                                to={route.path}
+                                                onClick={() => {
+                                                    setOpen(false);
+                                                }}
+                                            />
+                                        );
+                                    })
+                                : <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+                                    <CircularProgress />
+                                </ListItem>
+                        }
+                    </List>
+                    <Divider/>
+                </React.Fragment>
             }
             <List style={{marginTop: `auto`}}>
                 <ListItem dense>
