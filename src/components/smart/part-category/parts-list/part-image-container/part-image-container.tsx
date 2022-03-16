@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
     Box,
     Divider,
@@ -9,26 +9,20 @@ import {
     ListSubheader,
     Menu,
     MenuItem,
-    Typography
+    Typography,
 } from "@mui/material";
-import {GetPartCategoriesQuery} from "../../../../../services/schema";
+import { GetPartCategoriesQuery } from "../../../../../services/schema";
 import PartAvatar from "./part-avatar/part-avatar";
-import {useGeneratePartContext} from "../../../../views/home-page/generate-part-form/i-generate-part-context/generate-part-context";
-
+import { useGeneratePartContext } from "../../../../pages/app/generate-part-form/i-generate-part-context/generate-part-context";
+import PartComponentsListItems from "./part-components-list-items/part-components-list-items";
 
 interface PartAvatarProps {
-    part: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]
+    part: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number];
 }
 
 const PartImageContainer = (props: PartAvatarProps) => {
-    const { part } = props
-    const {
-        initAdd,
-        initCraft
-    } = useGeneratePartContext()
-
-
-
+    const { part } = props;
+    const { initAdd, initCraft } = useGeneratePartContext();
 
     const [contextMenu, setContextMenu] = React.useState<{
         mouseX: number;
@@ -36,49 +30,43 @@ const PartImageContainer = (props: PartAvatarProps) => {
     } | null>(null);
 
     const handleMouseEvent = (event: React.MouseEvent) => {
-        event.preventDefault()
+        event.preventDefault();
         setContextMenu(
             contextMenu === null
                 ? {
-                    mouseX: event.clientX - 2,
-                    mouseY: event.clientY - 4,
-                }
+                      mouseX: event.clientX - 2,
+                      mouseY: event.clientY - 4,
+                  }
                 : // repeated contextmenu when it is already open closes it with Chrome 84 on Ubuntu
-                // Other native context menus might behave different.
-                // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
-                null,
+                  // Other native context menus might behave different.
+                  // With this behavior we prevent contextmenu from the backdrop to re-locale existing context menus.
+                  null,
         );
-    }
+    };
 
     const handleClose = () => {
         setContextMenu(null);
     };
 
+    const isEveryQuantityValid = part.components.every((component) => {
+        return (
+            component.component.current_quantity >= component.required_quantity
+        );
+    });
 
-
-    const isEveryQuantityValid = part.components.every(component => {
-        return component.component.current_quantity >= component.required_quantity
-    })
-
-    const hasComponents = part.components.length > 0
-
+    const hasComponents = part.components.length > 0;
 
     return (
         <div onContextMenu={handleMouseEvent}>
-            <Box
-                sx={{textAlign: 'center', px: 2, py: 1}}
-
-            >
+            <Box sx={{ textAlign: "center", px: 2, py: 1 }}>
                 <PartAvatar
                     name={part.name}
                     current_quantity={part.current_quantity}
                     image_url={part.image_url}
                     is_valid={isEveryQuantityValid}
                 />
-                <Typography sx={{mt: 2, maxWidth: "5rem"}}>
-                    {
-                        part.name
-                    }
+                <Typography sx={{ mt: 2, maxWidth: "5rem" }}>
+                    {part.name}
                 </Typography>
             </Box>
             <Menu
@@ -87,68 +75,38 @@ const PartImageContainer = (props: PartAvatarProps) => {
                 anchorReference="anchorPosition"
                 anchorPosition={
                     contextMenu !== null
-                        ? {top: contextMenu.mouseY, left: contextMenu.mouseX}
+                        ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
                         : undefined
                 }
             >
                 <List>
-                    {
-                        hasComponents
-                            ? <MenuItem
-                                    onClick={() => {
-                                        initCraft(part)
-                                        handleClose()
-                                    }}
-                                >
-                                Craft
-                            </MenuItem>
-                            : <MenuItem
-                                    onClick={() => {
-                                        initAdd(part)
-                                        handleClose()
-                                    }}
-                                >
-                                Farm
-                            </MenuItem>
-                    }
-                    {
-                        hasComponents ?
-                            <>
-                                <Divider />
-                                <ListSubheader>
-                                    Components
-                                </ListSubheader>
-                                {
-                                    part.components.map(component => {
-                                        return (
-                                            <ListItem key={component.component.part_id}>
-                                                <ListItemAvatar>
-                                                    <PartAvatar
-                                                        name={component.component.name}
-                                                        current_quantity={component.component.current_quantity}
-                                                        image_url={component.component.image_url}
-                                                        size={'sm'}
-                                                        is_valid={component.component.current_quantity >= component.required_quantity}
-                                                    />
-                                                </ListItemAvatar>
-                                                <ListItemText primary={component.component.name}/>
-                                                <Typography
-                                                    sx={{
-                                                        ml: 2
-                                                    }}
-                                                    variant={'subtitle2'}
-                                                >
-                                                    {
-                                                        `x${component.required_quantity}`
-                                                    }
-                                                </Typography>
-                                            </ListItem>
-                                        )
-                                    })
-                                }
-                            </>
-                            : null
-                    }
+                    {hasComponents ? (
+                        <MenuItem
+                            onClick={() => {
+                                initCraft(part);
+                                handleClose();
+                            }}
+                        >
+                            Craft
+                        </MenuItem>
+                    ) : (
+                        <MenuItem
+                            onClick={() => {
+                                initAdd(part);
+                                handleClose();
+                            }}
+                        >
+                            Farm
+                        </MenuItem>
+                    )}
+                    {hasComponents ? (
+                        <>
+                            <Divider />
+                            <PartComponentsListItems
+                                components={part.components}
+                            />
+                        </>
+                    ) : null}
                 </List>
             </Menu>
         </div>

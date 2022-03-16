@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
     CircularProgress,
     Divider,
@@ -11,17 +11,21 @@ import {
     ListSubheader,
     SwipeableDrawer as MuiDrawer,
     Toolbar,
-    useTheme
+    useTheme,
 } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import {staticRouteGroups} from "../../../../services/static-routes";
+import { staticRouteGroups } from "../../static-routes";
 import CopyrightIcon from "@mui/icons-material/Copyright";
-import {LinkProps as RouterLinkProps, NavLink as RouterLink, useLocation} from "react-router-dom";
-import {RouteGroup} from "../../../../types/route";
+import {
+    LinkProps as RouterLinkProps,
+    NavLink as RouterLink,
+    useLocation,
+} from "react-router-dom";
+import { RouteGroup } from "../../../../types/route";
 
 interface ISubnauticaDrawer {
     open: boolean;
-    setOpen: (open:boolean) => void;
+    setOpen: (open: boolean) => void;
     toggleDrawer: () => void;
     isDesktop: boolean;
     categoriesRouteGroup: RouteGroup;
@@ -30,7 +34,8 @@ interface ISubnauticaDrawer {
 const drawerWidth: number = 240;
 
 const SubnauticaDrawer = (props: ISubnauticaDrawer) => {
-    const { open, setOpen, isDesktop, toggleDrawer, categoriesRouteGroup } = props
+    const { open, setOpen, isDesktop, toggleDrawer, categoriesRouteGroup } =
+        props;
 
     return (
         <MuiDrawer
@@ -60,18 +65,16 @@ const SubnauticaDrawer = (props: ISubnauticaDrawer) => {
                 }}
             >
                 <IconButton onClick={toggleDrawer}>
-                    <ChevronLeftIcon/>
+                    <ChevronLeftIcon />
                 </IconButton>
             </Toolbar>
             {staticRouteGroups.map((rg, index) => {
                 return (
                     <React.Fragment key={index}>
                         <List>
-                            {
-                                rg.title ?
-                                    <ListSubheader>{rg.title}</ListSubheader>
-                                    : null
-                            }
+                            {rg.title ? (
+                                <ListSubheader>{rg.title}</ListSubheader>
+                            ) : null}
                             {rg.routes
                                 .filter((route) => route.navbar === true)
                                 .map((route) => {
@@ -88,43 +91,50 @@ const SubnauticaDrawer = (props: ISubnauticaDrawer) => {
                                     );
                                 })}
                         </List>
-                        <Divider/>
+                        <Divider />
                     </React.Fragment>
                 );
             })}
             {
                 <React.Fragment>
                     <List>
-                        <ListSubheader>{categoriesRouteGroup.title}</ListSubheader>
-                        {
-                            categoriesRouteGroup.routes.length > 0
-                                ? categoriesRouteGroup.routes
-                                    .filter((route) => route.navbar === true)
-                                    .map((route) => {
-                                        return (
-                                            <ListItemLink
-                                                key={route.name}
-                                                primary={route.title}
-                                                icon={route.icon}
-                                                to={route.path}
-                                                onClick={() => {
-                                                    setOpen(false);
-                                                }}
-                                            />
-                                        );
-                                    })
-                                : <ListItem sx={{ display: "flex", justifyContent: "center" }}>
-                                    <CircularProgress />
-                                </ListItem>
-                        }
+                        <ListSubheader>
+                            {categoriesRouteGroup.title}
+                        </ListSubheader>
+                        {categoriesRouteGroup.routes.length > 0 ? (
+                            categoriesRouteGroup.routes
+                                .filter((route) => route.navbar === true)
+                                .map((route) => {
+                                    return (
+                                        <ListItemLink
+                                            key={route.name}
+                                            primary={route.title}
+                                            icon={route.icon}
+                                            to={route.path}
+                                            onClick={() => {
+                                                setOpen(false);
+                                            }}
+                                        />
+                                    );
+                                })
+                        ) : (
+                            <ListItem
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                }}
+                            >
+                                <CircularProgress />
+                            </ListItem>
+                        )}
                     </List>
-                    <Divider/>
+                    <Divider />
                 </React.Fragment>
             }
-            <List style={{marginTop: `auto`}}>
+            <List style={{ marginTop: `auto` }}>
                 <ListItem dense>
                     <ListItemIcon>
-                        <CopyrightIcon/>
+                        <CopyrightIcon />
                     </ListItemIcon>
                     <ListItemText>
                         <Link color="inherit" href="https://www.mauaznar.com/">
@@ -142,7 +152,6 @@ const SubnauticaDrawer = (props: ISubnauticaDrawer) => {
 
 export default SubnauticaDrawer;
 
-
 interface ListItemLinkProps {
     icon?: React.ReactElement;
     primary: string;
@@ -152,7 +161,7 @@ interface ListItemLinkProps {
 }
 
 function ListItemLink(props: ListItemLinkProps) {
-    const {icon, primary, to, exact} = props;
+    const { icon, primary, to, exact } = props;
     const theme = useTheme();
     const location = useLocation();
 
@@ -183,7 +192,9 @@ function ListItemLink(props: ListItemLinkProps) {
                     <ListItemIcon
                         style={{
                             color:
-                                location.pathname === to ? theme.palette.primary.main : "unset",
+                                location.pathname === to
+                                    ? theme.palette.primary.main
+                                    : "unset",
                         }}
                     >
                         {icon}
@@ -193,7 +204,9 @@ function ListItemLink(props: ListItemLinkProps) {
                     primary={primary}
                     style={{
                         color:
-                            location.pathname === to ? theme.palette.primary.main : "unset",
+                            location.pathname === to
+                                ? theme.palette.primary.main
+                                : "unset",
                     }}
                 />
             </ListItem>

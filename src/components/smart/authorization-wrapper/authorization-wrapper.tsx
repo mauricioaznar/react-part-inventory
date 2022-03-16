@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useTypedSelector } from "../../../hooks/redux-hooks/use-typed-selector";
-import LoginForm from "../../views/auth/login-form";
+import LoginForm from "../../pages/auth/login-form";
 import { useCurrentUserLazyQuery } from "../../../services/schema";
 import { useActions } from "../../../hooks/redux-hooks/use-actions";
 import FullScreenLoader from "../../dum/loaders/full-screen-loader";

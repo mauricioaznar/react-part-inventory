@@ -10,14 +10,14 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import { staticRoutes } from "../../services/static-routes";
+import { staticRoutes } from "./static-routes";
 import SubnauticaAppBar from "./app/subnautica-app-bar/subnautica-app-bar";
 import SubnauticaDrawer from "./app/subnautica-drawer/subnautica-drawer";
 import { useGetPartCategoriesQueryWithRoutes } from "./app/use-get-part-categories-query-with-routes";
-import { GeneratePartContextProvider } from "./home-page/generate-part-form/i-generate-part-context/generate-part-context";
-import GeneratePartForm from "./home-page/generate-part-form/generate-part-form";
-import PageLoader from "./page-loader";
-import NotFound from "./not-found";
+import { GeneratePartContextProvider } from "./app/generate-part-form/i-generate-part-context/generate-part-context";
+import GeneratePartForm from "./app/generate-part-form/generate-part-form";
+import PageLoader from "./app/page-loader";
+import NotFoundPage from "./app/not-found-page";
 
 export default function App() {
     const theme = useTheme();
@@ -119,7 +119,7 @@ export default function App() {
                                 {getPartCategoriesLoading ? (
                                     <Route render={PageLoader} path={"*"} />
                                 ) : (
-                                    <Route render={NotFound} path={"*"} />
+                                    <Route render={NotFoundPage} path={"*"} />
                                 )}
                             </Switch>
                         </Paper>
