@@ -1,16 +1,5 @@
 import React from "react";
-import {
-    Box,
-    Divider,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText,
-    ListSubheader,
-    Menu,
-    MenuItem,
-    Typography,
-} from "@mui/material";
+import { Box, Divider, List, Menu, MenuItem, Typography } from "@mui/material";
 import { GetPartCategoriesQuery } from "../../../../../services/schema";
 import PartAvatar from "./part-avatar/part-avatar";
 import { useGeneratePartContext } from "../../../../pages/app/generate-part-form/i-generate-part-context/generate-part-context";
