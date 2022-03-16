@@ -11,7 +11,7 @@ interface AuthorizationWrapperProps {
 
 const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
   // auth
-  const { accessToken } = useTypedSelector((state) => state.auth);
+  const { accessToken, currentUser } = useTypedSelector((state) => state.auth);
 
   const { login, setCurrentUser } = useActions();
 
@@ -32,7 +32,7 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
 
   return currentUserLoading ? (
     <BigLoader />
-  ) : !accessToken ? (
+  ) : !currentUser ? (
       <LoginForm />
   ) : (
     props.children
