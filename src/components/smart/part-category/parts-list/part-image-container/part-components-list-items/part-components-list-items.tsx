@@ -1,51 +1,59 @@
 import React from "react";
 import {
-    ListItem,
+    Button,
     ListItemAvatar,
+    ListItemButton,
     ListItemText,
     ListSubheader,
     Typography,
 } from "@mui/material";
 import PartAvatar from "../part-avatar/part-avatar";
 import { GetPartCategoriesQuery } from "../../../../../../services/schema";
+import { NavLink } from "react-router-dom";
+import { getPartCategoryRouteName } from "../../../../../../helpers/get-part-category-route-name";
 
 interface IPartComponentListItems {
     components: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]["components"];
+    isLink?: boolean;
 }
 
 const PartComponentsListItems = (props: IPartComponentListItems) => {
-    const { components } = props;
+    const { components, isLink = true } = props;
 
     return (
         <>
             <ListSubheader>Components</ListSubheader>
-            {components.map((component) => {
+            {components.map(({ component, required_quantity }) => {
                 return (
-                    <ListItem key={component.component.part_id}>
+                    <ListItemButton
+                        key={component.part_id}
+                        component={isLink ? NavLink : Button}
+                        to={getPartCategoryRouteName(
+                            component.part_category_id,
+                        )}
+                    >
                         <ListItemAvatar>
                             <PartAvatar
-                                name={component.component.name}
-                                current_quantity={
-                                    component.component.current_quantity
-                                }
-                                image_url={component.component.image_url}
+                                name={component.name}
+                                current_quantity={component.current_quantity}
+                                image_url={component.image_url}
                                 size={"sm"}
                                 is_valid={
-                                    component.component.current_quantity >=
-                                    component.required_quantity
+                                    component.current_quantity >=
+                                    required_quantity
                                 }
                             />
                         </ListItemAvatar>
-                        <ListItemText primary={component.component.name} />
+                        <ListItemText primary={component.name} />
                         <Typography
                             sx={{
                                 ml: 2,
                             }}
-                            variant={"subtitle2"}
+                            variant={"body1"}
                         >
-                            {`x${component.required_quantity}`}
+                            {`x${required_quantity}`}
                         </Typography>
-                    </ListItem>
+                    </ListItemButton>
                 );
             })}
         </>

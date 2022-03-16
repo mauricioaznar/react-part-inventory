@@ -70,10 +70,12 @@ export default function HomePage() {
                     <List sx={{ maxWidth: "20rem", border: 1 }}>
                         <ListItemButton>Craft</ListItemButton>
                         <PartComponentsListItems
+                            isLink={false}
                             components={[
                                 {
                                     component: {
                                         part_id: 2,
+                                        part_category_id: 2,
                                         image_url: null,
                                         current_quantity: 4,
                                         name: "Component 1",

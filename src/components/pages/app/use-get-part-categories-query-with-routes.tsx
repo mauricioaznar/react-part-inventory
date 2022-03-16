@@ -3,6 +3,7 @@ import { useGetPartCategoriesQuery } from "../../../services/schema";
 import { Route, RouteGroup } from "../../../types/route";
 import PartCategoryContainer from "../../smart/part-category/part-category-container";
 import PartCategoriesList from "../../smart/part-categories-list/part-categories-list";
+import { getPartCategoryRouteName } from "../../../helpers/get-part-category-route-name";
 
 export const useGetPartCategoriesQueryWithRoutes = (): {
     categoriesRouteGroup: RouteGroup;
@@ -37,7 +38,7 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
                             title: pc.name,
                             exact: false,
                             navbar: true,
-                            path: `/partCategory/${pc.part_category_id}`,
+                            path: getPartCategoryRouteName(pc.part_category_id),
                             component: (
                                 <PartCategoryContainer partCategory={pc} />
                             ),

@@ -321,6 +321,7 @@ export const GetPartCategoriesDocument = gql`
       components {
         component {
           part_id
+          part_category_id
           name
           image_url
           current_quantity
@@ -450,7 +451,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Ac
 export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', part_category_id: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number } }> }> }> };
+export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', part_category_id: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', part_id: number, part_category_id: number, name: string, image_url?: string | null, current_quantity: number } }> }> }> };
 
 export type CraftPartMutationVariables = Exact<{
   craftInput: CraftInput;
