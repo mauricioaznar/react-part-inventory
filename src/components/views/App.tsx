@@ -1,19 +1,23 @@
 import * as React from "react";
-import {Route, Switch,} from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 // mui
-import {Box, Container, Paper, Toolbar, useMediaQuery, useTheme,} from "@mui/material";
-import {staticRoutes} from "../../services/static-routes";
+import {
+    Box,
+    Container,
+    Paper,
+    Toolbar,
+    useMediaQuery,
+    useTheme,
+} from "@mui/material";
+import { staticRoutes } from "../../services/static-routes";
 import SubnauticaAppBar from "./app/subnautica-app-bar/subnautica-app-bar";
 import SubnauticaDrawer from "./app/subnautica-drawer/subnautica-drawer";
-import {useGetPartCategoriesQueryWithRoutes} from "./app/use-get-part-categories-query-with-routes";
-import {
-    GeneratePartContextProvider
-} from "./home-page/generate-part-form/i-generate-part-context/generate-part-context";
+import { useGetPartCategoriesQueryWithRoutes } from "./app/use-get-part-categories-query-with-routes";
+import { GeneratePartContextProvider } from "./home-page/generate-part-form/i-generate-part-context/generate-part-context";
 import GeneratePartForm from "./home-page/generate-part-form/generate-part-form";
-import PageLoader from "../dum/loaders/page-loader";
+import PageLoader from "./page-loader";
 import NotFound from "./not-found";
-
 
 export default function App() {
     const theme = useTheme();
@@ -25,18 +29,16 @@ export default function App() {
         setOpen(!open);
     };
 
-
-
-    const {
-        categoriesRoutes,
-        categoriesRouteGroup,
-        getPartCategoriesLoading
-    } = useGetPartCategoriesQueryWithRoutes()
+    const { categoriesRoutes, categoriesRouteGroup, getPartCategoriesLoading } =
+        useGetPartCategoriesQueryWithRoutes();
 
     return (
-        <Box sx={{display: "flex"}}>
+        <Box sx={{ display: "flex" }}>
             <GeneratePartContextProvider>
-                <SubnauticaAppBar  isDesktop={mdAndUp} toggleDrawer={toggleDrawer} />
+                <SubnauticaAppBar
+                    isDesktop={mdAndUp}
+                    toggleDrawer={toggleDrawer}
+                />
                 <SubnauticaDrawer
                     open={open}
                     setOpen={setOpen}
@@ -45,7 +47,6 @@ export default function App() {
                     categoriesRouteGroup={categoriesRouteGroup}
                 />
 
-
                 <Box
                     component="main"
                     sx={{
@@ -53,17 +54,17 @@ export default function App() {
                         height: "100vh",
                         overflow: "auto",
                         display: "flex",
-                        flexDirection: "column"
+                        flexDirection: "column",
                     }}
                 >
-                    <Toolbar/>
+                    <Toolbar />
                     <Container
                         maxWidth="lg"
                         sx={{
                             mt: 3,
                             mb: 3,
                             display: "flex",
-                            flex: 1
+                            flex: 1,
                         }}
                     >
                         <Paper
@@ -71,12 +72,17 @@ export default function App() {
                                 p: 2,
                                 flex: 1,
                                 display: "flex",
-                                flexDirection: "column"
+                                flexDirection: "column",
                             }}
                         >
                             <Switch>
-                                {
-                                    staticRoutes.map(({name, path, component: Elem, exact}) => {
+                                {staticRoutes.map(
+                                    ({
+                                        name,
+                                        path,
+                                        component: Elem,
+                                        exact,
+                                    }) => {
                                         return (
                                             <Route
                                                 key={name}
@@ -87,53 +93,41 @@ export default function App() {
                                                 exact={exact || false}
                                             />
                                         );
-                                    })
-                                }
-                                {
-                                    categoriesRoutes
-                                        .map(({
-                                                  name,
-                                                  path,
-                                                  component: Elem,
-                                                  exact
-                                            }) => {
-                                                return (
-                                                        <Route
-                                                            sensitive={true}
-                                                            key={name}
-                                                            path={path}
-                                                            render={() => {
-                                                                return Elem;
-                                                            }}
-                                                            exact={exact || false}
-                                                        />
-                                                    );
-                                                }
-                                            )
-                                }
+                                    },
+                                )}
+                                {categoriesRoutes.map(
+                                    ({
+                                        name,
+                                        path,
+                                        component: Elem,
+                                        exact,
+                                    }) => {
+                                        return (
+                                            <Route
+                                                sensitive={true}
+                                                key={name}
+                                                path={path}
+                                                render={() => {
+                                                    return Elem;
+                                                }}
+                                                exact={exact || false}
+                                            />
+                                        );
+                                    },
+                                )}
 
-                                {
-                                    getPartCategoriesLoading
-                                        ? <Route
-                                            render={PageLoader}
-                                            path={'*'}
-                                        />
-                                        : <Route
-                                            render={NotFound}
-                                            path={'*'}
-                                        />
-                                }
-
+                                {getPartCategoriesLoading ? (
+                                    <Route render={PageLoader} path={"*"} />
+                                ) : (
+                                    <Route render={NotFound} path={"*"} />
+                                )}
                             </Switch>
                         </Paper>
                     </Container>
                 </Box>
 
                 <GeneratePartForm />
-
             </GeneratePartContextProvider>
         </Box>
     );
 }
-
-
