@@ -165,6 +165,7 @@ function ListItemLink(props: ListItemLinkProps) {
     return (
         <li>
             <ListItemButton
+                dense
                 strict
                 to={to}
                 component={RouterLink}
