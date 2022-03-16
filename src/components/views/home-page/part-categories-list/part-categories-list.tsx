@@ -1,8 +1,6 @@
 import React from 'react';
 import {GetPartCategoriesQuery} from "../../../../services/schema";
-import {Box, Stack} from "@mui/material";
-import PartCategoryTitle from "./part-category-title/part-category-title";
-import PartsList from "./parts-list/parts-list";
+import PartCategoryContainer from "../../../smart/part-category/part-category-container";
 
 interface PartCategoriesListProps {
 	partCategories: GetPartCategoriesQuery["getPartCategories"]
@@ -15,16 +13,7 @@ const PartCategoriesList = (props: PartCategoriesListProps) => {
 		{
 			partCategories.map(pc => {
 				return (
-					<Box key={pc.part_category_id}>
-						<PartCategoryTitle title={pc.name} />
-						<Stack
-							direction="row"
-							flexWrap={'wrap'}
-							sx={{ my: 4 }}
-						>
-							<PartsList parts={pc.parts} />
-						</Stack>
-					</Box>
+					<PartCategoryContainer key={pc.part_category_id} partCategory={pc} />
 				)
 			})
 		}

@@ -1,11 +1,11 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 
 export interface Route {
   title: string;
   icon?: ReactElement<any, any>;
   name: string;
   path: string;
-  component: ReactElement<any, any>;
+  component: React.ReactNode;
   exact?: boolean;
   navbar?: boolean;
 }

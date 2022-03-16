@@ -15,7 +15,7 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
 
   const { login, setCurrentUser } = useActions();
 
-  const [getCurrentUser, { loading }] = useCurrentUserLazyQuery({
+  const [getCurrentUser, { loading: currentUserLoading }] = useCurrentUserLazyQuery({
     onCompleted: function (data) {
       if (data?.currentUser.username) {
         setCurrentUser(data.currentUser);
@@ -30,12 +30,12 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
     }
   }, [accessToken]);
 
-  return loading ? (
+  return currentUserLoading ? (
     <BigLoader />
-  ) : accessToken !== null ? (
-    props.children
+  ) : !accessToken ? (
+      <LoginForm />
   ) : (
-    <LoginForm />
+    props.children
   );
 };
 

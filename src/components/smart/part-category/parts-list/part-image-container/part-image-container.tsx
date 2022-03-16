@@ -11,9 +11,9 @@ import {
     MenuItem,
     Typography
 } from "@mui/material";
-import {GetPartCategoriesQuery} from "../../../../../../services/schema";
+import {GetPartCategoriesQuery} from "../../../../../services/schema";
 import PartAvatar from "./part-avatar/part-avatar";
-import {useGeneratePartContext} from "../../../generate-part-form/i-generate-part-context/generate-part-context";
+import {useGeneratePartContext} from "../../../../views/home-page/generate-part-form/i-generate-part-context/generate-part-context";
 
 
 interface PartAvatarProps {

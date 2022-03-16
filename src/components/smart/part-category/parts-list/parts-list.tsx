@@ -1,5 +1,5 @@
 import React from 'react';
-import {GetPartCategoriesQuery} from "../../../../../services/schema";
+import {GetPartCategoriesQuery} from "../../../../services/schema";
 import PartImageContainer from "./part-image-container/part-image-container";
 
 interface PartsListProps {
