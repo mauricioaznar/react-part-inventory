@@ -46,59 +46,64 @@ const PartImageContainer = (props: PartAvatarProps) => {
     const hasComponents = part.components.length > 0;
 
     return (
-        <div onContextMenu={handleMouseEvent}>
-            <Box sx={{ textAlign: "center", px: 2, py: 1 }}>
-                <PartAvatar
-                    name={part.name}
-                    current_quantity={part.current_quantity}
-                    image_url={part.image_url}
-                    is_valid={isEveryQuantityValid}
-                />
-                <Typography sx={{ mt: 2, maxWidth: "5rem" }}>
-                    {part.name}
-                </Typography>
-            </Box>
-            <Menu
-                open={contextMenu !== null}
-                onClose={handleClose}
-                anchorReference="anchorPosition"
-                anchorPosition={
-                    contextMenu !== null
-                        ? { top: contextMenu.mouseY, left: contextMenu.mouseX }
-                        : undefined
-                }
-            >
-                <List>
-                    {hasComponents ? (
-                        <MenuItem
-                            onClick={() => {
-                                initCraft(part);
-                                handleClose();
-                            }}
-                        >
-                            Craft
-                        </MenuItem>
-                    ) : (
-                        <MenuItem
-                            onClick={() => {
-                                initAdd(part);
-                                handleClose();
-                            }}
-                        >
-                            Farm
-                        </MenuItem>
-                    )}
-                    {hasComponents ? (
-                        <>
-                            <Divider />
-                            <PartComponentsListItems
-                                components={part.components}
-                            />
-                        </>
-                    ) : null}
-                </List>
-            </Menu>
-        </div>
+        <Box sx={{ mx: 2, my: 1 }}>
+            <div onClick={handleMouseEvent} style={{ cursor: "pointer" }}>
+                <Box sx={{ textAlign: "center" }}>
+                    <PartAvatar
+                        name={part.name}
+                        current_quantity={part.current_quantity}
+                        image_url={part.image_url}
+                        is_valid={isEveryQuantityValid}
+                    />
+                    <Typography sx={{ mt: 2, maxWidth: "5rem" }}>
+                        {part.name}
+                    </Typography>
+                </Box>
+                <Menu
+                    open={contextMenu !== null}
+                    onClose={handleClose}
+                    anchorReference="anchorPosition"
+                    anchorPosition={
+                        contextMenu !== null
+                            ? {
+                                  top: contextMenu.mouseY,
+                                  left: contextMenu.mouseX,
+                              }
+                            : undefined
+                    }
+                >
+                    <List>
+                        {hasComponents ? (
+                            <MenuItem
+                                onClick={() => {
+                                    initCraft(part);
+                                    handleClose();
+                                }}
+                            >
+                                Craft
+                            </MenuItem>
+                        ) : (
+                            <MenuItem
+                                onClick={() => {
+                                    initAdd(part);
+                                    handleClose();
+                                }}
+                            >
+                                Farm
+                            </MenuItem>
+                        )}
+                        {hasComponents ? (
+                            <>
+                                <Divider />
+                                <PartComponentsListItems
+                                    components={part.components}
+                                />
+                            </>
+                        ) : null}
+                    </List>
+                </Menu>
+            </div>
+        </Box>
     );
 };
 
