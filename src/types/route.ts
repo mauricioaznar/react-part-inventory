@@ -5,7 +5,7 @@ export interface Route {
   icon?: ReactElement<any, any>;
   name: string;
   path: string;
-  component: React.ReactNode;
+  component?: React.ReactNode;
   exact?: boolean;
   navbar?: boolean;
 }

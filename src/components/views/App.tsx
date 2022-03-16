@@ -2,7 +2,7 @@ import * as React from "react";
 import {Route, Switch,} from "react-router-dom";
 
 // mui
-import {Box, Container, Grid, Paper, Toolbar, useMediaQuery, useTheme,} from "@mui/material";
+import {Box, Container, Paper, Toolbar, useMediaQuery, useTheme,} from "@mui/material";
 import {staticRoutes} from "../../services/static-routes";
 import SubnauticaAppBar from "./app/subnautica-app-bar/subnautica-app-bar";
 import SubnauticaDrawer from "./app/subnautica-drawer/subnautica-drawer";
@@ -11,6 +11,8 @@ import {
     GeneratePartContextProvider
 } from "./home-page/generate-part-form/i-generate-part-context/generate-part-context";
 import GeneratePartForm from "./home-page/generate-part-form/generate-part-form";
+import PageLoader from "../dum/loaders/page-loader";
+import NotFound from "./not-found";
 
 
 export default function App() {
@@ -27,12 +29,12 @@ export default function App() {
 
     const {
         categoriesRoutes,
-        categoriesRouteGroup
+        categoriesRouteGroup,
+        getPartCategoriesLoading
     } = useGetPartCategoriesQueryWithRoutes()
 
     return (
         <Box sx={{display: "flex"}}>
-
             <GeneratePartContextProvider>
                 <SubnauticaAppBar  isDesktop={mdAndUp} toggleDrawer={toggleDrawer} />
                 <SubnauticaDrawer
@@ -50,54 +52,80 @@ export default function App() {
                         flexGrow: 1,
                         height: "100vh",
                         overflow: "auto",
+                        display: "flex",
+                        flexDirection: "column"
                     }}
                 >
                     <Toolbar/>
-                    <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
-                        <Grid container spacing={3} justifyContent={"center"}>
-                            <Grid item xs>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        justifyContent: "stretch",
-                                        minHeight: "50vh",
-                                    }}
-                                >
-                                    <Switch>
-                                        {
-                                            staticRoutes.map(({name, path, component: Elem, exact}) => {
+                    <Container
+                        maxWidth="lg"
+                        sx={{
+                            mt: 3,
+                            mb: 3,
+                            display: "flex",
+                            flex: 1
+                        }}
+                    >
+                        <Paper
+                            sx={{
+                                p: 2,
+                                flex: 1,
+                                display: "flex",
+                                flexDirection: "column"
+                            }}
+                        >
+                            <Switch>
+                                {
+                                    staticRoutes.map(({name, path, component: Elem, exact}) => {
+                                        return (
+                                            <Route
+                                                key={name}
+                                                path={path}
+                                                render={() => {
+                                                    return Elem;
+                                                }}
+                                                exact={exact || false}
+                                            />
+                                        );
+                                    })
+                                }
+                                {
+                                    categoriesRoutes
+                                        .map(({
+                                                  name,
+                                                  path,
+                                                  component: Elem,
+                                                  exact
+                                            }) => {
                                                 return (
-                                                    <Route
-                                                        key={name}
-                                                        path={path}
-                                                        render={() => {
-                                                            return Elem;
-                                                        }}
-                                                        exact={exact || false}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                        {
-                                            categoriesRoutes.map(({name, path, component: Elem, exact}) => {
-                                                return (
-                                                    <Route
-                                                        key={name}
-                                                        path={path}
-                                                        render={() => {
-                                                            return Elem;
-                                                        }}
-                                                        exact={exact || false}
-                                                    />
-                                                );
-                                            })
-                                        }
-                                    </Switch>
-                                </Paper>
-                            </Grid>
-                        </Grid>
+                                                        <Route
+                                                            sensitive={true}
+                                                            key={name}
+                                                            path={path}
+                                                            render={() => {
+                                                                return Elem;
+                                                            }}
+                                                            exact={exact || false}
+                                                        />
+                                                    );
+                                                }
+                                            )
+                                }
+
+                                {
+                                    getPartCategoriesLoading
+                                        ? <Route
+                                            render={PageLoader}
+                                            path={'*'}
+                                        />
+                                        : <Route
+                                            render={NotFound}
+                                            path={'*'}
+                                        />
+                                }
+
+                            </Switch>
+                        </Paper>
                     </Container>
                 </Box>
 
@@ -107,4 +135,5 @@ export default function App() {
         </Box>
     );
 }
+
 
