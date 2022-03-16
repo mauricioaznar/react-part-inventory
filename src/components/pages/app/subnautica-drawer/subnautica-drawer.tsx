@@ -6,6 +6,7 @@ import {
     Link,
     List,
     ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     ListSubheader,
@@ -16,11 +17,7 @@ import {
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { staticRouteGroups } from "../../static-routes";
 import CopyrightIcon from "@mui/icons-material/Copyright";
-import {
-    LinkProps as RouterLinkProps,
-    NavLink as RouterLink,
-    useLocation,
-} from "react-router-dom";
+import { NavLink as RouterLink, useLocation } from "react-router-dom";
 import { RouteGroup } from "../../../../types/route";
 
 interface ISubnauticaDrawer {
@@ -165,29 +162,16 @@ function ListItemLink(props: ListItemLinkProps) {
     const theme = useTheme();
     const location = useLocation();
 
-    const renderLink = React.useMemo(
-        () =>
-            React.forwardRef<HTMLAnchorElement, Omit<RouterLinkProps, "to">>(
-                function Link(itemProps, ref) {
-                    return (
-                        <RouterLink
-                            strict
-                            to={to}
-                            ref={ref}
-                            {...itemProps}
-                            role={undefined}
-                            exact={exact || false}
-                            onClick={props.onClick}
-                        />
-                    );
-                },
-            ),
-        [to],
-    );
-
     return (
         <li>
-            <ListItem button component={renderLink}>
+            <ListItemButton
+                strict
+                to={to}
+                component={RouterLink}
+                role={undefined}
+                exact={exact || false}
+                onClick={props.onClick}
+            >
                 {icon ? (
                     <ListItemIcon
                         style={{
@@ -209,7 +193,7 @@ function ListItemLink(props: ListItemLinkProps) {
                                 : "unset",
                     }}
                 />
-            </ListItem>
+            </ListItemButton>
         </li>
     );
 }
