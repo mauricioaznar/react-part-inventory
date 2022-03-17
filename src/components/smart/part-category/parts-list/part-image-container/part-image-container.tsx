@@ -46,9 +46,9 @@ const PartImageContainer = (props: PartAvatarProps) => {
     const hasComponents = part.components.length > 0;
 
     return (
-        <Box sx={{ mx: 2, my: 1 }}>
+        <Box sx={{ mx: 2, my: 1, display: "flex", justifyContent: "center" }}>
             <Box onClick={handleMouseEvent} sx={{ cursor: "pointer", maxWidth: "5rem" }}>
-                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center",  }}>
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <PartAvatar
                         name={part.name}
                         current_quantity={part.current_quantity}
