@@ -26,7 +26,7 @@ export const PartClickedContextProvider = (
         if (partClicked !== null) {
             const timeout = setTimeout(() => {
                 setPartClicked(null);
-            }, 4000);
+            }, 4500);
             return () => {
                 clearTimeout(timeout);
             };
