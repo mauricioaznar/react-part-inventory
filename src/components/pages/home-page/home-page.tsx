@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, List, ListItemButton, Typography } from "@mui/material";
-import PartComponentsListItems from "../../smart/part-category/parts-list/part-image-container/part-components-list-items/part-components-list-items";
-import PartAvatar from "../../smart/part-category/parts-list/part-image-container/part-avatar/part-avatar";
+import PartComponentsListItems from "../../smart/part-category/parts-list/part-container/part-components-list-items/part-components-list-items";
+import PartAvatar from "../../smart/part-category/parts-list/part-container/part-avatar/part-avatar";
 
 export default function HomePage() {
     return (
@@ -26,6 +26,8 @@ export default function HomePage() {
                         name={"Part 1"}
                         current_quantity={2}
                         is_valid={true}
+                        part_id={0}
+                        active={false}
                     />
                 </Box>
                 <Box sx={{ ml: 2 }}>
@@ -33,6 +35,8 @@ export default function HomePage() {
                         name={"Part 2"}
                         current_quantity={1}
                         is_valid={false}
+                        part_id={0}
+                        active={false}
                     />
                 </Box>
             </Box>
@@ -71,6 +75,7 @@ export default function HomePage() {
                         <ListItemButton>Craft</ListItemButton>
                         <PartComponentsListItems
                             isLink={false}
+                            onComponentClick={() => {}}
                             components={[
                                 {
                                     component: {

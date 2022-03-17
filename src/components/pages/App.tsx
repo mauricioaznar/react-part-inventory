@@ -18,13 +18,13 @@ import { GeneratePartContextProvider } from "./app/generate-part-form/i-generate
 import GeneratePartForm from "./app/generate-part-form/generate-part-form";
 import PageLoader from "./app/page-loader";
 import NotFoundPage from "./app/not-found-page";
+import { PartClickedContextProvider } from "./app/part-clicked-context/part-clicked-context";
 
 export default function App() {
     const theme = useTheme();
     const mdAndUp = useMediaQuery(theme.breakpoints.up("lg"));
 
     const [open, setOpen] = React.useState(false);
-
 
     const toggleDrawer = () => {
         setOpen(!open);
@@ -36,98 +36,103 @@ export default function App() {
     return (
         <Box sx={{ display: "flex" }}>
             <GeneratePartContextProvider>
-                <SubnauticaAppBar
-                    isDesktop={mdAndUp}
-                    toggleDrawer={toggleDrawer}
-                />
-                <SubnauticaDrawer
-                    open={open}
-                    setOpen={setOpen}
-                    toggleDrawer={toggleDrawer}
-                    isDesktop={mdAndUp}
-                    categoriesRouteGroup={categoriesRouteGroup}
-                />
+                <PartClickedContextProvider>
+                    <SubnauticaAppBar
+                        isDesktop={mdAndUp}
+                        toggleDrawer={toggleDrawer}
+                    />
+                    <SubnauticaDrawer
+                        open={open}
+                        setOpen={setOpen}
+                        toggleDrawer={toggleDrawer}
+                        isDesktop={mdAndUp}
+                        categoriesRouteGroup={categoriesRouteGroup}
+                    />
 
-                <Box
-                    component="main"
-                    sx={{
-                        flexGrow: 1,
-                        height: "100vh",
-                        overflow: "auto",
-                        display: "flex",
-                        flexDirection: "column",
-                    }}
-                >
-                    <Toolbar />
-                    <Container
-                        maxWidth="lg"
+                    <Box
+                        component="main"
                         sx={{
-                            mt: 3,
-                            mb: 3,
+                            flexGrow: 1,
+                            height: "100vh",
+                            overflow: "auto",
                             display: "flex",
-                            flex: 1,
+                            flexDirection: "column",
                         }}
                     >
-                        <Paper
+                        <Toolbar />
+                        <Container
+                            maxWidth="lg"
                             sx={{
-                                p: 2,
-                                flex: 1,
+                                mt: 3,
+                                mb: 3,
                                 display: "flex",
-                                flexDirection: "column",
+                                flex: 1,
                             }}
                         >
-                            <Switch>
-                                {staticRoutes.map(
-                                    ({
-                                        name,
-                                        path,
-                                        component: Elem,
-                                        exact,
-                                    }) => {
-                                        return (
-                                            <Route
-                                                key={name}
-                                                path={path}
-                                                render={() => {
-                                                    return Elem;
-                                                }}
-                                                exact={exact || false}
-                                            />
-                                        );
-                                    },
-                                )}
-                                {categoriesRoutes.map(
-                                    ({
-                                        name,
-                                        path,
-                                        component: Elem,
-                                        exact,
-                                    }) => {
-                                        return (
-                                            <Route
-                                                sensitive={true}
-                                                key={name}
-                                                path={path}
-                                                render={() => {
-                                                    return Elem;
-                                                }}
-                                                exact={exact || false}
-                                            />
-                                        );
-                                    },
-                                )}
+                            <Paper
+                                sx={{
+                                    p: 2,
+                                    flex: 1,
+                                    display: "flex",
+                                    flexDirection: "column",
+                                }}
+                            >
+                                <Switch>
+                                    {staticRoutes.map(
+                                        ({
+                                            name,
+                                            path,
+                                            component: Elem,
+                                            exact,
+                                        }) => {
+                                            return (
+                                                <Route
+                                                    key={name}
+                                                    path={path}
+                                                    render={() => {
+                                                        return Elem;
+                                                    }}
+                                                    exact={exact || false}
+                                                />
+                                            );
+                                        },
+                                    )}
+                                    {categoriesRoutes.map(
+                                        ({
+                                            name,
+                                            path,
+                                            component: Elem,
+                                            exact,
+                                        }) => {
+                                            return (
+                                                <Route
+                                                    sensitive={true}
+                                                    key={name}
+                                                    path={path}
+                                                    render={() => {
+                                                        return Elem;
+                                                    }}
+                                                    exact={exact || false}
+                                                />
+                                            );
+                                        },
+                                    )}
 
-                                { !hasSetupCompleted ? (
-                                    <Route render={PageLoader} path={"*"} />
-                                ) : (
-                                    <Route render={NotFoundPage} path={"*"} />
-                                )}
-                            </Switch>
-                        </Paper>
-                    </Container>
-                </Box>
+                                    {!hasSetupCompleted ? (
+                                        <Route render={PageLoader} path={"*"} />
+                                    ) : (
+                                        <Route
+                                            render={NotFoundPage}
+                                            path={"*"}
+                                        />
+                                    )}
+                                </Switch>
+                            </Paper>
+                        </Container>
+                    </Box>
 
-                <GeneratePartForm />
+                    <GeneratePartForm />
+                </PartClickedContextProvider>
             </GeneratePartContextProvider>
         </Box>
     );

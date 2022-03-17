@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    Button,
     ListItemAvatar,
     ListItemButton,
     ListItemText,
@@ -9,16 +8,21 @@ import {
 } from "@mui/material";
 import PartAvatar from "../part-avatar/part-avatar";
 import { GetPartCategoriesQuery } from "../../../../../../services/schema";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { getPartCategoryRouteName } from "../../../../../../helpers/get-part-category-route-name";
 
+type Components =
+    GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]["components"];
+
 interface IPartComponentListItems {
-    components: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]["components"];
+    components: Components;
+    onComponentClick: (component: Components[number]["component"]) => void;
     isLink?: boolean;
 }
 
 const PartComponentsListItems = (props: IPartComponentListItems) => {
-    const { components, isLink = true } = props;
+    const { components, isLink = true, onComponentClick } = props;
+    const history = useHistory();
 
     return (
         <>
@@ -27,13 +31,20 @@ const PartComponentsListItems = (props: IPartComponentListItems) => {
                 return (
                     <ListItemButton
                         key={component.part_id}
-                        component={isLink ? NavLink : Button}
-                        to={getPartCategoryRouteName(
-                            component.part_category_id,
-                        )}
+                        onClick={() => {
+                            if (isLink) {
+                                onComponentClick(component);
+                                history.push(
+                                    getPartCategoryRouteName(
+                                        component.part_category_id,
+                                    ),
+                                );
+                            }
+                        }}
                     >
                         <ListItemAvatar>
                             <PartAvatar
+                                part_id={component.part_id}
                                 name={component.name}
                                 current_quantity={component.current_quantity}
                                 image_url={component.image_url}
@@ -42,6 +53,8 @@ const PartComponentsListItems = (props: IPartComponentListItems) => {
                                     component.current_quantity >=
                                     required_quantity
                                 }
+                                active={false}
+                                hide_name
                             />
                         </ListItemAvatar>
                         <ListItemText primary={component.name} />
