@@ -14,10 +14,13 @@ interface PartImageProps {
 }
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
-    "&.MuiAvatar-circular": {
+    "&.part-avatar.MuiAvatar-circular": {
         overflow: "visible",
     },
-    "&.part-clicked": {
+    "&.part-avatar.MuiAvatar-circular img": {
+        borderRadius: "100%",
+    },
+    "&.part-avatar.part-clicked": {
         "&::before": {
             position: "absolute",
             width: "100%",
@@ -25,7 +28,7 @@ const StyledAvatar = styled(Avatar)(({ theme }) => ({
             zIndex: 100,
             borderRadius: "50%",
             animation: "ripple 1.5s 3 ease-in-out forwards",
-            border: `3px solid ${theme.palette.divider}`,
+            border: `5px solid ${theme.palette.divider}`,
             content: '""',
         },
     },
@@ -59,6 +62,8 @@ const PartAvatar = (props: PartImageProps) => {
 
     const color: "success" | "warning" = is_valid ? "success" : "warning";
 
+    const avatarClassName = `${active ? "part-clicked" : ""}  part-avatar`;
+
     return (
         <>
             <Badge
@@ -69,14 +74,14 @@ const PartAvatar = (props: PartImageProps) => {
             >
                 {image_url ? (
                     <StyledAvatar
-                        className={active ? "part-clicked" : ""}
+                        className={avatarClassName}
                         alt={name}
                         src={image_url}
                         sx={{ ...widthAndHeight }}
                     />
                 ) : (
                     <StyledAvatar
-                        className={active ? "part-clicked" : ""}
+                        className={avatarClassName}
                         sx={{ bgcolor: deepOrange[500] }}
                     >
                         {name.charAt(0)}
