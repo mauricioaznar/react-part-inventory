@@ -25,11 +25,12 @@ export default function App() {
 
     const [open, setOpen] = React.useState(false);
 
+
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
-    const { categoriesRoutes, categoriesRouteGroup, getPartCategoriesLoading } =
+    const { categoriesRoutes, categoriesRouteGroup, hasSetupCompleted } =
         useGetPartCategoriesQueryWithRoutes();
 
     return (
@@ -116,7 +117,7 @@ export default function App() {
                                     },
                                 )}
 
-                                {getPartCategoriesLoading ? (
+                                { !hasSetupCompleted ? (
                                     <Route render={PageLoader} path={"*"} />
                                 ) : (
                                     <Route render={NotFoundPage} path={"*"} />

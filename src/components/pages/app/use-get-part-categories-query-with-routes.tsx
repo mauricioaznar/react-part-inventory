@@ -8,12 +8,13 @@ import { getPartCategoryRouteName } from "../../../helpers/get-part-category-rou
 export const useGetPartCategoriesQueryWithRoutes = (): {
     categoriesRouteGroup: RouteGroup;
     categoriesRoutes: Route[];
-    getPartCategoriesLoading: boolean;
+    hasSetupCompleted: boolean;
 } => {
     const [routes, setRoutes] = useState<Route[]>([]);
 
     // onCompleted is not reliable
-    const { data, loading } = useGetPartCategoriesQuery();
+    const { data } = useGetPartCategoriesQuery();
+    const [hasSetupCompleted, setHasSetupCompleted] = useState(false)
 
     useEffect(() => {
         if (data !== undefined) {
@@ -46,6 +47,7 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
                     }),
                 ),
             );
+            setHasSetupCompleted(true)
         }
     }, [data]);
 
@@ -55,6 +57,6 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
             routes: routes,
         },
         categoriesRoutes: routes,
-        getPartCategoriesLoading: loading,
+        hasSetupCompleted
     };
 };

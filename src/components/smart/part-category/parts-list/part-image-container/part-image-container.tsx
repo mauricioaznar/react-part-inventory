@@ -47,15 +47,15 @@ const PartImageContainer = (props: PartAvatarProps) => {
 
     return (
         <Box sx={{ mx: 2, my: 1 }}>
-            <div onClick={handleMouseEvent} style={{ cursor: "pointer" }}>
-                <Box sx={{ textAlign: "center" }}>
+            <Box onClick={handleMouseEvent} sx={{ cursor: "pointer", maxWidth: "5rem" }}>
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center",  }}>
                     <PartAvatar
                         name={part.name}
                         current_quantity={part.current_quantity}
                         image_url={part.image_url}
                         is_valid={isEveryQuantityValid}
                     />
-                    <Typography sx={{ mt: 2, maxWidth: "5rem" }}>
+                    <Typography sx={{ mt: 2, maxWidth: "100%" }} textAlign={'center'}>
                         {part.name}
                     </Typography>
                 </Box>
@@ -102,7 +102,7 @@ const PartImageContainer = (props: PartAvatarProps) => {
                         ) : null}
                     </List>
                 </Menu>
-            </div>
+            </Box>
         </Box>
     );
 };

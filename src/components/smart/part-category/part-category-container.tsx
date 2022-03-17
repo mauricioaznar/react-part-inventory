@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Stack} from "@mui/material";
+import {Box} from "@mui/material";
 import PartsList from "./parts-list/parts-list";
 import {GetPartCategoriesQuery} from "../../../services/schema";
 import PartCategoryTitle from "./part-category-title/part-category-title";
@@ -12,13 +12,7 @@ const PartCategoryContainer = (props: IPartCategoryContainer) => {
     return (
         <Box>
             <PartCategoryTitle title={partCategory.name} />
-            <Stack
-                direction="row"
-                flexWrap={'wrap'}
-                sx={{ my: 4 }}
-            >
-                <PartsList parts={partCategory.parts} />
-            </Stack>
+            <PartsList parts={partCategory.parts} />
         </Box>
     );
 };
