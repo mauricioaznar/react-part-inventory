@@ -41,11 +41,11 @@ const TestingPage = () => {
     };
 
     const initialTouched: FormikTouched<ITestingForm> = {
-        username: true,
-        password: true,
+        username: false,
+        password: false,
         posts: [
             {
-                name: true,
+                name: false,
             },
         ],
     };
