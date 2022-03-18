@@ -72,7 +72,7 @@ const PartContainer = (props: IPartContainer) => {
                         part_id={part.part_id}
                         name={part.name}
                         current_quantity={part.currentQuantity}
-                        image_url={part.image_url}
+                        image_url={part.imageUrl}
                         is_valid={isEveryQuantityValid}
                     />
                 </Box>
@@ -128,7 +128,7 @@ const PartContainer = (props: IPartContainer) => {
                                         });
                                         history.push(
                                             getPartCategoryRouteName(
-                                                component.part_category_id,
+                                                component.partCategoryId,
                                             ),
                                         );
                                     }}
@@ -155,7 +155,7 @@ const PartContainer = (props: IPartContainer) => {
                                         });
                                         history.push(
                                             getPartCategoryRouteName(
-                                                component.part_category_id,
+                                                component.partCategoryId,
                                             ),
                                         );
                                     }}

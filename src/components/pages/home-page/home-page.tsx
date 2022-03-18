@@ -81,8 +81,8 @@ export default function HomePage() {
                                 {
                                     part: {
                                         part_id: 2,
-                                        part_category_id: 2,
-                                        image_url: null,
+                                        partCategoryId: 2,
+                                        imageUrl: null,
                                         currentQuantity: 4,
                                         name: "Component 1",
                                     },

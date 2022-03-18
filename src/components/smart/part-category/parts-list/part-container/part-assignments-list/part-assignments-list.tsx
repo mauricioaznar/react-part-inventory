@@ -13,9 +13,9 @@ import { getPartCategoryRouteName } from "../../../../../../helpers/get-part-cat
 
 type Part = {
     part_id: number;
-    part_category_id: number;
+    partCategoryId: number;
     currentQuantity: number;
-    image_url?: string | null;
+    imageUrl?: string | null;
     name: string;
 };
 
@@ -51,7 +51,7 @@ const PartAssignmentsList = (props: IPartAssignmentListItems) => {
                                 onPartClick(part);
                                 history.push(
                                     getPartCategoryRouteName(
-                                        part.part_category_id,
+                                        part.partCategoryId,
                                     ),
                                 );
                             }
@@ -62,7 +62,7 @@ const PartAssignmentsList = (props: IPartAssignmentListItems) => {
                                 part_id={part.part_id}
                                 name={part.name}
                                 current_quantity={part.currentQuantity}
-                                image_url={part.image_url}
+                                image_url={part.imageUrl}
                                 size={"sm"}
                                 is_valid={
                                     part.currentQuantity >= requiredQuantity

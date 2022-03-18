@@ -13,7 +13,7 @@ const PartCategoriesList = (props: PartCategoriesListProps) => {
             {partCategories.map((pc) => {
                 return (
                     <PartCategoryContainer
-                        key={pc.part_category_id}
+                        key={pc.partCategoryId}
                         partCategory={pc}
                     />
                 );

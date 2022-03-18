@@ -14,7 +14,7 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
 
     // onCompleted is not reliable
     const { data } = useGetPartCategoriesQuery();
-    const [hasSetupCompleted, setHasSetupCompleted] = useState(false)
+    const [hasSetupCompleted, setHasSetupCompleted] = useState(false);
 
     useEffect(() => {
         if (data !== undefined) {
@@ -39,7 +39,7 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
                             title: pc.name,
                             exact: false,
                             navbar: true,
-                            path: getPartCategoryRouteName(pc.part_category_id),
+                            path: getPartCategoryRouteName(pc.partCategoryId),
                             component: (
                                 <PartCategoryContainer partCategory={pc} />
                             ),
@@ -47,7 +47,7 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
                     }),
                 ),
             );
-            setHasSetupCompleted(true)
+            setHasSetupCompleted(true);
         }
     }, [data]);
 
@@ -57,6 +57,6 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
             routes: routes,
         },
         categoriesRoutes: routes,
-        hasSetupCompleted
+        hasSetupCompleted,
     };
 };
