@@ -7,7 +7,7 @@ query GetPartCategories {
             name
             image_url
             current_quantity
-            components {
+            componentAssignments {
                 component {
                     part_id
                     part_category_id
@@ -15,7 +15,17 @@ query GetPartCategories {
                     image_url
                     current_quantity
                 }
-                required_quantity
+                requiredQuantity
+            }
+            parentAssignments {
+                parent {
+                    part_id
+                    part_category_id
+                    name
+                    image_url
+                    current_quantity
+                }
+                requiredQuantity
             }
         }
     }

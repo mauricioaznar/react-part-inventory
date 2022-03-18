@@ -1,75 +1,63 @@
-import React from 'react';
-import {GetPartCategoriesQuery} from "../../../../../services/schema";
-import {Table, TableBody, TableCell, TableHead, TableRow} from "@mui/material";
-import {useFormikContext} from "formik";
-import {IGeneratePartForm} from "../i-generate-part-context/i-generate-part-form";
-import {convertToNumber} from "../../../../../helpers/convert-to-number";
+import React from "react";
+import { GetPartCategoriesQuery } from "../../../../../services/schema";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+} from "@mui/material";
+import { useFormikContext } from "formik";
+import { IGeneratePartForm } from "../i-generate-part-context/i-generate-part-form";
+import { convertToNumber } from "../../../../../helpers/convert-to-number";
 
 interface IComponentTable {
-    components: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]["components"]
+    componentAssignments: GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]["componentAssignments"];
 }
 
 const ComponentTable = (props: IComponentTable) => {
-    const {components} = props
+    const { componentAssignments } = props;
 
     const { values } = useFormikContext<IGeneratePartForm>();
 
-    if (components.length === 0) return null
+    if (componentAssignments.length === 0) return null;
 
     return (
         <Table>
             <TableHead>
                 <TableRow>
-                    <TableCell>
-                        Component
-                    </TableCell>
-                    <TableCell>
-                        Available component quantity
-                    </TableCell>
-                    <TableCell>
-                        Required quantity per part
-                    </TableCell>
-                    <TableCell>
-                        Total required
-                    </TableCell>
+                    <TableCell>Component</TableCell>
+                    <TableCell>Available component quantity</TableCell>
+                    <TableCell>Required quantity per part</TableCell>
+                    <TableCell>Total required</TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
-                {
-                    components.map(({ component, required_quantity }) => {
-                        const partQuantity = convertToNumber(values.quantity)
-                        const totalQuantity = partQuantity * required_quantity
-                        const hasEnough = component.current_quantity >= totalQuantity
-                        const tableCellColor = {
-                            color: hasEnough ? undefined : "error.main"
-                        }
-                        return (
-                            <TableRow key={component.part_id}>
-                                <TableCell sx={{...tableCellColor}}>
-                                    {
-                                        component.name
-                                    }
-                                </TableCell>
-                                <TableCell sx={{...tableCellColor}}>
-                                    {
-                                        component.current_quantity
-                                    }
-                                </TableCell>
-                                <TableCell sx={{...tableCellColor}}>
-                                    {
-                                        required_quantity
-                                    }
-                                </TableCell>
-                                <TableCell sx={{...tableCellColor}}>
-                                    {
-                                        totalQuantity
-                                    }
-                                </TableCell>
-                            </TableRow>
-                        )
-                    })
-                }
-
+                {componentAssignments.map(({ component, requiredQuantity }) => {
+                    const partQuantity = convertToNumber(values.quantity);
+                    const totalQuantity = partQuantity * requiredQuantity;
+                    const hasEnough =
+                        component.current_quantity >= totalQuantity;
+                    const tableCellColor = {
+                        color: hasEnough ? undefined : "error.main",
+                    };
+                    return (
+                        <TableRow key={component.part_id}>
+                            <TableCell sx={{ ...tableCellColor }}>
+                                {component.name}
+                            </TableCell>
+                            <TableCell sx={{ ...tableCellColor }}>
+                                {component.current_quantity}
+                            </TableCell>
+                            <TableCell sx={{ ...tableCellColor }}>
+                                {requiredQuantity}
+                            </TableCell>
+                            <TableCell sx={{ ...tableCellColor }}>
+                                {totalQuantity}
+                            </TableCell>
+                        </TableRow>
+                    );
+                })}
             </TableBody>
         </Table>
     );

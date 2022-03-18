@@ -1,5 +1,6 @@
 import React from "react";
 import {
+    List,
     ListItemAvatar,
     ListItemButton,
     ListItemText,
@@ -7,36 +8,50 @@ import {
     Typography,
 } from "@mui/material";
 import PartAvatar from "../part-avatar/part-avatar";
-import { GetPartCategoriesQuery } from "../../../../../../services/schema";
 import { useHistory } from "react-router-dom";
 import { getPartCategoryRouteName } from "../../../../../../helpers/get-part-category-route-name";
 
-type Components =
-    GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]["components"];
+type Part = {
+    part_id: number;
+    part_category_id: number;
+    current_quantity: number;
+    image_url?: string | null;
+    name: string;
+};
 
-interface IPartComponentListItems {
-    components: Components;
-    onComponentClick: (component: Components[number]["component"]) => void;
+type PartAssignment = { part: Part; requiredQuantity: number }[];
+
+interface IPartAssignmentListItems {
+    partAssignment: PartAssignment;
+    onPartClick: (part: Part) => void;
     isLink?: boolean;
+    hideRequiredQuantity?: boolean;
+    title: string;
 }
 
-const PartComponentsListItems = (props: IPartComponentListItems) => {
-    const { components, isLink = true, onComponentClick } = props;
+const PartAssignmentsList = (props: IPartAssignmentListItems) => {
+    const {
+        partAssignment,
+        isLink = true,
+        onPartClick,
+        hideRequiredQuantity = false,
+        title,
+    } = props;
     const history = useHistory();
 
     return (
-        <>
-            <ListSubheader>Components</ListSubheader>
-            {components.map(({ component, required_quantity }) => {
+        <List sx={{ mb: 1 }}>
+            <ListSubheader sx={{ my: 0 }}>{title}</ListSubheader>
+            {partAssignment.map(({ part, requiredQuantity }) => {
                 return (
                     <ListItemButton
-                        key={component.part_id}
+                        key={part.part_id}
                         onClick={() => {
                             if (isLink) {
-                                onComponentClick(component);
+                                onPartClick(part);
                                 history.push(
                                     getPartCategoryRouteName(
-                                        component.part_category_id,
+                                        part.part_category_id,
                                     ),
                                 );
                             }
@@ -44,33 +59,34 @@ const PartComponentsListItems = (props: IPartComponentListItems) => {
                     >
                         <ListItemAvatar>
                             <PartAvatar
-                                part_id={component.part_id}
-                                name={component.name}
-                                current_quantity={component.current_quantity}
-                                image_url={component.image_url}
+                                part_id={part.part_id}
+                                name={part.name}
+                                current_quantity={part.current_quantity}
+                                image_url={part.image_url}
                                 size={"sm"}
                                 is_valid={
-                                    component.current_quantity >=
-                                    required_quantity
+                                    part.current_quantity >= requiredQuantity
                                 }
                                 active={false}
                                 hide_name
                             />
                         </ListItemAvatar>
-                        <ListItemText primary={component.name} />
+                        <ListItemText primary={part.name} />
                         <Typography
                             sx={{
                                 ml: 2,
                             }}
                             variant={"body1"}
                         >
-                            {`x${required_quantity}`}
+                            {!hideRequiredQuantity
+                                ? `x${requiredQuantity}`
+                                : ""}
                         </Typography>
                     </ListItemButton>
                 );
             })}
-        </>
+        </List>
     );
 };
 
-export default PartComponentsListItems;
+export default PartAssignmentsList;

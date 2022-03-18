@@ -57,14 +57,17 @@ const GeneratePartForm = () => {
             .min(1)
             .required("Quantity is required")
             .test("enough_quantity", "Not enough components", (quantity) => {
-                if (part !== null && part.components.length > 0) {
+                if (part !== null && part.componentAssignments.length > 0) {
                     const partQuantity = convertToNumber(quantity);
-                    return part.components.every((component) => {
-                        return (
-                            partQuantity * component.required_quantity <=
-                            component.component.current_quantity
-                        );
-                    });
+                    return part.componentAssignments.every(
+                        (componentAssignment) => {
+                            return (
+                                partQuantity *
+                                    componentAssignment.requiredQuantity <=
+                                componentAssignment.component.current_quantity
+                            );
+                        },
+                    );
                 }
                 return true;
             }),
@@ -153,8 +156,10 @@ const GeneratePartForm = () => {
                         <Form>
                             <QuantityInput />
                             <ComponentTable
-                                components={
-                                    part !== null ? part.components : []
+                                componentAssignments={
+                                    part !== null
+                                        ? part.componentAssignments
+                                        : []
                                 }
                             />
                             <Button

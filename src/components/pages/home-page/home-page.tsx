@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, List, ListItemButton, Typography } from "@mui/material";
-import PartComponentsListItems from "../../smart/part-category/parts-list/part-container/part-components-list-items/part-components-list-items";
+import PartAssignmentsList from "../../smart/part-category/parts-list/part-container/part-assignments-list/part-assignments-list";
 import PartAvatar from "../../smart/part-category/parts-list/part-container/part-avatar/part-avatar";
 
 export default function HomePage() {
@@ -73,20 +73,20 @@ export default function HomePage() {
                     part that has craft actions and requires components:
                     <List sx={{ maxWidth: "20rem", border: 1 }}>
                         <ListItemButton>Craft</ListItemButton>
-                        <PartComponentsListItems
+                        <PartAssignmentsList
+                            title={"Components"}
                             isLink={false}
-                            onComponentClick={() => {}}
-                            components={[
+                            onPartClick={() => {}}
+                            partAssignment={[
                                 {
-                                    component: {
+                                    part: {
                                         part_id: 2,
                                         part_category_id: 2,
                                         image_url: null,
                                         current_quantity: 4,
                                         name: "Component 1",
-                                        __typename: "Part",
                                     },
-                                    required_quantity: 2,
+                                    requiredQuantity: 2,
                                 },
                             ]}
                         />

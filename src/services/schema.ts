@@ -45,25 +45,32 @@ export type PartCategory = {
 
 export type Part = {
   __typename?: 'Part';
-  components: Array<Component>;
+  componentAssignments: Array<ComponentAssignment>;
   current_quantity: Scalars['Int'];
   default_generated_quantity: Scalars['Int'];
   image_url?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  parentAssignments: Array<ParentAssignment>;
   part_category_id: Scalars['Float'];
   part_id: Scalars['Float'];
 };
 
-export type Component = {
-  __typename?: 'Component';
+export type ComponentAssignment = {
+  __typename?: 'ComponentAssignment';
   component: Part;
-  required_quantity: Scalars['Float'];
+  requiredQuantity: Scalars['Float'];
+};
+
+export type ParentAssignment = {
+  __typename?: 'ParentAssignment';
+  parent: Part;
+  requiredQuantity: Scalars['Float'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   addCategory: PartCategory;
-  assignComponent: Component;
+  assignComponent: ComponentAssignment;
   craft: Scalars['Boolean'];
   createPart: Part;
   createUser: User;
@@ -125,9 +132,9 @@ export type PartCategoryInput = {
 };
 
 export type PartAssignmentInput = {
-  component_id: Scalars['Float'];
-  parent_id: Scalars['Float'];
-  required_quantity: Scalars['Float'];
+  componentId: Scalars['Float'];
+  parentId: Scalars['Float'];
+  requiredQuantity: Scalars['Float'];
 };
 
 export type CraftInput = {
@@ -318,7 +325,7 @@ export const GetPartCategoriesDocument = gql`
       name
       image_url
       current_quantity
-      components {
+      componentAssignments {
         component {
           part_id
           part_category_id
@@ -326,7 +333,17 @@ export const GetPartCategoriesDocument = gql`
           image_url
           current_quantity
         }
-        required_quantity
+        requiredQuantity
+      }
+      parentAssignments {
+        parent {
+          part_id
+          part_category_id
+          name
+          image_url
+          current_quantity
+        }
+        requiredQuantity
       }
     }
   }
@@ -451,7 +468,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Ac
 export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', part_category_id: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number, components: Array<{ __typename?: 'Component', required_quantity: number, component: { __typename?: 'Part', part_id: number, part_category_id: number, name: string, image_url?: string | null, current_quantity: number } }> }> }> };
+export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', part_category_id: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, image_url?: string | null, current_quantity: number, componentAssignments: Array<{ __typename?: 'ComponentAssignment', requiredQuantity: number, component: { __typename?: 'Part', part_id: number, part_category_id: number, name: string, image_url?: string | null, current_quantity: number } }>, parentAssignments: Array<{ __typename?: 'ParentAssignment', requiredQuantity: number, parent: { __typename?: 'Part', part_id: number, part_category_id: number, name: string, image_url?: string | null, current_quantity: number } }> }> }> };
 
 export type CraftPartMutationVariables = Exact<{
   craftInput: CraftInput;

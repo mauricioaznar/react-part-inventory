@@ -3,7 +3,7 @@ import { Box, Divider, List, Menu, MenuItem } from "@mui/material";
 import { GetPartCategoriesQuery } from "../../../../../services/schema";
 import PartAvatar from "./part-avatar/part-avatar";
 import { useGeneratePartContext } from "../../../../pages/app/generate-part-form/i-generate-part-context/generate-part-context";
-import PartComponentsListItems from "./part-components-list-items/part-components-list-items";
+import PartAssignmentsList from "./part-assignments-list/part-assignments-list";
 import { usePartClickedContext } from "../../../../pages/app/part-clicked-context/part-clicked-context";
 import { useHistory } from "react-router-dom";
 import { getPartCategoryRouteName } from "../../../../../helpers/get-part-category-route-name";
@@ -42,13 +42,14 @@ const PartContainer = (props: IPartContainer) => {
         setContextMenu(null);
     };
 
-    const isEveryQuantityValid = part.components.every((component) => {
-        return (
-            component.component.current_quantity >= component.required_quantity
-        );
-    });
+    const isEveryQuantityValid = part.componentAssignments.every(
+        ({ component, requiredQuantity }) => {
+            return component.current_quantity >= requiredQuantity;
+        },
+    );
 
-    const hasComponents = part.components.length > 0;
+    const hasComponentAssignments = part.componentAssignments.length > 0;
+    const hasParentAssignments = part.parentAssignments.length > 0;
 
     return (
         <Box sx={{ mx: 2, my: 1, display: "flex", justifyContent: "center" }}>
@@ -88,8 +89,8 @@ const PartContainer = (props: IPartContainer) => {
                             : undefined
                     }
                 >
-                    <List>
-                        {hasComponents ? (
+                    <List sx={{ pb: 0 }}>
+                        {hasComponentAssignments ? (
                             <MenuItem
                                 onClick={() => {
                                     initCraft(part);
@@ -108,12 +109,20 @@ const PartContainer = (props: IPartContainer) => {
                                 Farm
                             </MenuItem>
                         )}
-                        {hasComponents ? (
+                        {hasComponentAssignments ? (
                             <>
-                                <Divider />
-                                <PartComponentsListItems
-                                    components={part.components}
-                                    onComponentClick={(component) => {
+                                <Divider sx={{ my: 1 }} />
+                                <PartAssignmentsList
+                                    title={"Components"}
+                                    partAssignment={part.componentAssignments.map(
+                                        (ca) => {
+                                            return {
+                                                ...ca,
+                                                part: ca.component,
+                                            };
+                                        },
+                                    )}
+                                    onPartClick={(component) => {
                                         setPartClicked({
                                             part_id: component.part_id,
                                         });
@@ -123,6 +132,34 @@ const PartContainer = (props: IPartContainer) => {
                                             ),
                                         );
                                     }}
+                                />
+                            </>
+                        ) : null}
+
+                        {hasParentAssignments ? (
+                            <>
+                                <Divider sx={{ my: 1 }} />
+                                <PartAssignmentsList
+                                    title={"Parents"}
+                                    partAssignment={part.parentAssignments.map(
+                                        (ca) => {
+                                            return {
+                                                ...ca,
+                                                part: ca.parent,
+                                            };
+                                        },
+                                    )}
+                                    onPartClick={(component) => {
+                                        setPartClicked({
+                                            part_id: component.part_id,
+                                        });
+                                        history.push(
+                                            getPartCategoryRouteName(
+                                                component.part_category_id,
+                                            ),
+                                        );
+                                    }}
+                                    hideRequiredQuantity
                                 />
                             </>
                         ) : null}
