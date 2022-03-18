@@ -23,7 +23,6 @@ query GetPartCategories {
                     partCategoryId
                     name
                     imageUrl
-                    currentQuantity
                 }
                 requiredQuantity
             }

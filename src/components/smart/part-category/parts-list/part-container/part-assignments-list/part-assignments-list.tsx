@@ -14,7 +14,7 @@ import { getPartCategoryRouteName } from "../../../../../../helpers/get-part-cat
 type Part = {
     partId: number;
     partCategoryId: number;
-    currentQuantity: number;
+    currentQuantity?: number;
     imageUrl?: string | null;
     name: string;
 };
@@ -25,8 +25,8 @@ interface IPartAssignmentListItems {
     partAssignment: PartAssignment;
     onPartClick: (part: Part) => void;
     isLink?: boolean;
-    hideRequiredQuantity?: boolean;
     title: string;
+    hideRequiredQuantity?: boolean;
 }
 
 const PartAssignmentsList = (props: IPartAssignmentListItems) => {
@@ -34,8 +34,8 @@ const PartAssignmentsList = (props: IPartAssignmentListItems) => {
         partAssignment,
         isLink = true,
         onPartClick,
-        hideRequiredQuantity = false,
         title,
+        hideRequiredQuantity = false,
     } = props;
     const history = useHistory();
 
@@ -64,9 +64,6 @@ const PartAssignmentsList = (props: IPartAssignmentListItems) => {
                                 current_quantity={part.currentQuantity}
                                 image_url={part.imageUrl}
                                 size={"sm"}
-                                is_valid={
-                                    part.currentQuantity >= requiredQuantity
-                                }
                                 active={false}
                                 hide_name
                             />

@@ -5,9 +5,9 @@ import { deepOrange } from "@mui/material/colors";
 interface PartImageProps {
     image_url?: string | null;
     name: string;
-    current_quantity: number;
+    current_quantity?: number;
     size?: "sm" | "md";
-    is_valid: boolean;
+    is_valid?: boolean;
     partId: number;
     active: boolean;
     hide_name?: boolean;
@@ -60,7 +60,8 @@ const PartAvatar = (props: PartImageProps) => {
         height: size === "md" ? 56 : 38,
     };
 
-    const color: "success" | "warning" = is_valid ? "success" : "warning";
+    const color: "success" | "warning" | "info" =
+        is_valid === undefined ? "info" : is_valid ? "success" : "warning";
 
     const avatarClassName = `${active ? "part-clicked" : ""}  part-avatar`;
 
@@ -70,7 +71,13 @@ const PartAvatar = (props: PartImageProps) => {
                 overlap="circular"
                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                 color={color}
-                badgeContent={current_quantity > 0 ? current_quantity : "0"}
+                badgeContent={
+                    current_quantity !== undefined
+                        ? current_quantity > 0
+                            ? current_quantity
+                            : "0"
+                        : undefined
+                }
             >
                 {image_url ? (
                     <StyledAvatar

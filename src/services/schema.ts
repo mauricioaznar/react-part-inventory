@@ -341,7 +341,6 @@ export const GetPartCategoriesDocument = gql`
           partCategoryId
           name
           imageUrl
-          currentQuantity
         }
         requiredQuantity
       }
@@ -468,7 +467,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Ac
 export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', partCategoryId: number, name: string, parts: Array<{ __typename?: 'Part', partId: number, name: string, imageUrl?: string | null, currentQuantity: number, componentAssignments: Array<{ __typename?: 'ComponentAssignment', requiredQuantity: number, component: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null, currentQuantity: number } }>, parentAssignments: Array<{ __typename?: 'ParentAssignment', requiredQuantity: number, parent: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null, currentQuantity: number } }> }> }> };
+export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', partCategoryId: number, name: string, parts: Array<{ __typename?: 'Part', partId: number, name: string, imageUrl?: string | null, currentQuantity: number, componentAssignments: Array<{ __typename?: 'ComponentAssignment', requiredQuantity: number, component: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null, currentQuantity: number } }>, parentAssignments: Array<{ __typename?: 'ParentAssignment', requiredQuantity: number, parent: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null } }> }> }> };
 
 export type CraftPartMutationVariables = Exact<{
   craftInput: CraftInput;
