@@ -14,7 +14,7 @@ import { getPartCategoryRouteName } from "../../../../../../helpers/get-part-cat
 type Part = {
     part_id: number;
     part_category_id: number;
-    current_quantity: number;
+    currentQuantity: number;
     image_url?: string | null;
     name: string;
 };
@@ -61,11 +61,11 @@ const PartAssignmentsList = (props: IPartAssignmentListItems) => {
                             <PartAvatar
                                 part_id={part.part_id}
                                 name={part.name}
-                                current_quantity={part.current_quantity}
+                                current_quantity={part.currentQuantity}
                                 image_url={part.image_url}
                                 size={"sm"}
                                 is_valid={
-                                    part.current_quantity >= requiredQuantity
+                                    part.currentQuantity >= requiredQuantity
                                 }
                                 active={false}
                                 hide_name

@@ -6,14 +6,14 @@ query GetPartCategories {
             part_id
             name
             image_url
-            current_quantity
+            currentQuantity
             componentAssignments {
                 component {
                     part_id
                     part_category_id
                     name
                     image_url
-                    current_quantity
+                    currentQuantity
                 }
                 requiredQuantity
             }
@@ -23,7 +23,7 @@ query GetPartCategories {
                     part_category_id
                     name
                     image_url
-                    current_quantity
+                    currentQuantity
                 }
                 requiredQuantity
             }

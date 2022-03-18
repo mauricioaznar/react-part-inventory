@@ -64,7 +64,7 @@ const GeneratePartForm = () => {
                             return (
                                 partQuantity *
                                     componentAssignment.requiredQuantity <=
-                                componentAssignment.component.current_quantity
+                                componentAssignment.component.currentQuantity
                             );
                         },
                     );

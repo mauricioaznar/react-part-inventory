@@ -37,7 +37,7 @@ const ComponentTable = (props: IComponentTable) => {
                     const partQuantity = convertToNumber(values.quantity);
                     const totalQuantity = partQuantity * requiredQuantity;
                     const hasEnough =
-                        component.current_quantity >= totalQuantity;
+                        component.currentQuantity >= totalQuantity;
                     const tableCellColor = {
                         color: hasEnough ? undefined : "error.main",
                     };
@@ -47,7 +47,7 @@ const ComponentTable = (props: IComponentTable) => {
                                 {component.name}
                             </TableCell>
                             <TableCell sx={{ ...tableCellColor }}>
-                                {component.current_quantity}
+                                {component.currentQuantity}
                             </TableCell>
                             <TableCell sx={{ ...tableCellColor }}>
                                 {requiredQuantity}

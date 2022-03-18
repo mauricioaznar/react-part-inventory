@@ -44,7 +44,7 @@ const PartContainer = (props: IPartContainer) => {
 
     const isEveryQuantityValid = part.componentAssignments.every(
         ({ component, requiredQuantity }) => {
-            return component.current_quantity >= requiredQuantity;
+            return component.currentQuantity >= requiredQuantity;
         },
     );
 
@@ -71,7 +71,7 @@ const PartContainer = (props: IPartContainer) => {
                         }
                         part_id={part.part_id}
                         name={part.name}
-                        current_quantity={part.current_quantity}
+                        current_quantity={part.currentQuantity}
                         image_url={part.image_url}
                         is_valid={isEveryQuantityValid}
                     />

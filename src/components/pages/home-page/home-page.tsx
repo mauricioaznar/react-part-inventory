@@ -83,7 +83,7 @@ export default function HomePage() {
                                         part_id: 2,
                                         part_category_id: 2,
                                         image_url: null,
-                                        current_quantity: 4,
+                                        currentQuantity: 4,
                                         name: "Component 1",
                                     },
                                     requiredQuantity: 2,
