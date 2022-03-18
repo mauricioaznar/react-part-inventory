@@ -42,7 +42,7 @@ const ComponentTable = (props: IComponentTable) => {
                         color: hasEnough ? undefined : "error.main",
                     };
                     return (
-                        <TableRow key={component.part_id}>
+                        <TableRow key={component.partId}>
                             <TableCell sx={{ ...tableCellColor }}>
                                 {component.name}
                             </TableCell>

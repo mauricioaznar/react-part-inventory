@@ -26,7 +26,7 @@ export default function HomePage() {
                         name={"Part 1"}
                         current_quantity={2}
                         is_valid={true}
-                        part_id={0}
+                        partId={0}
                         active={false}
                     />
                 </Box>
@@ -35,7 +35,7 @@ export default function HomePage() {
                         name={"Part 2"}
                         current_quantity={1}
                         is_valid={false}
-                        part_id={0}
+                        partId={0}
                         active={false}
                     />
                 </Box>
@@ -80,7 +80,7 @@ export default function HomePage() {
                             partAssignment={[
                                 {
                                     part: {
-                                        part_id: 2,
+                                        partId: 2,
                                         partCategoryId: 2,
                                         imageUrl: null,
                                         currentQuantity: 4,

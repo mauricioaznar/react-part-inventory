@@ -3,13 +3,13 @@ query GetPartCategories {
         partCategoryId
         name
         parts {
-            part_id
+            partId
             name
             imageUrl
             currentQuantity
             componentAssignments {
                 component {
-                    part_id
+                    partId
                     partCategoryId
                     name
                     imageUrl
@@ -19,7 +19,7 @@ query GetPartCategories {
             }
             parentAssignments {
                 parent {
-                    part_id
+                    partId
                     partCategoryId
                     name
                     imageUrl

@@ -80,7 +80,7 @@ const GeneratePartForm = () => {
                 await craftPartMutation({
                     variables: {
                         craftInput: {
-                            part_id: part.part_id,
+                            partId: part.partId,
                             quantity: Number(quantity),
                         },
                     },
@@ -90,7 +90,7 @@ const GeneratePartForm = () => {
                 await farmPartMutation({
                     variables: {
                         farmInput: {
-                            part_id: part.part_id,
+                            partId: part.partId,
                             quantity: Number(quantity),
                         },
                     },

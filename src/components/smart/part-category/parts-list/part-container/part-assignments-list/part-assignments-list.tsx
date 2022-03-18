@@ -12,7 +12,7 @@ import { useHistory } from "react-router-dom";
 import { getPartCategoryRouteName } from "../../../../../../helpers/get-part-category-route-name";
 
 type Part = {
-    part_id: number;
+    partId: number;
     partCategoryId: number;
     currentQuantity: number;
     imageUrl?: string | null;
@@ -45,7 +45,7 @@ const PartAssignmentsList = (props: IPartAssignmentListItems) => {
             {partAssignment.map(({ part, requiredQuantity }) => {
                 return (
                     <ListItemButton
-                        key={part.part_id}
+                        key={part.partId}
                         onClick={() => {
                             if (isLink) {
                                 onPartClick(part);
@@ -59,7 +59,7 @@ const PartAssignmentsList = (props: IPartAssignmentListItems) => {
                     >
                         <ListItemAvatar>
                             <PartAvatar
-                                part_id={part.part_id}
+                                partId={part.partId}
                                 name={part.name}
                                 current_quantity={part.currentQuantity}
                                 image_url={part.imageUrl}

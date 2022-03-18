@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-type Part = { part_id: number } | null;
+type Part = { partId: number } | null;
 
 interface IPartClickedContext {
     partClicked: Part;

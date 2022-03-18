@@ -8,7 +8,7 @@ interface PartImageProps {
     current_quantity: number;
     size?: "sm" | "md";
     is_valid: boolean;
-    part_id: number;
+    partId: number;
     active: boolean;
     hide_name?: boolean;
 }

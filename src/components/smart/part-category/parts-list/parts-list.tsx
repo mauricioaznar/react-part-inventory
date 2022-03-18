@@ -20,7 +20,7 @@ const PartsList = (props: PartsListProps) => {
             rowSpacing={2}
         >
             {parts.map((p) => (
-                <Grid key={p.part_id} item xs={4} sm={2} md={1.5}>
+                <Grid key={p.partId} item xs={4} sm={2} md={1.5}>
                     <PartContainer part={p} />
                 </Grid>
             ))}

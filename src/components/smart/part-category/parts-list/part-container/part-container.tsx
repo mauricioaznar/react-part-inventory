@@ -67,9 +67,9 @@ const PartContainer = (props: IPartContainer) => {
                     <PartAvatar
                         active={
                             partClicked !== null &&
-                            partClicked.part_id === part.part_id
+                            partClicked.partId === part.partId
                         }
-                        part_id={part.part_id}
+                        partId={part.partId}
                         name={part.name}
                         current_quantity={part.currentQuantity}
                         image_url={part.imageUrl}
@@ -124,7 +124,7 @@ const PartContainer = (props: IPartContainer) => {
                                     )}
                                     onPartClick={(component) => {
                                         setPartClicked({
-                                            part_id: component.part_id,
+                                            partId: component.partId,
                                         });
                                         history.push(
                                             getPartCategoryRouteName(
@@ -151,7 +151,7 @@ const PartContainer = (props: IPartContainer) => {
                                     )}
                                     onPartClick={(component) => {
                                         setPartClicked({
-                                            part_id: component.part_id,
+                                            partId: component.partId,
                                         });
                                         history.push(
                                             getPartCategoryRouteName(

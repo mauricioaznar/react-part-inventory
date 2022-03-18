@@ -51,8 +51,8 @@ export type Part = {
   imageUrl?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   parentAssignments: Array<ParentAssignment>;
-  part_id: Scalars['Float'];
   partCategoryId: Scalars['Float'];
+  partId: Scalars['Float'];
 };
 
 export type ComponentAssignment = {
@@ -138,7 +138,7 @@ export type PartAssignmentInput = {
 };
 
 export type CraftInput = {
-  part_id: Scalars['Float'];
+  partId: Scalars['Float'];
   quantity: Scalars['Float'];
 };
 
@@ -155,7 +155,7 @@ export type UserInput = {
 };
 
 export type FarmInput = {
-  part_id: Scalars['Float'];
+  partId: Scalars['Float'];
   quantity: Scalars['Float'];
 };
 
@@ -321,13 +321,13 @@ export const GetPartCategoriesDocument = gql`
     partCategoryId
     name
     parts {
-      part_id
+      partId
       name
       imageUrl
       currentQuantity
       componentAssignments {
         component {
-          part_id
+          partId
           partCategoryId
           name
           imageUrl
@@ -337,7 +337,7 @@ export const GetPartCategoriesDocument = gql`
       }
       parentAssignments {
         parent {
-          part_id
+          partId
           partCategoryId
           name
           imageUrl
@@ -468,7 +468,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Ac
 export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', partCategoryId: number, name: string, parts: Array<{ __typename?: 'Part', part_id: number, name: string, imageUrl?: string | null, currentQuantity: number, componentAssignments: Array<{ __typename?: 'ComponentAssignment', requiredQuantity: number, component: { __typename?: 'Part', part_id: number, partCategoryId: number, name: string, imageUrl?: string | null, currentQuantity: number } }>, parentAssignments: Array<{ __typename?: 'ParentAssignment', requiredQuantity: number, parent: { __typename?: 'Part', part_id: number, partCategoryId: number, name: string, imageUrl?: string | null, currentQuantity: number } }> }> }> };
+export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', partCategoryId: number, name: string, parts: Array<{ __typename?: 'Part', partId: number, name: string, imageUrl?: string | null, currentQuantity: number, componentAssignments: Array<{ __typename?: 'ComponentAssignment', requiredQuantity: number, component: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null, currentQuantity: number } }>, parentAssignments: Array<{ __typename?: 'ParentAssignment', requiredQuantity: number, parent: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null, currentQuantity: number } }> }> }> };
 
 export type CraftPartMutationVariables = Exact<{
   craftInput: CraftInput;
