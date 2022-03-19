@@ -1,12 +1,12 @@
 import React from 'react';
-import {Box, styled} from "@mui/material";
+import {Box, styled, Typography} from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme,  }) => ({
     "&.dot-flashing": {
         position: "relative",
-        width: "10px",
-        height: "10px",
-        "borderRadius": "5px",
+        width: theme.spacing(1),
+        height: theme.spacing(1),
+        "borderRadius": theme.spacing(2),
         "backgroundColor":   theme.palette.background.default,
         "color":   theme.palette.background.default,
         animation: "dotFlashing 1s infinite linear alternate",
@@ -18,17 +18,17 @@ const StyledBox = styled(Box)(({ theme,  }) => ({
             "backgroundColor":   theme.palette.background.default,
             "color":   theme.palette.background.default,
             top: 0,
-            width: "10px",
-            height: "10px",
-            "borderRadius": "5px",
+            width: theme.spacing(1),
+            height: theme.spacing(1),
+            "borderRadius": theme.spacing(2),
         },
         "&::before": {
-            "left": "-15px",
+            "left": `-${theme.spacing(1.5)}`,
             animation: "dotFlashing 1s infinite alternate",
             "animationDelay": "0s",
         },
         "&::after": {
-            left: "15px",
+            "left": `${theme.spacing(1.5)}`,
             animation: "dotFlashing 1s infinite alternate",
             "animationDelay": "1s",
         }
@@ -45,7 +45,13 @@ const StyledBox = styled(Box)(({ theme,  }) => ({
 
 const DotFlashingLoader = () => {
     return (
-        <StyledBox className={'dot-flashing'} />
+        <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+            <Typography variant={'h4'} sx={{ fontSize: "1.2rem", mr: 2 }}>
+                Refetching
+            </Typography>
+            <StyledBox className={'dot-flashing'} sx={{ mb: 0.2}}/>
+        </Box>
+
     );
 };
 
