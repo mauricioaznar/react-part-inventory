@@ -23,11 +23,13 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
     useEffect(() => {
         console.log(accessToken)
         if (accessToken !== null) {
+            console.log('called')
             void getCurrentUser()
         }
     }, [accessToken]);
 
     useEffect(() => {
+        console.log('called inside data')
         if (data?.currentUser.username) {
             setCurrentUser(data.currentUser);
             login(window.localStorage.getItem("token")!);
