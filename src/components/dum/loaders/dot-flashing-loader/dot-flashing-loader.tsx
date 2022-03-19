@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, styled, Typography} from "@mui/material";
+import {Box, styled} from "@mui/material";
 
 const StyledBox = styled(Box)(({ theme,  }) => ({
     "&.dot-flashing": {
@@ -45,13 +45,7 @@ const StyledBox = styled(Box)(({ theme,  }) => ({
 
 const DotFlashingLoader = () => {
     return (
-        <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-            <Typography variant={'h4'} sx={{ fontSize: "1.2rem", mr: 2 }}>
-                Refetching
-            </Typography>
-            <StyledBox className={'dot-flashing'} sx={{ mb: 0.2}}/>
-        </Box>
-
+        <StyledBox className={'dot-flashing'} sx={{ mr: 2 }}/>
     );
 };
 
