@@ -24,7 +24,6 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
 
     useEffect(() => {
         if (accessToken !== null) {
-            console.log('called')
             void getCurrentUser()
         }
     }, [accessToken]);
