@@ -17,21 +17,21 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
 
     const { login, setCurrentUser } = useActions();
 
-    const [getCurrentUser, { loading: currentUserLoading }] =
-        useCurrentUserLazyQuery({
-            onCompleted: function (data) {
-                if (data?.currentUser.username) {
-                    setCurrentUser(data.currentUser);
-                    login(window.localStorage.getItem("token")!);
-                }
-            },
-        });
+    const [getCurrentUser, { data, loading: currentUserLoading }] =
+        useCurrentUserLazyQuery();
 
     useEffect(() => {
         if (accessToken !== null) {
-            void getCurrentUser();
+            void getCurrentUser()
         }
     }, [accessToken]);
+
+    useEffect(() => {
+        if (data?.currentUser.username) {
+            setCurrentUser(data.currentUser);
+            login(window.localStorage.getItem("token")!);
+        }
+    }, [data]);
 
     return currentUserLoading ? (
         <FullScreenLoader />
