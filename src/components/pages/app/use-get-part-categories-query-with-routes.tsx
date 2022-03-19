@@ -9,11 +9,16 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
     categoriesRouteGroup: RouteGroup;
     categoriesRoutes: Route[];
     hasSetupCompleted: boolean;
+    refetching: boolean;
 } => {
     const [routes, setRoutes] = useState<Route[]>([]);
 
-    // onCompleted is not reliable
-    const { data } = useGetPartCategoriesQuery();
+    // use notifyOnNetworkStatusChange so that loading changes to true when it refetches
+    const { data, previousData, loading } = useGetPartCategoriesQuery(
+        {
+            notifyOnNetworkStatusChange: true
+        }
+    );
     const [hasSetupCompleted, setHasSetupCompleted] = useState(false);
 
     useEffect(() => {
@@ -51,6 +56,8 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
         }
     }, [data]);
 
+    const refetching = previousData !== undefined && loading
+
     return {
         categoriesRouteGroup: {
             title: "Categories",
@@ -58,5 +65,6 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
         },
         categoriesRoutes: routes,
         hasSetupCompleted,
+        refetching
     };
 };

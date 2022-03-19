@@ -5,7 +5,7 @@ export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {} as const;
+const defaultOptions =  {}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -279,7 +279,7 @@ export function useIsUserOccupiedLazyQuery(baseOptions?: Apollo.LazyQueryHookOpt
 export type IsUserOccupiedQueryHookResult = ReturnType<typeof useIsUserOccupiedQuery>;
 export type IsUserOccupiedLazyQueryHookResult = ReturnType<typeof useIsUserOccupiedLazyQuery>;
 export type IsUserOccupiedQueryResult = Apollo.QueryResult<IsUserOccupiedQuery, IsUserOccupiedQueryVariables>;
-export function refetchIsUserOccupiedQuery(variables: IsUserOccupiedQueryVariables) {
+export function refetchIsUserOccupiedQuery(variables?: IsUserOccupiedQueryVariables) {
       return { query: IsUserOccupiedDocument, variables: variables }
     }
 export const LoginDocument = gql`
@@ -467,7 +467,7 @@ export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'Ac
 export type GetPartCategoriesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', partCategoryId: number, name: string, parts: Array<{ __typename?: 'Part', partId: number, name: string, imageUrl?: string | null, currentQuantity: number, componentAssignments: Array<{ __typename?: 'ComponentAssignment', requiredQuantity: number, component: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null, currentQuantity: number } }>, parentAssignments: Array<{ __typename?: 'ParentAssignment', requiredQuantity: number, parent: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null } }> }> }> };
+export type GetPartCategoriesQuery = { __typename?: 'Query', getPartCategories: Array<{ __typename?: 'PartCategory', partCategoryId: number, name: string, parts: Array<{ __typename?: 'Part', partId: number, name: string, imageUrl?: string | null | undefined, currentQuantity: number, componentAssignments: Array<{ __typename?: 'ComponentAssignment', requiredQuantity: number, component: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null | undefined, currentQuantity: number } }>, parentAssignments: Array<{ __typename?: 'ParentAssignment', requiredQuantity: number, parent: { __typename?: 'Part', partId: number, partCategoryId: number, name: string, imageUrl?: string | null | undefined } }> }> }> };
 
 export type CraftPartMutationVariables = Exact<{
   craftInput: CraftInput;

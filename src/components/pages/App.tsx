@@ -30,7 +30,7 @@ export default function App() {
         setOpen(!open);
     };
 
-    const { categoriesRoutes, categoriesRouteGroup, hasSetupCompleted } =
+    const { categoriesRoutes, categoriesRouteGroup, hasSetupCompleted, refetching } =
         useGetPartCategoriesQueryWithRoutes();
 
     return (
@@ -40,6 +40,7 @@ export default function App() {
                     <SubnauticaAppBar
                         isDesktop={mdAndUp}
                         toggleDrawer={toggleDrawer}
+                        refetching={refetching}
                     />
                     <SubnauticaDrawer
                         open={open}
