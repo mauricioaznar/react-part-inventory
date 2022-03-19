@@ -2,6 +2,7 @@
   "name": "react-subnautica",
   "version": "5.0.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "@apollo/client": "^3.4.16",
     "@babel/runtime": "^7.16.7",

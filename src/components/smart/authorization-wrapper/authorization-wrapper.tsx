@@ -21,9 +21,7 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
         useCurrentUserLazyQuery();
 
     useEffect(() => {
-        if (accessToken !== null) {
-            void getCurrentUser()
-        }
+        void getCurrentUser()
     }, [accessToken]);
 
     useEffect(() => {
