@@ -18,7 +18,11 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
     const { login, setCurrentUser } = useActions();
 
     const [getCurrentUser, { data, loading: currentUserLoading }] =
-        useCurrentUserLazyQuery();
+        useCurrentUserLazyQuery({
+            refetchWritePolicy: "overwrite",
+            notifyOnNetworkStatusChange: true,
+
+        });
 
     useEffect(() => {
         console.log(accessToken)
@@ -30,6 +34,7 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
 
     useEffect(() => {
         console.log('called inside data')
+        console.log(data)
         if (data?.currentUser.username) {
             setCurrentUser(data.currentUser);
             login(window.localStorage.getItem("token")!);
