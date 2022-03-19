@@ -1,11 +1,11 @@
 import React from 'react';
-import './dot-flashing.css'
 import {AppBar as MuiAppBar, Box, IconButton, Toolbar} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SubnauticaTitle from "../subnautica-title/subnautica-title";
 import LogoutIcon from "@mui/icons-material/Logout";
 import {useApolloClient} from "@apollo/client";
 import {useActions} from "../../../../hooks/redux-hooks/use-actions";
+import DotFlashingLoader from "../../../dum/loaders/dot-flashing-loader/dot-flashing-loader";
 
 interface ISubnauticaAppBar {
     isDesktop: boolean;
@@ -44,8 +44,12 @@ const SubnauticaAppBar = (props: ISubnauticaAppBar) => {
 
                 <SubnauticaTitle />
                 {
-                    refetching ?
-                        <Box className={'dot-flashing'} sx={{ mr: 4 }}/>
+                    refetching
+                        ? (
+                            <Box sx={{ mr: 4 }}>
+                                <DotFlashingLoader />
+                            </Box>
+                        )
                         : null
                 }
                 <IconButton
