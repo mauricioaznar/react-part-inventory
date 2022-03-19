@@ -26,6 +26,7 @@ const reducer = (
       return {
         ...state,
         accessToken: null,
+        currentUser: null,
       };
     case ActionType.SET_CURRENT_USER:
       return {
