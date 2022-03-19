@@ -19,9 +19,7 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
 
     const [getCurrentUser, { data, loading: currentUserLoading }] =
         useCurrentUserLazyQuery({
-            refetchWritePolicy: "overwrite",
             notifyOnNetworkStatusChange: true,
-
         });
 
     useEffect(() => {
