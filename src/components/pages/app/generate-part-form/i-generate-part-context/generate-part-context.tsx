@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { GetPartCategoriesQuery } from "../../../../../services/schema";
 
 type Mode = "craft" | "farm" | null;
-type Part =
+export type GeneratePartFormPart =
     | GetPartCategoriesQuery["getPartCategories"][number]["parts"][number]
     | null;
 
 interface IGeneratePartContext {
     open: boolean;
     setOpen: (open: boolean) => void;
-    part: Part;
-    setPart: (part: Part) => void;
+    part: GeneratePartFormPart;
+    setPart: (part: GeneratePartFormPart) => void;
     mode: Mode;
     setMode: (mode: Mode) => void;
 }
@@ -34,7 +34,7 @@ export const GeneratePartContextProvider = (
     const { children } = props;
 
     const [open, setOpen] = useState(false);
-    const [part, setPart] = useState<Part>(null);
+    const [part, setPart] = useState<GeneratePartFormPart>(null);
     const [mode, setMode] = useState<Mode>(null);
 
     return (
@@ -57,13 +57,13 @@ export const useGeneratePartContext = () => {
     const { open, setOpen, setMode, part, setPart, mode } =
         React.useContext(GeneratePartContext);
 
-    const initCraft = (partClicked: Part) => {
+    const initCraft = (partClicked: GeneratePartFormPart) => {
         setMode("craft");
         setOpen(true);
         setPart(partClicked);
     };
 
-    const initAdd = (partClicked: Part) => {
+    const initAdd = (partClicked: GeneratePartFormPart) => {
         setMode("farm");
         setOpen(true);
         setPart(partClicked);

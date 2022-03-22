@@ -2,59 +2,25 @@ import React from "react";
 import { Box, Button, IconButton, Modal, Toolbar } from "@mui/material";
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import {
-    Query,
-    useCraftPartMutation,
-    useFarmPartMutation,
-} from "../../../../services/schema";
-import { nameof } from "../../../../helpers/nameof";
 import { useGeneratePartContext } from "./i-generate-part-context/generate-part-context";
 import Typography from "@mui/material/Typography";
-import { useActions } from "../../../../hooks/redux-hooks/use-actions";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Form, Formik, FormikTouched } from "formik";
 import { IGeneratePartForm } from "./i-generate-part-context/i-generate-part-form";
 import ComponentTable from "./component-table/component-table";
 import QuantityInput from "./quantity-input/quantity-input";
 import { convertToNumber } from "../../../../helpers/convert-to-number";
+import { useGeneratePartMutationsWithSideEffects } from "./use-generate-part-mutations-with-side-effects/use-generate-part-mutations-with-side-effects";
 
 const GeneratePartForm = () => {
     const { open, setOpen, mode, part } = useGeneratePartContext();
 
-    const { pushMessage } = useActions();
-
-    const [craftPartMutation, { loading: isCraftMutationLoading }] =
-        useCraftPartMutation({
-            update(cache) {
-                handleSuccessMessage();
-                cache.evict({
-                    id: "ROOT_QUERY",
-                    fieldName: nameof<Query>("getPartCategories"),
-                });
-            },
-        });
-
-    const [farmPartMutation, { loading: isFarmMutationLoading }] =
-        useFarmPartMutation({
-            update(cache) {
-                handleSuccessMessage();
-                cache.evict({
-                    id: "ROOT_QUERY",
-                    fieldName: nameof<Query>("getPartCategories"),
-                });
-            },
-        });
-
-    function handleSuccessMessage() {
-        if (part !== null) {
-            pushMessage({
-                message: `${part!.name} successfully added!`,
-                options: {
-                    variant: "success",
-                },
-            });
-        }
-    }
+    const {
+        craftPartMutation,
+        farmPartMutation,
+        isCraftMutationLoading,
+        isFarmMutationLoading,
+    } = useGeneratePartMutationsWithSideEffects(part);
 
     const initialValues: IGeneratePartForm = {
         quantity: 1,
