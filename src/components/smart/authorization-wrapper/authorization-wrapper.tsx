@@ -4,6 +4,7 @@ import LoginForm from "../../pages/auth/login-form";
 import { useCurrentUserLazyQuery } from "../../../services/schema";
 import { useActions } from "../../../hooks/redux-hooks/use-actions";
 import FullScreenLoader from "../../dum/loaders/full-screen-loader";
+import AnimatedDiv from "../../dum/animated-box/animated-box";
 
 interface AuthorizationWrapperProps {
     children: React.ReactElement<any, any> | null;
@@ -24,7 +25,7 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
 
     useEffect(() => {
         if (accessToken !== null) {
-            void getCurrentUser()
+            void getCurrentUser();
         }
     }, [accessToken]);
 
@@ -38,9 +39,11 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
     return currentUserLoading ? (
         <FullScreenLoader />
     ) : !currentUser ? (
-        <LoginForm />
+        <AnimatedDiv>
+            <LoginForm />
+        </AnimatedDiv>
     ) : (
-        props.children
+        <AnimatedDiv>{props.children}</AnimatedDiv>
     );
 };
 
