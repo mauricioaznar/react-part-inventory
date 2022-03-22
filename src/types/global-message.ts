@@ -1,4 +1,6 @@
+import { OptionsObject } from "notistack";
+
 export type GlobalMessage = {
-  message: string;
-  variant: "success" | "error";
+    message: string;
+    options?: OptionsObject;
 };

@@ -4,21 +4,22 @@ import { Route, RouteGroup } from "../../../types/route";
 import PartCategoryContainer from "../../smart/part-category/part-category-container";
 import PartCategoriesList from "../../smart/part-categories-list/part-categories-list";
 import { getPartCategoryRouteName } from "../../../helpers/get-part-category-route-name";
+import { SnackbarKey, useSnackbar } from "notistack";
 
 export const useGetPartCategoriesQueryWithRoutes = (): {
     categoriesRouteGroup: RouteGroup;
     categoriesRoutes: Route[];
     hasSetupCompleted: boolean;
-    refetching: boolean;
 } => {
     const [routes, setRoutes] = useState<Route[]>([]);
+    const [messageKey, setMessageKey] = useState<SnackbarKey>("");
+
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
     // use notifyOnNetworkStatusChange so that loading changes to true when it refetches
-    const { data, previousData, loading } = useGetPartCategoriesQuery(
-        {
-            notifyOnNetworkStatusChange: true
-        }
-    );
+    const { data, previousData, loading } = useGetPartCategoriesQuery({
+        notifyOnNetworkStatusChange: true,
+    });
     const [hasSetupCompleted, setHasSetupCompleted] = useState(false);
 
     useEffect(() => {
@@ -54,9 +55,19 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
             );
             setHasSetupCompleted(true);
         }
-    }, [data]);
 
-    const refetching = previousData !== undefined && loading
+        if (previousData !== undefined) {
+            if (loading) {
+                const key = enqueueSnackbar("Refetching", {
+                    variant: "info",
+                    persist: true,
+                });
+                setMessageKey(key);
+            } else {
+                closeSnackbar(messageKey);
+            }
+        }
+    }, [data]);
 
     return {
         categoriesRouteGroup: {
@@ -65,6 +76,5 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
         },
         categoriesRoutes: routes,
         hasSetupCompleted,
-        refetching
     };
 };

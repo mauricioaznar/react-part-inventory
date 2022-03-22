@@ -1,27 +1,26 @@
-import React from 'react';
-import {AppBar as MuiAppBar, Box, IconButton, Toolbar} from "@mui/material";
+import React from "react";
+import { AppBar as MuiAppBar, Box, IconButton, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SubnauticaTitle from "../subnautica-title/subnautica-title";
 import LogoutIcon from "@mui/icons-material/Logout";
-import {useApolloClient} from "@apollo/client";
-import {useActions} from "../../../../hooks/redux-hooks/use-actions";
+import { useApolloClient } from "@apollo/client";
+import { useActions } from "../../../../hooks/redux-hooks/use-actions";
 import DotFlashingLoader from "../../../dum/loaders/dot-flashing-loader/dot-flashing-loader";
 
 interface ISubnauticaAppBar {
     isDesktop: boolean;
     toggleDrawer: () => void;
-    refetching: boolean;
 }
 
 const SubnauticaAppBar = (props: ISubnauticaAppBar) => {
-    const { isDesktop, toggleDrawer, refetching } = props
+    const { isDesktop, toggleDrawer } = props;
     const client = useApolloClient();
-    const {logout} = useActions();
+    const { logout } = useActions();
 
     return (
         <MuiAppBar
             position="fixed"
-            sx={{zIndex: (theme) => theme.zIndex.drawer + 1}}
+            sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
         >
             <Toolbar
                 sx={{
@@ -38,20 +37,11 @@ const SubnauticaAppBar = (props: ISubnauticaAppBar) => {
                             marginRight: "36px",
                         }}
                     >
-                        <MenuIcon/>
+                        <MenuIcon />
                     </IconButton>
                 ) : null}
 
                 <SubnauticaTitle />
-                {
-                    refetching
-                        ? (
-                            <Box sx={{ mr: 4 }}>
-                                <DotFlashingLoader />
-                            </Box>
-                        )
-                        : null
-                }
                 <IconButton
                     color="inherit"
                     onClick={async () => {
@@ -59,7 +49,7 @@ const SubnauticaAppBar = (props: ISubnauticaAppBar) => {
                         logout();
                     }}
                 >
-                    <LogoutIcon/>
+                    <LogoutIcon />
                 </IconButton>
             </Toolbar>
         </MuiAppBar>

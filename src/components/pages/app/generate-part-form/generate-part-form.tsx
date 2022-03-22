@@ -21,7 +21,7 @@ import { convertToNumber } from "../../../../helpers/convert-to-number";
 const GeneratePartForm = () => {
     const { open, setOpen, mode, part } = useGeneratePartContext();
 
-    const { pushSuccessMessage } = useActions();
+    const { pushMessage } = useActions();
 
     const [craftPartMutation, { loading: isCraftMutationLoading }] =
         useCraftPartMutation({
@@ -85,7 +85,6 @@ const GeneratePartForm = () => {
                         },
                     },
                 });
-                pushSuccessMessage(`${part.name} successfully crafted!`);
             } else if (mode === "farm" && part !== null) {
                 await farmPartMutation({
                     variables: {
@@ -95,7 +94,12 @@ const GeneratePartForm = () => {
                         },
                     },
                 });
-                pushSuccessMessage(`${part.name} successfully added!`);
+                pushMessage({
+                    message: `${part.name} successfully added!`,
+                    options: {
+                        variant: "success",
+                    },
+                });
             }
             setOpen(false);
         } catch (e) {

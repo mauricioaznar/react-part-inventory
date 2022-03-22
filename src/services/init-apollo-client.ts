@@ -8,7 +8,7 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import apiUrl from "../constants/api-url";
 // @ts-ignore
 import { createUploadLink } from "apollo-upload-client";
-import { pushErrorMessage } from "../global-state/redux/action-creators/global-messages";
+import { pushMessage } from "../global-state/redux/action-creators/global-messages";
 
 // const defaultOptions = {
 //     watchQuery: {
@@ -50,7 +50,12 @@ const errorLink = onError(
                         store.getState().auth.accessToken !== null
                             ? "Session expired"
                             : "Unauthorized";
-                    store.dispatch(pushErrorMessage(message) as any);
+                    store.dispatch(
+                        pushMessage({
+                            message,
+                            options: { variant: "error" },
+                        }) as any,
+                    );
                     store.dispatch(logout() as any);
                     const oldHeaders = operation.getContext().headers;
                     operation.setContext({
@@ -64,10 +69,20 @@ const errorLink = onError(
                 } else {
                     if (Array.isArray(err.message)) {
                         err.message.forEach((message) => {
-                            store.dispatch(pushErrorMessage(message) as any);
+                            store.dispatch(
+                                pushMessage({
+                                    message,
+                                    options: { variant: "error" },
+                                }) as any,
+                            );
                         });
                     } else {
-                        store.dispatch(pushErrorMessage(err.message) as any);
+                        store.dispatch(
+                            pushMessage({
+                                message: err.message,
+                                options: { variant: "error" },
+                            }) as any,
+                        );
                     }
                 }
             }
