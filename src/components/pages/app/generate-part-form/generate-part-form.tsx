@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, IconButton, Modal, Toolbar } from "@mui/material";
+import { Box, Button, IconButton, Toolbar } from "@mui/material";
 import * as yup from "yup";
 import { SchemaOf } from "yup";
 import { useGeneratePartContext } from "./i-generate-part-context/generate-part-context";
@@ -11,6 +11,7 @@ import ComponentTable from "./component-table/component-table";
 import QuantityInput from "./quantity-input/quantity-input";
 import { convertToNumber } from "../../../../helpers/convert-to-number";
 import { useGeneratePartMutationsWithSideEffects } from "./use-generate-part-mutations-with-side-effects/use-generate-part-mutations-with-side-effects";
+import { FadeModal } from "../../../dum/fade-modal/fade-modal";
 
 const GeneratePartForm = () => {
     const { open, setOpen, mode, part } = useGeneratePartContext();
@@ -83,74 +84,58 @@ const GeneratePartForm = () => {
     }
 
     return (
-        <Modal open={open} keepMounted={false}>
-            <Box
+        <FadeModal open={open} setOpen={setOpen}>
+            <Toolbar
                 sx={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    bgcolor: "background.paper",
-                    borderRadius: "0.5rem",
-                    boxShadow: 24,
-                    overflow: "hidden",
+                    display: "flex",
+                    alignItems: "center",
+                    bgcolor: "secondary.main",
                 }}
             >
-                <Toolbar
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        bgcolor: "secondary.main",
+                <Typography variant={"h4"} sx={{ flexGrow: 1 }}>
+                    {mode}
+                </Typography>
+                <IconButton
+                    color="inherit"
+                    size={"small"}
+                    onClick={() => {
+                        setOpen(false);
                     }}
                 >
-                    <Typography variant={"h4"} sx={{ flexGrow: 1 }}>
-                        {mode}
-                    </Typography>
-                    <IconButton
-                        color="inherit"
-                        size={"small"}
-                        onClick={() => {
-                            setOpen(false);
-                        }}
-                    >
-                        <ClearIcon />
-                    </IconButton>
-                </Toolbar>
-                <Box sx={{ px: 2, pt: 2 }}>
-                    <Formik
-                        initialValues={initialValues}
-                        initialTouched={initialTouched}
-                        validateOnMount={true}
-                        enableReinitialize={true}
-                        validationSchema={validationSchema}
-                        onSubmit={handleSubmit}
-                    >
-                        <Form>
-                            <QuantityInput />
-                            <ComponentTable
-                                componentAssignments={
-                                    part !== null
-                                        ? part.componentAssignments
-                                        : []
-                                }
-                            />
-                            <Button
-                                disabled={
-                                    isFarmMutationLoading ||
-                                    isCraftMutationLoading
-                                }
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                            >
-                                Submit
-                            </Button>
-                        </Form>
-                    </Formik>
-                </Box>
+                    <ClearIcon />
+                </IconButton>
+            </Toolbar>
+            <Box sx={{ px: 2, pt: 2 }}>
+                <Formik
+                    initialValues={initialValues}
+                    initialTouched={initialTouched}
+                    validateOnMount={true}
+                    enableReinitialize={true}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
+                >
+                    <Form>
+                        <QuantityInput />
+                        <ComponentTable
+                            componentAssignments={
+                                part !== null ? part.componentAssignments : []
+                            }
+                        />
+                        <Button
+                            disabled={
+                                isFarmMutationLoading || isCraftMutationLoading
+                            }
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Submit
+                        </Button>
+                    </Form>
+                </Formik>
             </Box>
-        </Modal>
+        </FadeModal>
     );
 };
 

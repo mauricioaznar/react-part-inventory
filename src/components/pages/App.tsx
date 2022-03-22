@@ -19,6 +19,7 @@ import GeneratePartForm from "./app/generate-part-form/generate-part-form";
 import PageLoader from "./app/page-loader";
 import NotFoundPage from "./app/not-found-page";
 import { PartClickedContextProvider } from "./app/part-clicked-context/part-clicked-context";
+import AnimatedDiv from "../dum/animated-box/animated-box";
 
 export default function App() {
     const theme = useTheme();
@@ -90,7 +91,11 @@ export default function App() {
                                                     key={name}
                                                     path={path}
                                                     render={() => {
-                                                        return Elem;
+                                                        return (
+                                                            <AnimatedDiv>
+                                                                {Elem}
+                                                            </AnimatedDiv>
+                                                        );
                                                     }}
                                                     exact={exact || false}
                                                 />
@@ -110,7 +115,11 @@ export default function App() {
                                                     key={name}
                                                     path={path}
                                                     render={() => {
-                                                        return Elem;
+                                                        return (
+                                                            <AnimatedDiv>
+                                                                {Elem}
+                                                            </AnimatedDiv>
+                                                        );
                                                     }}
                                                     exact={exact || false}
                                                 />
