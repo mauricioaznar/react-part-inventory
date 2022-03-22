@@ -39,11 +39,9 @@ const AuthorizationWrapper = (props: AuthorizationWrapperProps) => {
     return currentUserLoading ? (
         <FullScreenLoader />
     ) : !currentUser ? (
-        <AnimatedDiv>
-            <LoginForm />
-        </AnimatedDiv>
+        <LoginForm />
     ) : (
-        <AnimatedDiv>{props.children}</AnimatedDiv>
+        props.children
     );
 };
 
