@@ -83,13 +83,7 @@ const GeneratePartForm = () => {
     }
 
     return (
-        <Modal
-            open={open}
-            onClose={() => {
-                setOpen(false);
-            }}
-            keepMounted={false}
-        >
+        <Modal open={open} keepMounted={false}>
             <Box
                 sx={{
                     position: "absolute",
