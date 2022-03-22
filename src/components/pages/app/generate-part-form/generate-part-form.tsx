@@ -26,6 +26,7 @@ const GeneratePartForm = () => {
     const [craftPartMutation, { loading: isCraftMutationLoading }] =
         useCraftPartMutation({
             update(cache) {
+                handleSuccessMessage();
                 cache.evict({
                     id: "ROOT_QUERY",
                     fieldName: nameof<Query>("getPartCategories"),
@@ -36,12 +37,24 @@ const GeneratePartForm = () => {
     const [farmPartMutation, { loading: isFarmMutationLoading }] =
         useFarmPartMutation({
             update(cache) {
+                handleSuccessMessage();
                 cache.evict({
                     id: "ROOT_QUERY",
                     fieldName: nameof<Query>("getPartCategories"),
                 });
             },
         });
+
+    function handleSuccessMessage() {
+        if (part !== null) {
+            pushMessage({
+                message: `${part!.name} successfully added!`,
+                options: {
+                    variant: "success",
+                },
+            });
+        }
+    }
 
     const initialValues: IGeneratePartForm = {
         quantity: 1,
@@ -76,30 +89,26 @@ const GeneratePartForm = () => {
     async function handleSubmit(data: IGeneratePartForm) {
         const { quantity } = data;
         try {
-            if (mode === "craft" && part !== null) {
-                await craftPartMutation({
-                    variables: {
-                        craftInput: {
-                            partId: part.partId,
-                            quantity: Number(quantity),
+            if (part !== null) {
+                if (mode === "craft") {
+                    await craftPartMutation({
+                        variables: {
+                            craftInput: {
+                                partId: part.partId,
+                                quantity: Number(quantity),
+                            },
                         },
-                    },
-                });
-            } else if (mode === "farm" && part !== null) {
-                await farmPartMutation({
-                    variables: {
-                        farmInput: {
-                            partId: part.partId,
-                            quantity: Number(quantity),
+                    });
+                } else if (mode === "farm") {
+                    await farmPartMutation({
+                        variables: {
+                            farmInput: {
+                                partId: part.partId,
+                                quantity: Number(quantity),
+                            },
                         },
-                    },
-                });
-                pushMessage({
-                    message: `${part.name} successfully added!`,
-                    options: {
-                        variant: "success",
-                    },
-                });
+                    });
+                }
             }
             setOpen(false);
         } catch (e) {
