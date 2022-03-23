@@ -1,10 +1,9 @@
-import React, { useEffect } from "react";
-import { useTypedSelector } from "../../../hooks/redux-hooks/use-typed-selector";
+import React, {useEffect} from "react";
+import {useTypedSelector} from "../../../hooks/redux-hooks/use-typed-selector";
 import LoginForm from "../../pages/auth/login-form";
-import { useCurrentUserLazyQuery } from "../../../services/schema";
-import { useActions } from "../../../hooks/redux-hooks/use-actions";
+import {useCurrentUserLazyQuery} from "../../../services/schema";
+import {useActions} from "../../../hooks/redux-hooks/use-actions";
 import FullScreenLoader from "../../dum/loaders/full-screen-loader";
-import AnimatedDiv from "../../dum/animated-box/animated-box";
 
 interface AuthorizationWrapperProps {
     children: React.ReactElement<any, any> | null;

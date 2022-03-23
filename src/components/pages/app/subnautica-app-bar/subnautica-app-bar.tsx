@@ -1,11 +1,10 @@
 import React from "react";
-import { AppBar as MuiAppBar, Box, IconButton, Toolbar } from "@mui/material";
+import {AppBar as MuiAppBar, IconButton, Toolbar} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SubnauticaTitle from "../subnautica-title/subnautica-title";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useApolloClient } from "@apollo/client";
-import { useActions } from "../../../../hooks/redux-hooks/use-actions";
-import DotFlashingLoader from "../../../dum/loaders/dot-flashing-loader/dot-flashing-loader";
+import {useApolloClient} from "@apollo/client";
+import {useActions} from "../../../../hooks/redux-hooks/use-actions";
 
 interface ISubnauticaAppBar {
     isDesktop: boolean;

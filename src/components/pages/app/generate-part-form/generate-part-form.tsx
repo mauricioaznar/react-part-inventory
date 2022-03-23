@@ -84,7 +84,7 @@ const GeneratePartForm = () => {
     }
 
     return (
-        <FadeModal open={open} setOpen={setOpen}>
+        <FadeModal open={open}>
             <Toolbar
                 sx={{
                     display: "flex",
