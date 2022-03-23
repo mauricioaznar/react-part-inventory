@@ -12,7 +12,7 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
     hasSetupCompleted: boolean;
 } => {
     const [routes, setRoutes] = useState<Route[]>([]);
-    const [messageKey, setMessageKey] = useState<SnackbarKey>("");
+    const [messageKeys, setMessageKeys] = useState<SnackbarKey[]>([]);
 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -64,9 +64,10 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
                         persist: true,
 
                     });
-                    setMessageKey(key)
+                    setMessageKeys([...messageKeys, key])
                 } else {
-                    closeSnackbar(messageKey);
+                    closeSnackbar(messageKeys[0]);
+                    setMessageKeys(messageKeys.slice(1, messageKeys.length))
                 }
             }
         }, 200)
