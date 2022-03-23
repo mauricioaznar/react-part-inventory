@@ -10,9 +10,10 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
     categoriesRouteGroup: RouteGroup;
     categoriesRoutes: Route[];
     hasSetupCompleted: boolean;
+    refetching: boolean;
 } => {
     const [routes, setRoutes] = useState<Route[]>([]);
-    const [messageKeys, setMessageKeys] = useState<SnackbarKey[]>([]);
+    const [messageKey, setMessageKey] = useState<SnackbarKey>('');
 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -56,27 +57,25 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
             setHasSetupCompleted(true);
         }
 
-        if (previousData !== undefined) {
-            if (loading) {
-                const key = enqueueSnackbar("Refetching...", {
-                    variant: "info",
-                    persist: true,
+        const timeout = setTimeout(() => {
+            if (previousData !== undefined) {
+                if (loading) {
+                    const key = enqueueSnackbar("Refetching...", {
+                        variant: "info",
+                        persist: true,
 
-                });
-                setMessageKeys([...messageKeys, key])
-            } else {
-                closeSnackbar(messageKeys[0]);
-                setMessageKeys(messageKeys.slice(1, messageKeys.length))
+                    });
+                    setMessageKey(key)
+                } else {
+                    closeSnackbar(messageKey);
+                    setMessageKey('')
+                }
             }
-        }
+        }, 200)
 
-        // const timeout = setTimeout(() => {
-        //
-        // }, 200)
-        //
-        // return () => {
-        //     clearTimeout(timeout)
-        // }
+        return () => {
+            clearTimeout(timeout)
+        }
     }, [data]);
 
     return {
@@ -86,5 +85,6 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
         },
         categoriesRoutes: routes,
         hasSetupCompleted,
+        refetching: previousData !== undefined && loading
     };
 };

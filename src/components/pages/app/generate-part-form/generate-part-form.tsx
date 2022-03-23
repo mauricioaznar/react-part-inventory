@@ -13,7 +13,12 @@ import { convertToNumber } from "../../../../helpers/convert-to-number";
 import { useGeneratePartMutationsWithSideEffects } from "./use-generate-part-mutations-with-side-effects/use-generate-part-mutations-with-side-effects";
 import { FadeModal } from "../../../dum/fade-modal/fade-modal";
 
-const GeneratePartForm = () => {
+interface IGeneratePartFormProps  {
+    disabled: boolean;
+}
+
+const GeneratePartForm = (props: IGeneratePartFormProps) => {
+    const { disabled } = props
     const { open, setOpen, mode, part } = useGeneratePartContext();
 
     const {
@@ -123,7 +128,7 @@ const GeneratePartForm = () => {
                         />
                         <Button
                             disabled={
-                                isFarmMutationLoading || isCraftMutationLoading
+                                isFarmMutationLoading || isCraftMutationLoading || disabled
                             }
                             type="submit"
                             fullWidth
