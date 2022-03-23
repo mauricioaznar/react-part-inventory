@@ -69,7 +69,7 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
                     closeSnackbar(messageKey);
                 }
             }
-        }, 500)
+        }, 300)
 
         return () => {
             clearTimeout(timeout)
