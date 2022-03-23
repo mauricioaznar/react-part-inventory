@@ -56,25 +56,27 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
             setHasSetupCompleted(true);
         }
 
-        const timeout = setTimeout(() => {
-            if (previousData !== undefined) {
-                if (loading) {
-                    const key = enqueueSnackbar("Refetching...", {
-                        variant: "info",
-                        persist: true,
+        if (previousData !== undefined) {
+            if (loading) {
+                const key = enqueueSnackbar("Refetching...", {
+                    variant: "info",
+                    persist: true,
 
-                    });
-                    setMessageKeys([...messageKeys, key])
-                } else {
-                    closeSnackbar(messageKeys[0]);
-                    setMessageKeys(messageKeys.slice(1, messageKeys.length))
-                }
+                });
+                setMessageKeys([...messageKeys, key])
+            } else {
+                closeSnackbar(messageKeys[0]);
+                setMessageKeys(messageKeys.slice(1, messageKeys.length))
             }
-        }, 200)
-
-        return () => {
-            clearTimeout(timeout)
         }
+
+        // const timeout = setTimeout(() => {
+        //
+        // }, 200)
+        //
+        // return () => {
+        //     clearTimeout(timeout)
+        // }
     }, [data]);
 
     return {
