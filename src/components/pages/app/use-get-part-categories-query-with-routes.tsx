@@ -59,7 +59,7 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
         const timeout = setTimeout(() => {
             if (previousData !== undefined) {
                 if (loading) {
-                    const key = enqueueSnackbar("Refetching", {
+                    const key = enqueueSnackbar("Refetching...", {
                         variant: "info",
                         persist: true,
 
