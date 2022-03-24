@@ -6,3 +6,4 @@
 * ? why does spacing break Grid item and Grid container?
 * ? why does `screen.queryByRole('input')` doesnt work?
 * ? why does material ui uses a lot of `React.forwardRef`?
+* ? why does react renders two times
