@@ -6,3 +6,7 @@
 * ? why does spacing break Grid item and Grid container?
 * ? why does `screen.queryByRole('input')` doesnt work?
 * ? why does material ui uses a lot of `React.forwardRef`?
+
+
+* articles
+[typescript cool guides](https://github.com/markerikson/react-redux-links/blob/master/static-typing.md)
