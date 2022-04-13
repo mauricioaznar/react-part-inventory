@@ -9,4 +9,6 @@
 * ? why does react renders two times
 * ? whyy does set state doesnt mutate the state immediately?
   * [stack overflow](https://stackoverflow.com/questions/30782948/why-calling-react-setstate-method-doesnt-mutate-the-state-immediately?noredirect=1&lq=1#:~:text=setState()%20does%20not%20immediately,potentially%20return%20the%20existing%20value.)
-  * 
+
+
+* 
