@@ -31,7 +31,7 @@ export default function App() {
         setOpen(!open);
     };
 
-    const { categoriesRoutes, categoriesRouteGroup, hasSetupCompleted } =
+    const { categoriesRoutes, categoriesRouteGroup, hasSetupCompleted, refetching } =
         useGetPartCategoriesQueryWithRoutes();
 
     return (
@@ -140,7 +140,7 @@ export default function App() {
                         </Container>
                     </Box>
 
-                    <GeneratePartForm />
+                    <GeneratePartForm  disabled={refetching} />
                 </PartClickedContextProvider>
             </GeneratePartContextProvider>
         </Box>

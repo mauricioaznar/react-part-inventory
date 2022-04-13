@@ -10,9 +10,10 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
     categoriesRouteGroup: RouteGroup;
     categoriesRoutes: Route[];
     hasSetupCompleted: boolean;
+    refetching: boolean;
 } => {
     const [routes, setRoutes] = useState<Route[]>([]);
-    const [messageKey, setMessageKey] = useState<SnackbarKey>("");
+    const [messageKey, setMessageKey] = useState<SnackbarKey>('');
 
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -56,16 +57,24 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
             setHasSetupCompleted(true);
         }
 
-        if (previousData !== undefined) {
-            if (loading) {
-                const key = enqueueSnackbar("Refetching", {
-                    variant: "info",
-                    persist: true,
-                });
-                setMessageKey(key);
-            } else {
-                closeSnackbar(messageKey);
+        const timeout = setTimeout(() => {
+            if (previousData !== undefined) {
+                if (loading) {
+                    const key = enqueueSnackbar("Refetching...", {
+                        variant: "info",
+                        persist: true,
+
+                    });
+                    setMessageKey(key)
+                } else {
+                    closeSnackbar(messageKey);
+                    setMessageKey('')
+                }
             }
+        }, 200)
+
+        return () => {
+            clearTimeout(timeout)
         }
     }, [data]);
 
@@ -76,5 +85,6 @@ export const useGetPartCategoriesQueryWithRoutes = (): {
         },
         categoriesRoutes: routes,
         hasSetupCompleted,
+        refetching: previousData !== undefined && loading
     };
 };

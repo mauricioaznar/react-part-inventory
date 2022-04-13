@@ -42,11 +42,10 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 interface IFadeModal {
     children: React.ReactNode | React.ReactNode[];
     open: boolean;
-    setOpen: (open: boolean) => void;
 }
 
 export function FadeModal(props: IFadeModal) {
-    const { children, open, setOpen } = props;
+    const { children, open } = props;
     return (
         <Modal
             aria-labelledby="spring-modal-title"

@@ -69,13 +69,6 @@ export const useGeneratePartContext = () => {
         setPart(partClicked);
     };
 
-    useEffect(() => {
-        if (!open) {
-            setPart(null);
-            setMode(null);
-        }
-    }, [open]);
-
     return {
         initCraft,
         initAdd,
